@@ -19,7 +19,7 @@ export class PersonsIndexComponent implements OnInit {
 
   host = environment.apiHost
 
-  timeId?: number;
+  timeId?: ReturnType<typeof setTimeout>;
 
   routeData: string = "";
   pageTitle: string = ""
@@ -38,7 +38,7 @@ export class PersonsIndexComponent implements OnInit {
   loadingStart() {
     this.timeId = setTimeout(() => {
       this.loading = true;
-    }, 300)
+    }, 30)
   }
 
   loadingStop() {
