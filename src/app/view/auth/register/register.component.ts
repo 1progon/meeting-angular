@@ -4,7 +4,6 @@ import {AuthService} from "../../../services/auth.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {IErrorResponse} from "../../../interfaces/IErrorResponse";
 import {Router} from "@angular/router";
-import {AccountType} from "../../../enums/AccountType";
 
 @Component({
   selector: 'app-register',
@@ -16,9 +15,7 @@ export class RegisterComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router) {
   }
 
-  form: RegisterDto = <RegisterDto>{
-    account_type: AccountType.Individual
-  };
+  form: RegisterDto = <RegisterDto>{};
   error?: IErrorResponse;
   interval: number = 0;
   acTypes = new Map<number, string>();
@@ -28,19 +25,6 @@ export class RegisterComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-    // Convert AccountType to Map
-    for (let keyString in AccountType) {
-      let key = Number(keyString)
-      if (key === 0) {
-        continue
-      }
-
-      if (!isNaN(key)) {
-        this.acTypes.set(key, AccountType[key])
-      }
-    }
-
 
     // Redirect to account, if user already logged
     if (this.auth.isLogged()) {

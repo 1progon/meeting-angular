@@ -73,25 +73,6 @@
   </div>
 
 
-  <!--Check Account type -->
-  <div class="mb-3">
-    <div class="mb-2">Account type</div>
-
-    <div class="form-check" *ngFor="let type of acTypes|keyvalue">
-      <input class="form-check-input"
-             type="radio"
-             [(ngModel)]="form.account_type"
-             name="account_type"
-             [value]="type.key"
-             [id]="type.value.toLowerCase()">
-      <label class="form-check-label" [for]="type.value.toLowerCase()">{{type.value}}</label>
-    </div>
-
-
-  </div>
-  <!--End Account type-->
-
-
   <div class="mb-3">
     <button [disabled]="regForm.invalid || regForm.untouched || password.value != passwordConfirm.value"
             class="btn btn-success"

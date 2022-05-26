@@ -23,11 +23,11 @@ export class LocationService {
   }
 
   getCountriesWithPersons() {
-    return this.http.get<IResponse<ICountry[]>>(environment.apiUrl + '/countries-with-girls')
+    return this.http.get<IResponse<ICountry[]>>(environment.apiUrl + '/countries-with-persons')
   }
 
   getCitiesWithPersonsByCountryId(countryId: number) {
-    return this.http.get<IResponse<ICity[]>>(environment.apiUrl + '/cities-with-girls-by-country/' + countryId);
+    return this.http.get<IResponse<ICity[]>>(environment.apiUrl + '/cities-with-persons-by-country/' + countryId);
   }
 
 
