@@ -14,7 +14,9 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {PaginationComponent} from './view/include/pagination/pagination.component';
 import {PersonCardComponent} from './view/persons/include/person-card/person-card.component';
 import {Error404Component} from './view/errors/error404/error404.component';
-import {PersonCardPlaceholderComponent} from './view/persons/include/person-card-placeholder/person-card-placeholder.component';
+import {
+  PersonCardPlaceholderComponent
+} from './view/persons/include/person-card-placeholder/person-card-placeholder.component';
 import {MainWrapperComponent} from './view/include/main-wrapper/main-wrapper.component';
 import {LoginComponent} from './view/auth/login/login.component';
 import {RegisterComponent} from './view/auth/register/register.component';
@@ -24,8 +26,12 @@ import {BaseHeadersInterceptor} from "./interceptors/base-headers.interceptor";
 import {AccountComponent} from './view/account/account/account.component';
 import {DashboardComponent} from './view/account/dashboard/dashboard.component';
 import {AccountSidebarComponent} from './view/account/include/account-sidebar/account-sidebar.component';
-import {AccountPersonCreateComponent} from './view/account/persons/account-person-create/account-person-create.component';
-import {AccountPersonsIndexComponent} from './view/account/persons/account-persons-index/account-persons-index.component';
+import {
+  AccountPersonCreateComponent
+} from './view/account/persons/account-person-create/account-person-create.component';
+import {
+  AccountPersonsIndexComponent
+} from './view/account/persons/account-persons-index/account-persons-index.component';
 import {ModalComponent} from './view/include/modal/modal.component';
 import {PersonSendMessageComponent} from './view/persons/include/person-send-message/person-send-message.component';
 import {
@@ -46,6 +52,9 @@ import {
 import {
   AccountPersonSelectLocationComponent
 } from './view/account/persons/include/account-person-select-location/account-person-select-location.component';
+import {
+  PersonShowPlaceholderComponent
+} from './view/persons/include/person-show-placeholder/person-show-placeholder.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +87,7 @@ import {
     AccountPersonEditCharsComponent,
     AccountPersonEditComponent,
     AccountPersonSelectLocationComponent,
+    PersonShowPlaceholderComponent,
   ],
   imports: [
     BrowserModule,
