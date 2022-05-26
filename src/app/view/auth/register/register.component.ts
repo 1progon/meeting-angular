@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
 
   form: RegisterDto = <RegisterDto>{};
   error?: IErrorResponse;
-  interval: number = 0;
+  timeoutId?: ReturnType<typeof setTimeout>;
 
   passLength = 5;
   showPassword = false;
@@ -33,9 +33,9 @@ export class RegisterComponent implements OnInit {
 
   setError(error: IErrorResponse) {
     this.error = error;
-    clearTimeout(this.interval);
+    clearTimeout(this.timeoutId);
 
-    this.interval = setTimeout(() => {
+    this.timeoutId = setTimeout(() => {
       this.error = undefined;
     }, 2500)
   }

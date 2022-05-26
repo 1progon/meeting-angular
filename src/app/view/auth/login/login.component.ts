@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   form: LoginDto = {} as LoginDto;
   error?: IErrorResponse;
-  interval: number = 0;
+  timeoutId: ReturnType<typeof setTimeout> = 0;
   passLength = 5;
   showPassword = false;
 
@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
 
   setError(error: IErrorResponse) {
     this.error = error;
-    clearTimeout(this.interval);
+    clearTimeout(this.timeoutId);
 
-    this.interval = setTimeout(() => {
+    this.timeoutId = setTimeout(() => {
       this.error = undefined;
     }, 2500)
   }
