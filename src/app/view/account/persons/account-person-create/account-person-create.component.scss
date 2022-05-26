@@ -1,0 +1,11 @@
+form {
+  select {
+    option:checked {
+      background: #cfdbe7;
+      font-weight: 700;
+      margin: 5px;
+      padding: 5px;
+      border-radius: 5px;
+    }
+  }
+}

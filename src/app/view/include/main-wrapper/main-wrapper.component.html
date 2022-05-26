@@ -1,0 +1,14 @@
+<app-header (mobileCountriesEvent)="getHeaderEvent($event)"
+            [isShow]="showSidebar"></app-header>
+
+<div class="wrapper">
+  <app-left-sidebar class="d-none d-md-block"
+                    (closeMenuEvent)="showSidebar=!showSidebar"
+                    [class.d-none]="!showSidebar"></app-left-sidebar>
+  <div class="wrapper middle-side">
+    <router-outlet></router-outlet>
+  </div>
+  <app-right-sidebar class="d-none d-xxl-block"></app-right-sidebar>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,250 @@
+<h2>One</h2>
+<!--Desc-->
+<div class="desc card mb-2">
+  <div class="card-body">
+    <h2>{{personDto.name}}</h2>
+    <!--<div class="last-login">Last seen online: ...</div>-->
+    <p class="js-more"><span class="less">{{personDto.description}}</span></p>
+  </div>
+</div>
+<!--End desc-->
+
+<div class="d-flex flex-wrap justify-content-center">
+
+  <!--Person Images-->
+  <div class="images me-2 d-flex flex-column">
+    <div class="card mb-2">
+      <div class="card-body">
+
+        <!--Images block-->
+        <div class="images-block d-flex flex-column">
+          <!--Main image-->
+          <img *ngIf="personDto.image"
+               [src]="path + '/'+ personDto.image"
+               [alt]="personDto.name"
+               class="main-image mb-2">
+          <!--End main image-->
+
+          <!--Small images-->
+          <div class="mb-2" *ngIf="personDto.images">
+            <div class="sub-images d-grid flex-wrap gap-2" *ngIf="personDto.images"
+                 style="grid-template-columns: repeat(3, 1fr)">
+              <!--Small images cycle-->
+              <a target="_blank"
+                 [href]="path + '/' + image.folder + '/' + image.filename"
+                 *ngFor="let image of personDto.images">
+                <img [src]="path + '/' + image.folder + '/' + image.filename"
+                     [alt]="personDto.name">
+              </a>
+              <!--End Small images cycle-->
+            </div>
+          </div>
+          <!--End small images-->
+        </div>
+        <!--End images block-->
+      </div>
+    </div>
+
+
+    <!--todo add *ngIf="person.videos"-->
+    <div class="card">
+      <div class="card-body">
+        <!--Videos-->
+        <div class="video">
+          No video
+        </div>
+        <!--End videos-->
+      </div>
+    </div>
+
+
+  </div>
+
+  <!--Person Chars-->
+  <div class="params">
+
+
+    <!--Chars-->
+    <div class="chars d-flex flex-wrap my-2">
+
+      <!--Left side-->
+      <div class="chars-left-side p-3">
+
+        <!--Cycle left-->
+        <div class="mb-1" *ngFor="let char of personDto.person_char | keyvalue; let i = index">
+          <div *ngIf="(i+1) <=10" class="d-flex">
+            <div class="char-title">{{char.key.replace('_', ' ') | titlecase}}</div>
+            <div class="char-value">{{char.value}}</div>
+          </div>
+        </div>
+        <!--End left cycle-->
+
+      </div>
+      <!--End left side-->
+
+
+      <!--Middle line-->
+      <div class="chars-middle-side border-start d-none"></div>
+      <!--End middle line-->
+
+
+      <!--Right side-->
+      <div class="chars-right-side p-3">
+
+        <!--Cycle right-->
+        <div class="mb-1" *ngFor="let char of personDto.person_char | keyvalue; let i = index">
+          <div *ngIf="(i+1) > 10 && char.key != 'nationality' && char.key != 'languages'"
+               class="d-flex">
+            <div class="char-title">{{char.key.replace('_', ' ') | titlecase }}</div>
+            <div class="char-value" *ngIf="char.key != 'porn_star'">{{char.value}}</div>
+            <div class="char-value" *ngIf="char.key == 'porn_star'">{{char.value ? 'Yes' : 'No'}}</div>
+          </div>
+        </div>
+        <!--End right cycle-->
+
+        <!--Languages-->
+        <div>
+          <div class="d-flex flex-wrap">
+            <div class="char-title">Languages</div>
+            <div class="char-value">
+              <span *ngFor="let lang of personDto.person_char?.languages"
+                    class="badge bg-light text-dark me-1">{{lang.name}}</span>
+            </div>
+          </div>
+        </div>
+        <!--End languages-->
+
+        <!--nationality-->
+        <div>
+          <div class="d-flex flex-wrap">
+            <div class="char-title">Nationality</div>
+            <div class="char-value">{{personDto.person_char?.nationality?.name}}</div>
+          </div>
+        </div>
+        <!--End nationality-->
+
+      </div>
+      <!--End right side-->
+
+    </div>
+    <!--End chars-->
+
+    <!--Phones-->
+    <div class="phones">
+      <h2>Phones</h2>
+      <div class=" card my-3">
+        <div class="card-body">
+
+          <!--Phone Cycle-->
+          <div class="js-more d-flex flex-wrap" *ngFor="let phone of personDto.phones">
+            <p class="less me-3 fw-bold text-danger">+{{phone.country_code}} {{phone.number}}</p>
+
+            <!--Messengers cycle-->
+            <div class="d-flex flex-wrap">
+              <p *ngFor="let messengerId of phone.messengers_ids"
+                 class="badge bg-light text-dark me-2">{{messengers[messengerId].name}}</p>
+            </div>
+            <!--End messengers cycle-->
+
+          </div>
+          <!--End phone cycle-->
+
+          <!--Mail connect-->
+          <div class="connect">
+            <button type="button"
+                    (click)="isModal=!isModal"
+                    class="px-5 py-2 btn btn-success text-uppercase">Direct Mail this Escort
+            </button>
+          </div>
+          <app-modal *ngIf="isModal"
+                     title="Send message"
+                     (closeModalEvent)="isModal=!isModal">
+            <app-person-send-message></app-person-send-message>
+          </app-modal>
+          <!--End mail connect-->
+
+        </div>
+      </div>
+    </div>
+    <!--End Phones-->
+
+    <!--Rates and services-->
+    <div class="rates-services d-flex flex-wrap my-3">
+      <!--Rates-->
+      <div class="rates me-1">
+        <div *ngIf="personDto.rates">
+          <h2>Rates</h2>
+
+          <div class="card">
+            <div class="card-body">
+              <table class="table table-striped mb-0">
+                <thead>
+                <tr class="table-dark">
+                  <th scope="col">Time</th>
+                  <th scope="col">Incall</th>
+                  <th scope="col">Outcall</th>
+                  <th scope="col">Currency</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr *ngFor="let rate of personDto.rates">
+                  <td class="fw-bold">{{ratesMap[rate.id].name}}</td>
+                  <td class="fw-bold">{{rate.price_in}}</td>
+                  <td class="fw-bold">{{rate.price_out}}</td>
+                  <td class="fw-bold">{{rate.currency_name}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+      <!--End Rates-->
+
+      <!--Services-->
+      <div class="services ms-1">
+        <div *ngIf="personDto.services">
+          <h2>Services</h2>
+
+          <div class="card">
+            <div class="card-body">
+              <table class="table table-striped mb-0">
+                <thead>
+                <tr class="table-dark">
+                  <th scope="col">Service</th>
+                  <th scope="col">Included</th>
+                  <th scope="col">Price</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr *ngFor="let service of personDto.services">
+                  <td class="fw-bold">{{ service.name}}</td>
+                  <td class="fw-bold">{{service.included ? 'Yes' : 'No' }}</td>
+                  <td>{{ service.included ? '' : service.price}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+      <!--End Services-->
+    </div>
+    <!--End Rates and services-->
+
+
+  </div>
+</div>
+
+
+
+

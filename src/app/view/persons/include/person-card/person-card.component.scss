@@ -1,0 +1,29 @@
+.card {
+  transition: .3s;
+
+  a {
+    color: gray;
+
+    .image-block {
+      position: relative;
+      overflow: hidden;
+
+      img {
+        transition: .3s;
+        min-height: 180px;
+      }
+    }
+
+
+  }
+
+  &:hover {
+    opacity: .8;
+    border-color: gray;
+
+    & a img {
+      transform: scale(1.1);
+    }
+
+  }
+}

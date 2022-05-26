@@ -1,0 +1,22 @@
+<div class="list-group">
+  <ng-container *ngFor="let message of messages">
+    <a routerLink="/account/messages/{{message.id}}"
+       class="list-group-item list-group-item-action"
+       (click)="setActiveElement(message)">
+      <p>Message {{message.text}}</p>
+      <p>10-05-22</p>
+    </a>
+
+    <div *ngIf="activeMessage && message == activeMessage">
+      <router-outlet></router-outlet>
+    </div>
+
+
+  </ng-container>
+
+
+</div>
+
+
+
+

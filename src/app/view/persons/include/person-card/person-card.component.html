@@ -1,0 +1,10 @@
+<div class="card">
+  <a [routerLink]="'/person/' + person.id">
+    <p class="title p-1 m-0">{{ person.name }}</p>
+    <div class="image-block">
+      <img [src]="path + '/' + person.image" [alt]="person.name" loading="lazy">
+    </div>
+    <p class="p-1 m-0">People <span class="city">{{person.city.name}}</span></p>
+    <p class="p-1 m-0">People <span class="city">{{person.country.name}}</span></p>
+  </a>
+</div>

@@ -1,0 +1,14 @@
+<div *ngIf="message?.id" class="my-3 card message-part-{{message?.id}}">
+  <div class="card-body d-flex flex-wrap justify-content-between">
+
+    <div>
+      <h3>Message {{ message?.title }}</h3>
+
+      {{message?.text}}
+    </div>
+
+    <button type="button"
+            class="btn-close border p-3"
+            (click)="unsetActiveMessage()"></button>
+  </div>
+</div>

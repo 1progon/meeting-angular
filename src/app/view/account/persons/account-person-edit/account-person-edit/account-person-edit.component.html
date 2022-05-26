@@ -1,0 +1,13 @@
+<h2>Edit Person {{personId}}</h2>
+
+<div class="btn-group mb-3">
+  <a class="btn btn-outline-secondary" routerLink="/account/person/edit/{{personId}}">Edit base</a>
+  <a class="btn btn-outline-secondary" routerLink="/account/person/edit/{{personId}}/chars">Edit chars</a>
+  <a class="btn btn-outline-secondary" routerLink="/account/person/edit/{{personId}}/phones">Edit phones</a>
+  <a class="btn btn-outline-secondary" routerLink="/account/person/edit/{{personId}}/rates">Edit rates</a>
+  <a class="btn btn-outline-secondary" routerLink="/account/person/edit/{{personId}}/services">Edit services</a>
+  <a class="btn btn-outline-secondary" routerLink="/account/person/edit/{{personId}}/images">Edit images</a>
+</div>
+
+
+<router-outlet></router-outlet>

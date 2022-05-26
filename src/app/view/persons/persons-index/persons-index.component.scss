@@ -1,0 +1,24 @@
+.card {
+  p {
+    color: black;
+  }
+  & .title {
+    font-weight: 500;
+  }
+
+  & .city {
+    font-weight: 500;
+  }
+}
+
+.persons-block {
+  gap: 20px;
+
+  .person-card {
+    flex-basis: 210px;
+    min-width: 210px;
+  }
+}
+
+
+

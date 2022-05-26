@@ -1,0 +1,47 @@
+:host {
+  box-shadow: 10px 0 6px -5px #d5d5d5;
+  background-color: white;
+  flex-basis: 240px;
+
+  @media screen and (max-width: 768px) {
+    position: absolute;
+    right: 0;
+    width: 65%;
+    min-height: 100%;
+    z-index: 999;
+    overflow-y: scroll;
+  }
+
+  @media screen and (max-width: 360px) {
+    width: 100%;
+  }
+
+}
+
+a {
+  color: #3f3f3f;
+
+  &.plus, &.country-block {
+    &:hover {
+      background-color: #c2c2c2;
+    }
+  }
+}
+
+.cities {
+  background-color: #f0f0f0;
+  border: 1px solid #c2c2c2;
+  border-right: none;
+  border-left: none;
+
+  & a {
+    &:hover {
+      background-color: #c2c2c2;
+    }
+
+  }
+
+
+}
+
+

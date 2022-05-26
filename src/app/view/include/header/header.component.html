@@ -1,0 +1,36 @@
+<header class="px-2 d-flex align-items-center">
+  <div class="links text-white d-flex flex-wrap justify-content-between gap-2">
+
+    <!--Menu-->
+    <div class="flex-grow-1 d-flex flex-wrap gap-2">
+      <a routerLink="/" class="btn btn-outline-warning">Home</a>
+      <a routerLink="/persons" class="btn btn-outline-warning">People</a>
+      <a class="d-md-none btn btn-outline-warning"
+         (click)="showCountries(isShow = !isShow)">
+        {{isShow ? 'X' : 'Countries'}}
+        <!--Countries-->
+      </a>
+    </div>
+    <!--End Menu-->
+
+
+    <!--Login and Register buttons-->
+    <div>
+
+      <div *ngIf="!isLogged" class="d-flex flex-wrap gap-2">
+        <a class="btn btn-outline-warning" routerLink="/login">Login</a>
+        <a class="btn btn-warning" routerLink="/register">Register</a>
+      </div>
+
+      <div *ngIf="isLogged" class="d-flex flex-wrap gap-2">
+        <a class="btn btn-outline-warning" routerLink="/account">Account</a>
+        <a class="btn btn-warning" routerLink="/logout">Logout</a>
+      </div>
+
+
+    </div>
+    <!--End Login register buttons-->
+  </div>
+</header>
+
+

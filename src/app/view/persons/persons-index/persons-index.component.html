@@ -1,0 +1,27 @@
+<h2>People</h2>
+<div class="persons-block d-flex flex-wrap mb-3" *ngIf="!loading && persons?.items">
+  <div class="person-card" *ngFor="let person of persons?.items">
+    <app-person-card [person]="person" [path]="host"></app-person-card>
+  </div>
+</div>
+
+<!--If no persons and loading is over-->
+<div *ngIf="!persons?.items && !loading && !timeId">No persons</div>
+
+<!--Show preloader while fetching a data-->
+<div *ngIf="loading" class="d-flex flex-wrap">
+  <div class="col-6 col-lg-4 col-xl-3 px-3 my-2" *ngFor="let person of [1,2,3,4,5,6,7,8]">
+    <app-person-card-placeholder></app-person-card-placeholder>
+  </div>
+</div>
+
+
+<app-pagination
+  (click)="scrollTop()"
+  *ngIf="persons && persons.pagination && persons.pagination.last_page > 1"
+  [pagination]="persons.pagination"
+  [route]="paginatedRoute"></app-pagination>
+
+
+
+

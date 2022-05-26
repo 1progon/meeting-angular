@@ -1,0 +1,45 @@
+<h2>Location</h2>
+<div class="row mb-3">
+  <!--Country-->
+  <div class="col">
+    <label class="form-label required" for="country">Country</label>
+    <select (change)="changeCountry();city.reset()"
+            [(ngModel)]="form.country"
+            [disabled]="!countries"
+            class="form-select"
+            id="country"
+            name="country"
+            #country="ngModel"
+            required>
+      <option disabled hidden [value]="form.country">{{updating ? 'Loading...' : 'Select country...'}}</option>
+      <option *ngFor="let country of countries;"
+              [ngValue]="country">{{country.name}}</option>
+    </select>
+    <div class="alert alert-danger mt-3" *ngIf="country.invalid && country.touched">
+      Country is required
+    </div>
+  </div>
+
+  <!--End Country-->
+
+
+  <!--City-->
+  <div class="col">
+    <label class="form-label required" for="city">City</label>
+    <select [(ngModel)]="form.city"
+            [disabled]="!countries[countryIndexInArray]?.cities || updating"
+            class="form-select"
+            id="city"
+            name="city"
+            #city="ngModel"
+            required>
+      <option disabled hidden [value]="form.city">{{updating ? 'Loading...' : 'Select city...'}}</option>
+      <option *ngFor="let city of countries[countryIndexInArray]?.cities;"
+              [ngValue]="city">{{city.name}}</option>
+    </select>
+    <div class="alert alert-danger mt-3" *ngIf="city.invalid && city.touched">
+      City is required
+    </div>
+  </div>
+  <!--End City-->
+</div>

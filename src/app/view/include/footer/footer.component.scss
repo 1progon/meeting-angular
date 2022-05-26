@@ -1,0 +1,11 @@
+div {
+  color: white;
+
+  a {
+    color: white;
+
+    &:hover {
+      color: red;
+    }
+  }
+}

@@ -1,0 +1,107 @@
+html, body {
+  background-color: #fafafa;
+  height: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  transition: .3s;
+
+  &:hover {
+    color: red;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+
+app-main-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  router-outlet {
+    display: none;
+  }
+
+  .wrapper {
+
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+
+    &.middle-side {
+      padding: 0 20px;
+      margin: 20px 0;
+      display: block;
+
+      @media screen and (max-width: 576px) {
+        padding: 5px;
+        margin: unset;
+      }
+
+    }
+  }
+
+
+  app-right-sidebar {
+    flex-basis: 240px;
+  }
+
+
+  app-footer {
+    height: 150px;
+    background-color: #262626;
+  }
+}
+
+
+//Fix bootstrap
+.btn, .page-link:focus {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.form-control:focus, .form-select:focus {
+  box-shadow: none;
+}
+
+form {
+  .alert {
+    padding: .4rem .5rem;
+  }
+}
+
+
+// Form
+form {
+  & label.required::after {
+    content: '*';
+    margin-left: 3px;
+    color: red;
+  }
+
+
+  input, textarea, select {
+    &.ng-invalid.ng-touched:not(form) {
+      border-color: red;
+      border-left-width: 5px;
+    }
+
+    &.ng-valid.ng-touched:not(.ng-pristine):not(form) {
+      border-color: green;
+      border-left-width: 5px;
+    }
+  }
+
+
+}
+
+

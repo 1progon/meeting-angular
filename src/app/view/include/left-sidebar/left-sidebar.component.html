@@ -1,0 +1,42 @@
+<!--Close mobile sidebar countries menu-->
+<div class="d-flex justify-content-end m-2">
+  <div class="btn btn-warning d-md-none align-content-end"
+       (click)="closeMenu()">X
+  </div>
+</div>
+
+<!--Countries list-->
+<div *ngFor="let country of countries; let i = index;">
+
+  <a class="d-flex align-items-center">
+
+    <!--Plus sign to expand cities in country-->
+    <a (click)="getCities(country.id, i)"
+       class="badge plus border ms-2 me-1 my-1 pointer">{{visible[i] ? '-' : '+'}}</a>
+
+
+    <!--Country Name with counter-->
+    <a [routerLink]="'persons/' + country.slug"
+       (click)="closeMenu()"
+       class="country-block w-100 d-flex justify-content-between px-2">
+      <div class="country-name">{{country.name}}</div>
+      <div class="country-count small">{{country.persons_count}}</div>
+    </a>
+  </a>
+
+  <!--Cities inside country-->
+  <div *ngIf="country.cities && visible[i]"
+       class="cities d-flex flex-column">
+    <a *ngFor="let city of country.cities"
+       (click)="closeMenu()"
+       [routerLink]="'persons/'+ country.slug + '/'+ city.slug"
+       class="city px-3 small py-1 d-flex justify-content-between">
+      <span class="me-3">{{city.name}}</span>
+      <span class="small">{{city.persons_count}}</span></a>
+  </div>
+
+</div>
+
+
+
+

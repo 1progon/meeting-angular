@@ -1,0 +1,56 @@
+<h2>Login</h2>
+<form (submit)="submitForm()" #loginForm="ngForm" class="col-12 col-sm-6">
+  <div class="mb-3">
+    <label class="form-label required" for="email">Email</label>
+    <input #email="ngModel"
+           [(ngModel)]="form.email"
+           class="form-control"
+           email
+           id="email"
+           name="email"
+           required
+           type="email">
+  </div>
+
+  <div class="alert alert-danger"
+       *ngIf="email.touched && (email.invalid || email.pristine)">
+    Email is required, format: example@mail.com
+  </div>
+
+
+  <div class="mb-3">
+    <label class="form-label required" for="password">Password</label>
+    <div class="input-group">
+      <input #password="ngModel"
+             [(ngModel)]="form.password"
+             [minlength]="passLength"
+             [type]="!showPassword ? 'password' :'text'"
+             class="form-control"
+             id="password"
+             name="password"
+             required>
+      <span class="input-group-text pointer"
+            (click)="showPassword = !showPassword">
+        <img *ngIf="!showPassword" src="/assets/images/icons/show.png" alt="show pass">
+        <img *ngIf="showPassword" src="/assets/images/icons/hide.png" alt="hide pass">
+      </span>
+
+    </div>
+
+  </div>
+
+  <div class="alert alert-danger"
+       *ngIf="password.touched && (password.invalid || password.pristine)">
+    Password is required. Min length {{passLength}} symbols
+  </div>
+
+
+  <div class="mb-3">
+    <button class="btn btn-success"
+            [disabled]="loginForm.invalid || loginForm.untouched"
+            type="submit">Login
+    </button>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">{{error.data}}</div>
+</form>

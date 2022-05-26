@@ -1,0 +1,36 @@
+<div>
+
+  <div class="mb-3">
+    <a routerLink="/account/dashboard" class="btn btn-warning">Dashboard</a>
+  </div>
+
+
+  <!--Persons block-->
+  <h5>People</h5>
+  <div class="persons list-group mb-3">
+    <a routerLink="/account/persons"
+       class="list-group-item list-group-item-action"
+       routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      Your people
+    </a>
+    <a routerLink="/account/person/create"
+       class="list-group-item list-group-item-action"
+       routerLinkActive="active">Add
+    </a>
+  </div>
+  <!--End Persons block-->
+
+
+  <!--Persons block-->
+  <h5>Messages</h5>
+  <div class="persons list-group mb-3">
+    <a routerLink="/account/messages"
+       class="list-group-item list-group-item-action"
+       routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">Messages
+    </a>
+
+  </div>
+  <!--End Persons block-->
+
+
+</div>

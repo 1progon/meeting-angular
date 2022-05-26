@@ -1,0 +1,82 @@
+<form (submit)="submit()" #messageForm="ngForm">
+  <label class="required mb-3"></label><span> - required fields</span>
+
+  <div class="mb-3">
+    <label for="name" class="form-label required">Name</label>
+    <input [(ngModel)]="form.name"
+           class="form-control"
+           id="name"
+           name="name"
+           placeholder="John Doe"
+           required
+           minlength="3"
+           #name="ngModel"
+           type="text">
+  </div>
+  <div class="alert alert-danger"
+       *ngIf="name.touched && name.invalid">
+    Name is required, min length 3
+  </div>
+
+
+  <div class="mb-3">
+    <label for="email" class="form-label required">Email address</label>
+    <input [(ngModel)]="form.email"
+           email
+           class="form-control"
+           id="email"
+           name="email"
+           placeholder="john_doe@mail.com"
+           #email="ngModel"
+           required
+           type="email">
+  </div>
+
+  <div class="alert alert-danger"
+       *ngIf="email.touched && email.invalid">
+    Email is required format: name@example.com
+  </div>
+
+
+  <div class="mb-3">
+    <label for="phone" class="form-label">Phone</label>
+    <input [(ngModel)]="form.phone"
+           class="form-control"
+           id="phone"
+           name="phone"
+           placeholder="ex. 1 (800) 500 11-33-44"
+           type="tel">
+  </div>
+
+
+  <div class="mb-3">
+    <label for="message" class="form-label required">Message</label>
+    <textarea [(ngModel)]="form.message"
+              class="form-control"
+              id="message"
+              name="message"
+              [minlength]="10"
+              placeholder="Some message text..."
+              required
+              #message="ngModel"
+              rows="5"></textarea>
+  </div>
+  <div class="alert alert-danger"
+       *ngIf="message.touched && message.invalid">
+    Text message is required, min length 10
+  </div>
+
+
+  <div class="mb-3">
+    <button class="btn" type="submit"
+            [class.btn-success]="messageForm.valid || messageForm.pristine"
+            [class.btn-danger]="messageForm.invalid && messageForm.touched"
+            [disabled]="isSending || messageForm.invalid">
+      {{messageForm.invalid && messageForm.touched
+      ? 'Fill the required fields'
+      : isSending ? 'Sending...' : 'Send message' }}
+    </button>
+  </div>
+
+
+</form>

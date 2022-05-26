@@ -1,0 +1,53 @@
+<h2>Add Person</h2>
+
+<form (ngSubmit)="submitForm()" #ngForm="ngForm">
+  <label class="required mb-3"></label><span> - required fields</span>
+
+  <div class="mb-3">
+    <label class="form-label required" for="name">Name</label>
+    <input
+      [(ngModel)]="form.name"
+      class="form-control"
+      id="name"
+      name="name"
+      #name="ngModel"
+      required
+      type="text">
+  </div>
+  <div class="alert alert-danger" *ngIf="name.invalid && name.touched">
+    Name is required
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="description">Description</label>
+    <textarea [(ngModel)]="form.description"
+              class="form-control"
+              id="description"
+              name="description"
+              rows="5"
+              type="text"></textarea>
+  </div>
+
+  <!--Select location-->
+  <app-account-person-select-location [form]="form"></app-account-person-select-location>
+  <!--End Select location-->
+
+  <!--Image upload-->
+  <h2>Image</h2>
+  <div class="mb-3">
+    <label class="form-label" for="main-photo">Main Photo</label>
+    <input [(ngModel)]="form.image" class="form-control" id="main-photo" name="main_photo" type="file">
+  </div>
+  <!--End Image upload-->
+
+
+  <!--Submit person button-->
+  <div class="mb-3">
+    <button
+      [disabled]="ngForm.pristine
+      || ngForm.untouched"
+      class="btn btn-success" type="submit">Add Person
+    </button>
+  </div>
+  <!--End Submit person button-->
+</form>

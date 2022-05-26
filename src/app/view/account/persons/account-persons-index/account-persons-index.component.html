@@ -1,0 +1,34 @@
+<h2>Persons</h2>
+<table class="table table-striped">
+  <thead class="table-dark">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Slug</th>
+    <th scope="col">Open</th>
+    <th scope="col">Edit</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of [
+    {id: 1, name: 'Alena1', slug: 'alena-slug1'},
+    {id: 2, name: 'Alena2', slug: 'alena-slug2'},
+    {id: 3, name: 'Alena3', slug: 'alena-slug3'},
+    {id: 4, name: 'Alena4', slug: 'alena-slug4'},
+    {id: 5, name: 'Alena5', slug: 'alena-slug5'},
+  ]">
+    <th scope="row">{{item.id}}</th>
+    <td>{{item.name}}</td>
+    <td>{{item.slug}}</td>
+    <td>
+      <a [routerLink]="'/person/'+item.id">Open</a>
+    <td>
+      <a [routerLink]="'/account/person/edit/'+item.id" class="btn btn-warning">Edit</a>
+    <td>
+      <a href="" class="btn btn-danger">Delete</a>
+    </td>
+  </tr>
+
+  </tbody>
+</table>
