@@ -1,0 +1,91 @@
+<!--Desc-->
+<div class="desc card mb-2">
+  <div class="card-body">
+    <p></p>
+    <p class="js-more"><span class="less"></span></p>
+  </div>
+</div>
+<!--End desc-->
+
+<div class="d-flex flex-wrap justify-content-center">
+  <!--Person Images-->
+  <div class="images me-2 d-flex flex-column">
+    <div class="card mb-2">
+      <div class="card-body">
+
+        <!--Images block-->
+        <div class="images-block d-flex flex-column">
+
+          <!--Main image-->
+          <div class="main-image lds-dual-ring d-flex align-items-center justify-content-center"></div>
+          <!--End main image-->
+
+          <!--Small images-->
+          <div class="mb-2">
+            <div class="sub-images d-grid flex-wrap gap-2" style="grid-template-columns: repeat(3, 1fr)">
+              <!--Small images cycle-->
+              <div *ngFor="let image of [1,2,3,4,5,6]">
+                <p class="small-image d-flex align-items-center justify-content-center"></p>
+              </div>
+              <!--End Small images cycle-->
+            </div>
+          </div>
+          <!--End small images-->
+        </div>
+        <!--End images block-->
+      </div>
+    </div>
+
+
+  </div>
+
+  <!--Person Chars-->
+  <div class="params">
+
+
+    <!--Chars-->
+    <div class="chars d-flex my-2">
+
+      <!--Left side-->
+      <div class="chars-left-side p-3">
+
+        <!--Cycle left-->
+        <div class="mb-1" *ngFor="let char of [1,2,3,4,5,6,7,8,9]; let i = index">
+          <div *ngIf="(i+1) <=10" class="d-flex justify-content-between">
+            <p></p>
+            <p></p>
+          </div>
+        </div>
+        <!--End left cycle-->
+
+      </div>
+      <!--End left side-->
+
+
+      <!--Middle line-->
+      <div class="chars-middle-side border-start d-none"></div>
+      <!--End middle line-->
+
+
+      <!--Right side-->
+      <div class="chars-right-side p-3">
+
+        <!--Cycle right-->
+        <div class="mb-1" *ngFor="let char of [1,2,3,4,5,6,7,8,9]; let i = index">
+          <div *ngIf="(i+1) <=10" class="d-flex justify-content-between">
+            <p></p>
+            <p></p>
+          </div>
+        </div>
+        <!--End right cycle-->
+
+
+      </div>
+      <!--End right side-->
+
+    </div>
+    <!--End chars-->
+
+
+  </div>
+</div>
