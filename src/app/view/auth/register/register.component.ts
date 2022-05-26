@@ -18,7 +18,6 @@ export class RegisterComponent implements OnInit {
   form: RegisterDto = <RegisterDto>{};
   error?: IErrorResponse;
   interval: number = 0;
-  acTypes = new Map<number, string>();
 
   passLength = 5;
   showPassword = false;
