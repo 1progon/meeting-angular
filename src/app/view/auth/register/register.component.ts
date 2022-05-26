@@ -59,15 +59,16 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.auth.register(this.form).subscribe({
-      next: () => {
+    this.auth.register(this.form)
+      .subscribe({
+        next: () => {
 
-        this.router.navigateByUrl('/account').finally()
-        return
+          this.router.navigateByUrl('/account').finally()
+          return
 
-      }, error: (err: HttpErrorResponse) => {
-        this.setError(err.error)
-      }
-    })
+        }, error: (err: HttpErrorResponse) => {
+          this.setError(err.error)
+        }
+      })
   }
 }
