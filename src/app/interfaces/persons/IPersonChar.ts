@@ -13,7 +13,6 @@ export interface IPersonChar {
   hair_length: string;
   breast_size: string;
   breast_type: string;
-  available_for: string;
   nationality: INationality;
   travel: string;
   languages: ILanguage[];
@@ -21,8 +20,6 @@ export interface IPersonChar {
   smoker: string;
   eye_color: string;
   orientation: string;
-  pubic_hair: string;
-  porn_star: boolean;
   meeting_with: string;
   website: string;
   person_id: number;
