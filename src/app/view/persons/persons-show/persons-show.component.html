@@ -1,6 +1,7 @@
 <h2>One</h2>
+
 <!--Desc-->
-<div class="desc card mb-2">
+<div *ngIf="!loading" class="desc card mb-2">
   <div class="card-body">
     <h2>{{personDto.name}}</h2>
     <!--<div class="last-login">Last seen online: ...</div>-->
@@ -9,8 +10,7 @@
 </div>
 <!--End desc-->
 
-<div class="d-flex flex-wrap justify-content-center">
-
+<div *ngIf="!loading" class="d-flex flex-wrap justify-content-center">
   <!--Person Images-->
   <div class="images me-2 d-flex flex-column">
     <div class="card mb-2">
@@ -18,6 +18,7 @@
 
         <!--Images block-->
         <div class="images-block d-flex flex-column">
+
           <!--Main image-->
           <img *ngIf="personDto.image"
                [src]="path + '/'+ personDto.image"
@@ -63,7 +64,6 @@
   <!--Person Chars-->
   <div class="params">
 
-
     <!--Chars-->
     <div class="chars d-flex flex-wrap my-2">
 
@@ -96,8 +96,7 @@
           <div *ngIf="(i+1) > 10 && char.key != 'nationality' && char.key != 'languages'"
                class="d-flex">
             <div class="char-title">{{char.key.replace('_', ' ') | titlecase }}</div>
-            <div class="char-value" *ngIf="char.key != 'porn_star'">{{char.value}}</div>
-            <div class="char-value" *ngIf="char.key == 'porn_star'">{{char.value ? 'Yes' : 'No'}}</div>
+            <div class="char-value">{{char.value}}</div>
           </div>
         </div>
         <!--End right cycle-->
@@ -168,81 +167,13 @@
     </div>
     <!--End Phones-->
 
-    <!--Rates and services-->
-    <div class="rates-services d-flex flex-wrap my-3">
-      <!--Rates-->
-      <div class="rates me-1">
-        <div *ngIf="personDto.rates">
-          <h2>Rates</h2>
-
-          <div class="card">
-            <div class="card-body">
-              <table class="table table-striped mb-0">
-                <thead>
-                <tr class="table-dark">
-                  <th scope="col">Time</th>
-                  <th scope="col">Incall</th>
-                  <th scope="col">Outcall</th>
-                  <th scope="col">Currency</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <tr *ngFor="let rate of personDto.rates">
-                  <td class="fw-bold">{{ratesMap[rate.id].name}}</td>
-                  <td class="fw-bold">{{rate.price_in}}</td>
-                  <td class="fw-bold">{{rate.price_out}}</td>
-                  <td class="fw-bold">{{rate.currency_name}}</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-
-        </div>
-
-
-      </div>
-      <!--End Rates-->
-
-      <!--Services-->
-      <div class="services ms-1">
-        <div *ngIf="personDto.services">
-          <h2>Services</h2>
-
-          <div class="card">
-            <div class="card-body">
-              <table class="table table-striped mb-0">
-                <thead>
-                <tr class="table-dark">
-                  <th scope="col">Service</th>
-                  <th scope="col">Included</th>
-                  <th scope="col">Price</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <tr *ngFor="let service of personDto.services">
-                  <td class="fw-bold">{{ service.name}}</td>
-                  <td class="fw-bold">{{service.included ? 'Yes' : 'No' }}</td>
-                  <td>{{ service.included ? '' : service.price}}</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-
-        </div>
-
-      </div>
-      <!--End Services-->
-    </div>
-    <!--End Rates and services-->
-
 
   </div>
+</div>
+
+<!--Show preloader while fetching a data-->
+<div *ngIf="loading" class="d-flex flex-wrap">
+  <app-person-show-placeholder class="w-100"></app-person-show-placeholder>
 </div>
 
 
