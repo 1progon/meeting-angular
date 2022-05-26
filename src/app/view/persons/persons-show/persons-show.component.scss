@@ -1,5 +1,5 @@
 .images {
-  flex: 2 0;
+  flex: 1 0;
   min-width: 200px;
   max-width: 460px;
 }
@@ -8,7 +8,7 @@
 }
 
 .params {
-  flex: 2 1;
+  flex: 1 1;
 }
 
 .chars {
@@ -30,31 +30,4 @@
 }
 
 
-.rates-services {
-  .rates, .services {
-    flex: 1 1;
-
-    .card-body {
-      overflow-x: auto;
-
-      @media screen and (max-width: 576px) {
-        padding: 0;
-      }
-    }
-  }
-
-}
-
-table {
-  min-width: 200px;
-
-  tr {
-    display: flex;
-
-    td, th {
-      flex: 1 0 75px;
-      padding: 10px 3px;
-    }
-  }
-}
 
