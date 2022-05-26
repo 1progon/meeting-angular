@@ -14,14 +14,11 @@ export class CacheService {
 
 
   getCache(key: string) {
-    if (!this.hasCache(key)) {
+    if (!this.hasCache(key) || this.isExpired(key)) {
       return undefined;
     }
 
-    if (!this.isExpired(key)) {
-      return this.cache[key];
-    }
-    return undefined;
+    return this.cache[key];
   }
 
   // default cache time 300 seconds = 5 minutes
