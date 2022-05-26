@@ -13,19 +13,27 @@ import {CacheService} from "../cache.service";
 })
 export class PersonsService {
 
-  constructor(private http: HttpClient, private cache: CacheService) {
+  constructor(private http: HttpClient, private cacheService: CacheService) {
   }
 
+  // Check if cache exist
+  getFromCache(keyString: string): Observable<any> | null {
+    let cache = this.cacheService.getCache(keyString)?.data;
+    if (cache != undefined) {
+      return of(cache);
+    }
+    return null;
+  }
+
+  // Get persons Index page
   getPersons(limit = 20, offset = 0): Observable<IResponse<BaseListingDto<IPerson>>> {
 
     // Cache key
     let keyString = 'persons-index-' + limit + '-' + offset;
 
-    // get cache
-    let cache = this.cache.getCache(keyString)?.data;
-    if (cache != undefined) {
-      return of(cache);
-    }
+    // try to get from cache
+    let cache = this.getFromCache(keyString);
+    if (cache) return cache;
 
     let params = new HttpParams();
     if (offset != 0) {
@@ -43,24 +51,24 @@ export class PersonsService {
         {params})
       .pipe(map(
         value => {
-          this.cache.setCache(keyString, value);
+          this.cacheService.setCache(keyString, value);
           return value;
         }));
   }
 
-  // Frontend
+  // Get single person
   getPersonDto(id: number): Observable<IResponse<PersonDto>> {
-    let keyGen = 'person-single-model-' + id;
+    let keyString = 'person-single-model-' + id;
 
-    let cache = this.cache.getCache(keyGen)?.data;
-    if (cache != undefined) {
-      return of(cache);
-    }
+    // try to get from cache
+    let cache = this.getFromCache(keyString);
+    if (cache) return cache;
+
 
     return this.http
       .get<IResponse<PersonDto>>(environment.apiUrl + '/person/' + id)
       .pipe(map(value => {
-        this.cache.setCache(keyGen, value)
+        this.cacheService.setCache(keyString, value)
         return value;
       }));
   }
@@ -71,7 +79,15 @@ export class PersonsService {
     return this.http.get<IResponse<IPerson>>('')
   }
 
+  // get persons index page with country
   getPersonsByCountry(countrySlug: string, limit: number = 20, offset: number = 0) {
+
+    // Cache key
+    let keyString = `persons-index-${countrySlug}-${limit}-${offset}`;
+
+    // try to get from cache
+    let cache = this.getFromCache(keyString);
+    if (cache) return cache;
 
     let params = new HttpParams();
     if (offset != 0) {
@@ -85,9 +101,21 @@ export class PersonsService {
     return this.http
       .get<IResponse<BaseListingDto<IPerson>>>(environment.apiUrl + '/persons/' + countrySlug,
         {params})
+      .pipe(map(value => {
+        this.cacheService.setCache(keyString, value);
+        return value;
+      }))
   }
 
+  // get persons index page with country and city
   getPersonsByCountryAndCity(countrySlug: string, citySlug: string, limit: number = 20, offset: number = 0) {
+
+    // Cache key
+    let keyString = `persons-index-${countrySlug}-${citySlug}-${limit}-${offset}`;
+
+    // try to get cache
+    let cache = this.getFromCache(keyString);
+    if (cache) return cache;
 
     let params = new HttpParams();
     if (offset != 0) {
@@ -98,12 +126,16 @@ export class PersonsService {
       params = params.append("limit", limit);
     }
 
-    return this.http.get<IResponse<BaseListingDto<IPerson>>>(environment.apiUrl + '/persons/' + countrySlug + '/' + citySlug,
-      {params})
+    return this.http
+      .get<IResponse<BaseListingDto<IPerson>>>(environment.apiUrl + '/persons/' + countrySlug + '/' + citySlug,
+        {params})
+      .pipe(map(value => {
+        this.cacheService.setCache(keyString, value);
+        return value;
+      }))
   }
 
   sendMessage(form: any): Observable<IResponse<any>> {
-    console.log(form)
     return this.http.post<IResponse<any>>(environment.apiUrl + '/persons/send-message',
       JSON.stringify(form))
 
