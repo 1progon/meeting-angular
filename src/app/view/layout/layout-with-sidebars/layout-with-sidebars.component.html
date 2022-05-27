@@ -2,9 +2,10 @@
             [isShow]="showSidebar"></app-header>
 
 <div class="wrapper">
-  <app-left-sidebar class="d-none d-md-block"
-                    (closeMenuEvent)="showSidebar=!showSidebar"
-                    [class.d-none]="!showSidebar"></app-left-sidebar>
+  <app-left-sidebar
+    (closeMenuEvent)="showSidebar=!showSidebar"
+    [class.d-none]="!showSidebar"
+    class="d-none d-md-block"></app-left-sidebar>
   <div class="wrapper middle-side">
     <router-outlet></router-outlet>
   </div>
