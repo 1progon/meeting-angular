@@ -1,87 +1,90 @@
-<h2>Register</h2>
-<form (submit)="submitForm()" #regForm="ngForm" class="col-12 col-sm-6">
-  <div class="mb-3">
-    <label class="form-label required" for="email">Email</label>
-    <input #email="ngModel"
-           [(ngModel)]="form.email"
-           class="form-control"
-           email
-           id="email"
-           name="email"
-           required
-           type="email">
-  </div>
-
-  <div class="alert alert-danger"
-       *ngIf="email.touched && (email.invalid || email.pristine)">
-    Email is required. Format: example@mail.com
-  </div>
-
-
-  <div class="mb-3">
-    <label class="form-label required" for="password">Password</label>
-    <div class="input-group">
-      <input #password="ngModel"
-             [(ngModel)]="form.password"
-             [minlength]="passLength"
-             [type]="!showPassword ? 'password' :'text'"
+<div class="d-flex flex-column align-items-center justify-content-center h-100">
+  <h2>Register</h2>
+  <form (submit)="submitForm()" #regForm="ngForm" class="col-12 col-sm-6 col-md-4">
+    <div class="mb-3">
+      <label class="form-label required" for="email">Email</label>
+      <input #email="ngModel"
+             [(ngModel)]="form.email"
              class="form-control"
-             id="password"
-             name="password"
-             required>
-      <span class="input-group-text pointer" (click)="showPassword = !showPassword">
+             email
+             id="email"
+             name="email"
+             required
+             type="email">
+    </div>
+
+    <div class="alert alert-danger"
+         *ngIf="email.touched && (email.invalid || email.pristine)">
+      Email is required. Format: example@mail.com
+    </div>
+
+
+    <div class="mb-3">
+      <label class="form-label required" for="password">Password</label>
+      <div class="input-group">
+        <input #password="ngModel"
+               [(ngModel)]="form.password"
+               [minlength]="passLength"
+               [type]="!showPassword ? 'password' :'text'"
+               class="form-control"
+               id="password"
+               name="password"
+               required>
+        <span class="input-group-text pointer" (click)="showPassword = !showPassword">
         <img *ngIf="!showPassword" src="/assets/images/icons/show.png" alt="show pass">
         <img *ngIf="showPassword" src="/assets/images/icons/hide.png" alt="hide pass">
       </span>
+      </div>
     </div>
-  </div>
 
-  <div class="alert alert-danger"
-       *ngIf="password.touched && (password.invalid || password.pristine)">
-    Password is required. Min length {{passLength}} symbols
-  </div>
+    <div class="alert alert-danger"
+         *ngIf="password.touched && (password.invalid || password.pristine)">
+      Password is required. Min length {{passLength}} symbols
+    </div>
 
 
-  <div class="mb-3">
-    <label class="form-label required" for="password-confirm">Password Confirm</label>
-    <div class="input-group">
-      <input #passwordConfirm="ngModel"
-             [(ngModel)]="form.password_confirm"
-             [minlength]="passLength"
-             [type]="!showPassword ? 'password' :'text'"
-             class="form-control"
-             id="password-confirm"
-             name="password_confirm"
-             required>
-      <span class="input-group-text pointer" (click)="showPassword = !showPassword">
+    <div class="mb-3">
+      <label class="form-label required" for="password-confirm">Password Confirm</label>
+      <div class="input-group">
+        <input #passwordConfirm="ngModel"
+               [(ngModel)]="form.password_confirm"
+               [minlength]="passLength"
+               [type]="!showPassword ? 'password' :'text'"
+               class="form-control"
+               id="password-confirm"
+               name="password_confirm"
+               required>
+        <span class="input-group-text pointer" (click)="showPassword = !showPassword">
         <img *ngIf="!showPassword" src="/assets/images/icons/show.png" alt="show pass">
         <img *ngIf="showPassword" src="/assets/images/icons/hide.png" alt="hide pass">
       </span>
+      </div>
+
     </div>
 
-  </div>
+    <div class="alert alert-danger"
+         *ngIf="passwordConfirm.touched && (passwordConfirm.invalid || passwordConfirm.pristine)">
+      Password Confirm is required. Min length {{passLength}} symbols
+    </div>
 
-  <div class="alert alert-danger"
-       *ngIf="passwordConfirm.touched && (passwordConfirm.invalid || passwordConfirm.pristine)">
-    Password Confirm is required. Min length {{passLength}} symbols
-  </div>
-
-  <div class="alert alert-danger"
-       *ngIf="(password?.value?.length > 0 || passwordConfirm?.value?.length > 0)
+    <div class="alert alert-danger"
+         *ngIf="(password?.value?.length > 0 || passwordConfirm?.value?.length > 0)
         && passwordConfirm.value != password.value">
-    Passwords do not match
-  </div>
+      Passwords do not match
+    </div>
 
 
-  <div class="mb-3">
-    <button [disabled]="regForm.invalid || regForm.untouched || password.value != passwordConfirm.value"
-            class="btn btn-success"
-            type="submit">
-      Register
-    </button>
-  </div>
+    <div class="mb-3">
+      <button [disabled]="regForm.invalid || regForm.untouched || password.value != passwordConfirm.value"
+              class="btn btn-success"
+              type="submit">
+        Register
+      </button>
+    </div>
 
 
-  <!--Error messages-->
-  <div class="alert alert-danger" *ngIf="error">{{error.data}}</div>
-</form>
+    <!--Error messages-->
+    <div class="alert alert-danger" *ngIf="error">{{error.data}}</div>
+  </form>
+</div>
+
