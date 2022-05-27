@@ -1,1 +1,14 @@
-<div>Homepage</div>
+<ng-container *ngIf="!isLogged">
+  <div class="d-flex flex-wrap justify-content-center align-items-center h-100">
+    <a class="btn btn-warning mx-1" routerLink="/login">Login</a>
+    <a class="btn btn-outline-warning mx-1" routerLink="/register">Register</a>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="isLogged">
+  <div class="d-flex flex-wrap justify-content-center align-items-center h-100">
+    <a class="btn btn-warning mx-1" routerLink="/account">Account</a>
+    <a class="btn btn-outline-warning mx-1" routerLink="/logout">Logout</a>
+  </div>
+</ng-container>
+

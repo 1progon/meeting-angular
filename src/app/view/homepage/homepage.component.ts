@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-homepage',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) {
+  }
+
+  isLogged = false;
 
   ngOnInit(): void {
+    this.isLogged = this.authService.isLogged()
+
+    this.authService.updateTokenEvent
+      .subscribe((x) => {
+        this.isLogged = x;
+      })
   }
+
 
 }
