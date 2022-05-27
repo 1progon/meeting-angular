@@ -30,84 +30,105 @@ import {
 import {
   AccountPersonEditComponent
 } from "./view/account/persons/account-person-edit/account-person-edit/account-person-edit.component";
+import {HomepageComponent} from "./view/homepage/homepage.component";
+import {LayoutFullWidthComponent} from "./view/layout/layout-full-width/layout-full-width.component";
+import {LayoutWithSidebarsComponent} from "./view/layout/layout-with-sidebars/layout-with-sidebars.component";
 
 const routes: Routes = [
-  // Homepage
-  // {path: '', component: HomepageComponent},
-  // TODO temporarily redirect to People
-  {path: '', redirectTo: '/persons/page/1', pathMatch: 'full'},
 
-
-  // People
-  {path: 'persons', redirectTo: '/persons/page/1', pathMatch: 'full'},
+  // Routes without sidebar
   {
-    path: 'persons/page/:pageId', component: PersonsIndexComponent,
-    data: {title: 'People - Page', route: 'persons-index'}
+    path: '', component: LayoutFullWidthComponent, children: [
+
+      // Homepage
+      {path: '', component: HomepageComponent, data: {title: 'Homepage', route: 'homepage'}},
+
+      // Auth
+      {path: 'login', component: LoginComponent, data: {title: 'Login Form', route: 'login'}},
+      {path: 'register', component: RegisterComponent, data: {title: 'Register Form', route: 'register'}},
+      {path: 'logout', component: LogoutComponent, data: {title: 'Logout', route: 'logout'}},
+
+      // Account, only logged users
+      {
+        path: 'account', component: AccountComponent,
+        canActivate: [OnlyLoggedUserGuard],
+        children: [
+          {path: '', component: DashboardComponent},
+          {path: 'dashboard', redirectTo: '/account'},
+          {path: 'persons', component: AccountPersonsIndexComponent},
+          {path: 'person/create', component: AccountPersonCreateComponent},
+          {
+            path: 'person/edit/:id', component: AccountPersonEditComponent, children: [
+              {path: '', component: AccountPersonEditBaseComponent},
+              {path: 'chars', component: AccountPersonEditCharsComponent},
+              {path: 'phones', component: AccountPersonEditCharsComponent},
+              {path: 'rates', component: AccountPersonEditCharsComponent},
+              {path: 'services', component: AccountPersonEditCharsComponent},
+              {path: 'images', component: AccountPersonEditCharsComponent},
+            ]
+          },
+          {
+            path: 'messages', component: AccountMessagesIndexComponent, children: [
+              {path: ':id', component: AccountMessagesShowComponent}
+            ]
+          },
+        ],
+      },
+
+
+    ]
   },
 
-  // People by country
-  {
-    path: 'persons/:countrySlug',
-    redirectTo: '/persons/:countrySlug/page/1', pathMatch: 'full'
-  },
-  {
-    path: 'persons/:countrySlug/page/:pageId',
-    component: PersonsIndexComponent,
-    data: {title: 'People In Country - Page', route: 'persons-index-country'}
-  },
 
-  // People by city
+  // Routes with sidebar
   {
-    path: 'persons/:countrySlug/:citySlug',
-    redirectTo: '/persons/:countrySlug/:citySlug/page/1',
-    pathMatch: 'full'
-  },
-  {
-    path: 'persons/:countrySlug/:citySlug/page/:pageId',
-    component: PersonsIndexComponent,
-    data: {title: 'People In City - Page', route: 'persons-index-city'}
-  },
-
-  // Show single person
-  {path: 'person/:id', component: PersonsShowComponent, data: {title: 'People One', route: 'person-show'}},
-
-
-  // Auth
-  {path: 'login', component: LoginComponent, data: {title: 'Login Form', route: 'login'}},
-  {path: 'register', component: RegisterComponent, data: {title: 'Register Form', route: 'register'}},
-  {path: 'logout', component: LogoutComponent, data: {title: 'Logout', route: 'logout'}},
-
-  // Account
-  {
-    path: 'account', component: AccountComponent,
+    path: '', component: LayoutWithSidebarsComponent,
     canActivate: [OnlyLoggedUserGuard],
     children: [
-      {path: '', component: DashboardComponent},
-      {path: 'dashboard', redirectTo: '/account'},
-      {path: 'persons', component: AccountPersonsIndexComponent},
-      {path: 'person/create', component: AccountPersonCreateComponent},
+      // People
+      {path: 'persons', redirectTo: '/persons/page/1', pathMatch: 'full'},
       {
-        path: 'person/edit/:id', component: AccountPersonEditComponent, children: [
-          {path: '', component: AccountPersonEditBaseComponent},
-          {path: 'chars', component: AccountPersonEditCharsComponent},
-          {path: 'phones', component: AccountPersonEditCharsComponent},
-          {path: 'rates', component: AccountPersonEditCharsComponent},
-          {path: 'services', component: AccountPersonEditCharsComponent},
-          {path: 'images', component: AccountPersonEditCharsComponent},
-        ]
+        path: 'persons/page/:pageId', component: PersonsIndexComponent,
+        data: {title: 'People - Page', route: 'persons-index'}
+      },
+
+      // People by country
+      {
+        path: 'persons/:countrySlug',
+        redirectTo: '/persons/:countrySlug/page/1', pathMatch: 'full'
       },
       {
-        path: 'messages', component: AccountMessagesIndexComponent, children: [
-          {path: ':id', component: AccountMessagesShowComponent}
-        ]
+        path: 'persons/:countrySlug/page/:pageId',
+        component: PersonsIndexComponent,
+        data: {title: 'People In Country - Page', route: 'persons-index-country'}
       },
-    ],
+
+      // People by city
+      {
+        path: 'persons/:countrySlug/:citySlug',
+        redirectTo: '/persons/:countrySlug/:citySlug/page/1',
+        pathMatch: 'full'
+      },
+      {
+        path: 'persons/:countrySlug/:citySlug/page/:pageId',
+        component: PersonsIndexComponent,
+        data: {title: 'People In City - Page', route: 'persons-index-city'}
+      },
+
+      // Show single person
+      {path: 'person/:id', component: PersonsShowComponent, data: {title: 'People One', route: 'person-show'}},
+    ]
   },
 
+  // Routes without sidebar
+  {
+    path: '', component: LayoutFullWidthComponent, children: [
+      // Error pages
+      {path: '**', redirectTo: '404'},
+      {path: '404', component: Error404Component},
+    ]
+  },
 
-  // Error pages
-  {path: '**', redirectTo: '404'},
-  {path: '404', component: Error404Component},
 
 ];
 
