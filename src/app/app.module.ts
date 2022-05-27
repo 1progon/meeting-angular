@@ -17,7 +17,6 @@ import {Error404Component} from './view/errors/error404/error404.component';
 import {
   PersonCardPlaceholderComponent
 } from './view/persons/include/person-card-placeholder/person-card-placeholder.component';
-import {MainWrapperComponent} from './view/include/main-wrapper/main-wrapper.component';
 import {LoginComponent} from './view/auth/login/login.component';
 import {RegisterComponent} from './view/auth/register/register.component';
 import {LogoutComponent} from './view/auth/logout/logout.component';
@@ -55,6 +54,8 @@ import {
 import {
   PersonShowPlaceholderComponent
 } from './view/persons/include/person-show-placeholder/person-show-placeholder.component';
+import {LayoutFullWidthComponent} from './view/layout/layout-full-width/layout-full-width.component';
+import {LayoutWithSidebarsComponent} from './view/layout/layout-with-sidebars/layout-with-sidebars.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,6 @@ import {
     PersonCardComponent,
     Error404Component,
     PersonCardPlaceholderComponent,
-    MainWrapperComponent,
     LoginComponent,
     RegisterComponent,
     LogoutComponent,
@@ -88,6 +88,8 @@ import {
     AccountPersonEditComponent,
     AccountPersonSelectLocationComponent,
     PersonShowPlaceholderComponent,
+    LayoutFullWidthComponent,
+    LayoutWithSidebarsComponent,
   ],
   imports: [
     BrowserModule,
