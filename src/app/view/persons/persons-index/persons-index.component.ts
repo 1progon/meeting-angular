@@ -164,8 +164,10 @@ export class PersonsIndexComponent implements OnInit {
   }
 
 
-  scrollTop() {
-    document.body.scrollIntoView();
+  scrollToTop() {
+    if (this.persons.pagination?.current_page < this.persons.pagination.last_page) {
+      document.body.scrollIntoView();
+    }
   }
 }
 

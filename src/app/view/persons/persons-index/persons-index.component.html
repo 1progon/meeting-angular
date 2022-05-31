@@ -29,7 +29,7 @@
 
 
 <app-pagination
-  (click)="scrollTop()"
+  (click)="scrollToTop()"
   *ngIf="persons && persons.pagination && persons.pagination.last_page > 1"
   [pagination]="persons.pagination"
   [route]="paginatedRoute"></app-pagination>
