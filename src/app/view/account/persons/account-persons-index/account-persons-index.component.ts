@@ -28,7 +28,15 @@ export class AccountPersonsIndexComponent implements OnInit {
   isDeleteAllow = true;
 
   ngOnInit(): void {
-    this.getPersonsByUser()
+    this.route.params.subscribe({
+      next: params => {
+        this.pageId = params['pageId'];
+
+        this.offset = (this.pageId - 1) * this.limit;
+
+        this.getPersonsByUser();
+      }
+    })
   }
 
 
