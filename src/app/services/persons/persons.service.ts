@@ -16,6 +16,9 @@ export class PersonsService {
   constructor(private http: HttpClient, private cacheService: CacheService) {
   }
 
+  activeCountrySlug = '';
+  activeCitySlug = '';
+
   // Check if cache exist
   getFromCache(keyString: string): Observable<any> | null {
     let cache = this.cacheService.getCache(keyString)?.data;
@@ -56,6 +59,11 @@ export class PersonsService {
         }));
   }
 
+  // get persons by user id
+  getPersonsDtoByUser(): Observable<IResponse<PersonDto[]>> {
+    return this.http.get<IResponse<PersonDto[]>>(environment.apiUrl + '/persons-by-user');
+  }
+
   // Get single person
   getPersonDto(id: number): Observable<IResponse<PersonDto>> {
     let keyString = 'person-single-model-' + id;
@@ -76,7 +84,7 @@ export class PersonsService {
   // Edit person inside account
   getPersonEditBase(id: number): Observable<IResponse<IPerson>> {
     // todo not implemented get person
-    return this.http.get<IResponse<IPerson>>('')
+    return this.http.get<IResponse<IPerson>>(environment.apiUrl + '/person/' + id)
   }
 
   // get persons index page with country
@@ -139,6 +147,12 @@ export class PersonsService {
     return this.http.post<IResponse<any>>(environment.apiUrl + '/persons/send-message',
       JSON.stringify(form))
 
+  }
+
+  // Create person
+  addPerson(formData: FormData) {
+    return this.http.post<PersonDto>(environment.apiUrl + '/persons/add',
+      formData)
   }
 
 
