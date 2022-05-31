@@ -167,5 +167,14 @@ export class PersonsService {
       formData)
   }
 
+  // Edit person inside account
+  getPersonEditBase(id: number): Observable<IResponse<IPerson>> {
+    // todo not implemented get person
+    return this.http.get<IResponse<IPerson>>(environment.apiUrl + '/account/person/edit/' + id)
+  }
 
+
+  deletePerson(id: number) {
+    return this.http.delete<IResponse<any>>(environment.apiUrl + '/account/person/' + id)
+  }
 }
