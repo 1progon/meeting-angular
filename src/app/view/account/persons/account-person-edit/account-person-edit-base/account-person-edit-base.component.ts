@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {IPerson} from "../../../../../interfaces/persons/IPerson";
 import {PersonsService} from "../../../../../services/persons/persons.service";
+import {environment} from "../../../../../../environments/environment";
 
 @Component({
   selector: 'app-account-person-edit',
@@ -10,13 +11,16 @@ import {PersonsService} from "../../../../../services/persons/persons.service";
 })
 export class AccountPersonEditBaseComponent implements OnInit {
 
-  constructor(public route: ActivatedRoute, private personsService: PersonsService) {
+  constructor(public route: ActivatedRoute,
+              private personsService: PersonsService) {
   }
 
 
   personId?: number;
   form: IPerson = <IPerson>{}
   updating: any;
+  image?: string;
+  path = environment.apiHost;
 
 
   ngOnInit(): void {
