@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {PersonsService} from "../../../../services/persons/persons.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {PersonDto} from "../../../../dto/persons/PersonDto";
+import {BaseListingDto} from "../../../../dto/BaseListingDto";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-account-persons-index',
