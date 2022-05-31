@@ -33,14 +33,27 @@
   <!--Image upload-->
   <h2>Image</h2>
   <div class="mb-3">
-    <label class="form-label" for="main-photo">Main Photo</label>
-    <input [(ngModel)]="form.image"
+    <label class="form-label" for="image">Main Photo</label>
+    <input [(ngModel)]="image"
+           #imageModel="ngModel"
            class="form-control"
-           id="main-photo"
-           name="main_photo"
+           id="image"
+           required
+           name="image"
            type="file">
   </div>
   <!--End Image upload-->
+
+  <div class="alert alert-danger" *ngIf="imageModel.invalid">
+    Image is required. Allowed file types gif, png, jpeg. File size up to 20 MB
+  </div>
+
+  <div class="" *ngIf="form.image">
+    <h4>Uploaded image</h4>
+    <div>
+      <img [src]="path +'/'+form.image" alt="image">
+    </div>
+  </div>
 
 
   <!--Submit person button-->
