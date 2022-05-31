@@ -1,4 +1,16 @@
-<h2>People</h2>
+<div class="d-flex flex-wrap align-items-baseline">
+  <h2>People</h2>
+
+  <!--Add country and city name in title-->
+  <h4 *ngIf="persons && (personsService.activeCountrySlug && personsService.activeCitySlug != '')"
+      class="ms-2">from {{persons.items[0].country.name}}, {{persons.items[0].city.name}}</h4>
+
+  <!--Add country name in title -->
+  <h4 *ngIf="persons && (personsService.activeCountrySlug && personsService.activeCitySlug == '')"
+      class="ms-2">from {{persons.items[0].country.name}}</h4>
+</div>
+
+
 <div class="persons-block d-flex flex-wrap mb-3" *ngIf="!loading && persons?.items">
   <div class="person-card" *ngFor="let person of persons?.items">
     <app-person-card [person]="person" [path]="host"></app-person-card>
