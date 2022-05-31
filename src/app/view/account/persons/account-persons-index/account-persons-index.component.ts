@@ -50,4 +50,56 @@ export class AccountPersonsIndexComponent implements OnInit {
       })
   }
 
+  scrollToTop() {
+    if (this.persons.pagination.current_page < this.persons.pagination.last_page) {
+      document.body.scrollIntoView();
+    }
+  }
+
+  deletePerson(id: number) {
+    let answer = confirm(`Are you sure to remove person with ID ${id}`);
+    if (!answer) {
+      return;
+    }
+
+    let answer2 = confirm("Exactly?");
+    if (!answer2) {
+      return;
+    }
+
+    this.isDeleteAllow = false;
+    this.alert = {
+      message: 'Trying to remove...',
+      status: 'warning'
+    }
+
+    this.personsService.deletePerson(id)
+      .subscribe({
+        next: value => {
+
+          this.alert = {
+            message: `Person with ID ${id} has been removed`,
+            status: 'success'
+          };
+
+          this.getPersonsByUser();
+
+        }, error: err => {
+          this.alert = {
+            message: 'Not removed, some error',
+            status: 'danger'
+          }
+          console.error(err);
+        }
+      })
+      .add(() => {
+        this.isDeleteAllow = true;
+
+        setTimeout(() => {
+          this.alert = undefined;
+        }, 2500)
+      })
+
+
+  }
 }
