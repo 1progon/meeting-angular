@@ -29,7 +29,7 @@ export class PersonsService {
   }
 
   // Get persons Index page
-  getPersons(limit = 20, offset = 0): Observable<IResponse<BaseListingDto<IPerson>>> {
+  getPersonsDto(limit = 20, offset = 0): Observable<IResponse<BaseListingDto<PersonDto>>> {
 
     // Cache key
     let keyString = 'persons-index-' + limit + '-' + offset;
