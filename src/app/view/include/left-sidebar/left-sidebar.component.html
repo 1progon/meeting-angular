@@ -5,35 +5,68 @@
   </div>
 </div>
 
+
+<!--Reset location button-->
+
+<div class="d-flex justify-content-center mb-1">
+  <a (click)="resetLocation()"
+     *ngIf="personsService.activeCountrySlug || personsService.activeCitySlug"
+     class="btn btn-warning btn-sm w-100 mx-2"
+     routerLink="/persons">Reset location</a></div>
+<!--End reset location button-->
+
 <!--Countries list-->
-<div *ngFor="let country of countries; let i = index;">
+<div *ngFor="let country of countries; let i = index;" class="countries">
 
-  <a class="d-flex align-items-center">
+  <!--Country row Name with counter and plus sign-->
+  <a class="country-row d-flex align-items-center"
+     [class.active]="personsService.activeCountrySlug == country.slug">
 
-    <!--Plus sign to expand cities in country-->
-    <a (click)="getCities(country.id, i)"
+
+    <!--Plus-Minus sign to expand cities in country-->
+    <a (click)="getCities(country.slug, i)"
        class="badge plus border ms-2 me-1 my-1 pointer">{{visible[i] ? '-' : '+'}}</a>
+    <!--End plus minus sign-->
 
-
-    <!--Country Name with counter-->
+    <!--Country row-->
     <a [routerLink]="'persons/' + country.slug"
-       (click)="closeMenu()"
-       class="country-block w-100 d-flex justify-content-between px-2">
-      <div class="country-name">{{country.name}}</div>
-      <div class="country-count small">{{country.persons_count}}</div>
-    </a>
-  </a>
+       (click)="closeMenu(); setCountryActive(country.slug)"
+       class="country-block w-100 d-flex justify-content-between px-2"
+    >
 
-  <!--Cities inside country-->
+      <!--Country name-->
+      <span class="country-name">{{country.name}}</span>
+      <!--End country name-->
+
+      <!--Country counter-->
+      <span class="country-count small">{{country.persons_count}}</span>
+      <!--End country counter-->
+    </a>
+    <!--  End country row-->
+  </a>
+  <!--End country row-->
+
+
+  <!--Cities list inside country-->
   <div *ngIf="country.cities && visible[i]"
        class="cities d-flex flex-column">
+
+    <!--City row-->
     <a *ngFor="let city of country.cities"
-       (click)="closeMenu()"
+       (click)="closeMenu(); setCityAndCountryActive(city.slug, country.slug)"
        [routerLink]="'persons/'+ country.slug + '/'+ city.slug"
-       class="city px-3 small py-1 d-flex justify-content-between">
+       class="city px-3 small py-1 d-flex justify-content-between"
+       [class.active]="personsService.activeCitySlug == city.slug">
+
+      <!--City name-->
       <span class="me-3">{{city.name}}</span>
+
+      <!--City counter-->
       <span class="small">{{city.persons_count}}</span></a>
+    <!--End city row-->
+
   </div>
+  <!--  End cities list inside country-->
 
 </div>
 

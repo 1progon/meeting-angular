@@ -18,8 +18,18 @@
 
 }
 
+.countries {
+  & .country-row.active {
+    background-color: #c2c2c2;
+  }
+}
+
 a {
   color: #3f3f3f;
+
+  &.city.active {
+    background-color: #c2c2c2;
+  }
 
   &.plus, &.country-block {
     &:hover {
@@ -35,6 +45,8 @@ a {
   border-left: none;
 
   & a {
+
+
     &:hover {
       background-color: #c2c2c2;
     }
