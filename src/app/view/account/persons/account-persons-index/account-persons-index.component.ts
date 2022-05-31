@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PersonsService} from "../../../../services/persons/persons.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {PersonDto} from "../../../../dto/persons/PersonDto";
 
 @Component({
   selector: 'app-account-persons-index',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountPersonsIndexComponent implements OnInit {
 
-  constructor() { }
+  constructor(private personsService: PersonsService) {
+  }
+
+  persons: PersonDto[] = [];
 
   ngOnInit(): void {
+    this.getPersonsByUser()
+  }
+
+
+  getPersonsByUser() {
+    this.personsService.getPersonsDtoByUser()
+      .subscribe({
+        next: value => {
+          this.persons = value.data;
+
+        }, error: (err: HttpErrorResponse) => console.error(err.error)
+      })
   }
 
 }
