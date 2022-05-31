@@ -48,7 +48,7 @@ export class PersonsIndexComponent implements OnInit {
   getPersons() {
     this.loadingStart()
 
-    return this.personsService.getPersons(this.limit, this.offset)
+    return this.personsService.getPersonsDto(this.limit, this.offset)
       .subscribe({
         next: value => {
           this.persons = value.data;
