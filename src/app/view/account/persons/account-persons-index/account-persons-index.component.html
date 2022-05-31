@@ -1,4 +1,10 @@
 <h2>Profiles</h2>
+<div class="alert"
+     [class]="'alert-' + alert?.status"
+     *ngIf="alert">
+  {{alert?.message}}
+</div>
+
 <table class="table table-striped">
   <thead class="table-dark">
   <tr>
