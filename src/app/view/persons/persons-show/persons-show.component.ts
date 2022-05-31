@@ -43,7 +43,7 @@ export class PersonsShowComponent implements OnInit {
       this.loadingStart();
 
       this.personsService
-        .getPersonDto(this.id)
+        .getSinglePersonDto(this.id)
         .subscribe({
           next: value => {
             this.personDto = value.data;
