@@ -50,7 +50,7 @@ export class PersonsService {
 
     // Get data from server and set it to cache
     return this.http
-      .get<IResponse<BaseListingDto<IPerson>>>(environment.apiUrl + '/persons',
+      .get<IResponse<BaseListingDto<PersonDto>>>(environment.apiUrl + '/persons',
         {params})
       .pipe(map(
         value => {
