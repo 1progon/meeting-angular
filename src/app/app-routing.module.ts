@@ -54,7 +54,6 @@ const routes: Routes = [
         canActivate: [OnlyLoggedUserGuard],
         children: [
           {path: '', component: DashboardComponent},
-          {path: 'dashboard', redirectTo: '/account'},
           {path: 'persons', component: AccountPersonsIndexComponent},
           {path: 'person/create', component: AccountPersonCreateComponent},
           {
