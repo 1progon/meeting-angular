@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IPerson} from "../../../../interfaces/persons/IPerson";
+import {PersonDto} from "../../../../dto/persons/PersonDto";
 
 @Component({
   selector: 'app-person-card',
@@ -7,7 +7,7 @@ import {IPerson} from "../../../../interfaces/persons/IPerson";
   styleUrls: ['./person-card.component.scss']
 })
 export class PersonCardComponent implements OnInit {
-  @Input() person: IPerson = {} as IPerson
+  @Input() person: PersonDto = {} as PersonDto
   @Input() path: string = ""
 
   constructor() {
