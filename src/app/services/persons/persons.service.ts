@@ -77,7 +77,7 @@ export class PersonsService {
   }
 
   // Get single person
-  getPersonDto(id: number): Observable<IResponse<PersonDto>> {
+  getSinglePersonDto(id: number): Observable<IResponse<PersonDto>> {
     let keyString = 'person-single-model-' + id;
 
     // try to get from cache
