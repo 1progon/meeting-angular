@@ -37,3 +37,8 @@
 
   </tbody>
 </table>
+
+<app-pagination [route]="paginatedRoute"
+                (click)="scrollToTop()"
+                *ngIf="persons && persons.pagination && persons.pagination.last_page > 1"
+                [pagination]="persons.pagination"></app-pagination>
