@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {IPerson} from "../../../interfaces/persons/IPerson";
 import {PersonsService} from "../../../services/persons/persons.service";
 import {BaseListingDto} from "../../../dto/BaseListingDto";
 import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../../environments/environment";
+import {PersonDto} from "../../../dto/persons/PersonDto";
 
 @Component({
   selector: 'app-persons-index',
@@ -26,7 +26,7 @@ export class PersonsIndexComponent implements OnInit {
 
   paginatedRoute = "persons";
 
-  persons?: BaseListingDto<IPerson>;
+  persons: BaseListingDto<PersonDto> = <BaseListingDto<PersonDto>>{};
   offset = 0;
   limit = 20;
   pageId: number = 0;
