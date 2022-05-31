@@ -15,6 +15,9 @@
      routerLink="/persons">Reset location</a></div>
 <!--End reset location button-->
 
+<div *ngIf="!countries && !loading">No countries with persons</div>
+
+
 <!--Countries list-->
 <div *ngFor="let country of countries; let i = index;" class="countries">
 

@@ -19,11 +19,13 @@ export class LeftSidebarComponent implements OnInit {
 
   countries: ICountry[] = [];
   visible: { [id: number]: boolean } = {}
+  loading = false;
 
   ngOnInit(): void {
     this.personsService.activeCountrySlug = localStorage.getItem('country') ?? '';
     this.personsService.activeCitySlug = localStorage.getItem('city') ?? '';
 
+    this.loading = true;
     this.service.getCountriesWithPersons()
       .subscribe({
         next: value => {
@@ -43,6 +45,9 @@ export class LeftSidebarComponent implements OnInit {
 
         },
         error: err => console.error(err)
+      })
+      .add(() => {
+        this.loading = false;
       })
 
 
