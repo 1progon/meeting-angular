@@ -3,13 +3,13 @@
   <!--Country-->
   <div class="col">
     <label class="form-label required" for="country">Country</label>
-    <select (change)="changeCountry();city.reset()"
+    <select #country="ngModel"
+            (change)="changeCountry();city.reset()"
             [(ngModel)]="form.country"
             [disabled]="!countries"
             class="form-select"
             id="country"
             name="country"
-            #country="ngModel"
             required>
       <option disabled hidden [value]="form.country">{{updating ? 'Loading...' : 'Select country...'}}</option>
       <option *ngFor="let country of countries;"
@@ -26,12 +26,12 @@
   <!--City-->
   <div class="col">
     <label class="form-label required" for="city">City</label>
-    <select [(ngModel)]="form.city"
+    <select #city="ngModel"
+            [(ngModel)]="form.city"
             [disabled]="!countries[countryIndexInArray]?.cities || updating"
             class="form-select"
             id="city"
             name="city"
-            #city="ngModel"
             required>
       <option disabled hidden [value]="form.city">{{updating ? 'Loading...' : 'Select city...'}}</option>
       <option *ngFor="let city of countries[countryIndexInArray]?.cities;"
