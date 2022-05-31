@@ -60,8 +60,20 @@ export class PersonsService {
   }
 
   // get persons by user id
-  getPersonsDtoByUser(): Observable<IResponse<PersonDto[]>> {
-    return this.http.get<IResponse<PersonDto[]>>(environment.apiUrl + '/account/persons-by-user');
+  getPersonsDtoByUser(limit: number = 20, offset: number = 0): Observable<IResponse<BaseListingDto<PersonDto>>> {
+
+    let params = new HttpParams();
+    if (limit != 20) {
+      params = params.append('limit', limit)
+    }
+
+    if (offset != 0) {
+      params = params.append('offset', offset)
+    }
+
+    return this.http
+      .get<IResponse<BaseListingDto<PersonDto>>>(environment.apiUrl + '/account/persons-by-user',
+        {params});
   }
 
   // Get single person
