@@ -12,7 +12,7 @@ import {environment} from "../../../../environments/environment";
 })
 export class PersonsIndexComponent implements OnInit {
 
-  constructor(private personsService: PersonsService,
+  constructor(public personsService: PersonsService,
               private activatedRoute: ActivatedRoute,
               private router: Router) {
   }
@@ -31,8 +31,6 @@ export class PersonsIndexComponent implements OnInit {
   limit = 20;
   pageId: number = 0;
   loading: boolean = false;
-  countrySlug = "";
-  citySlug = "";
 
 
   loadingStart() {
@@ -101,7 +99,8 @@ export class PersonsIndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Get route data route param
+
+    // Get route data like title, route name and others
     this.activatedRoute.data.subscribe({
       next: data => {
         this.routeData = data['route']
@@ -113,28 +112,49 @@ export class PersonsIndexComponent implements OnInit {
     // Get route params
     this.activatedRoute.params.subscribe({
       next: params => {
-        this.countrySlug = params['countrySlug'] ?? "";
-        this.citySlug = params['citySlug'] ?? "";
+
         this.pageId = params['pageId'] ?? 1
         this.offset = (this.pageId - 1) * this.limit;
+
+        // if simple route without country and city
+        if (this.routeData == 'persons-index') {
+          //try to get location from storage
+          this.personsService.activeCountrySlug = localStorage.getItem('country') ?? '';
+          this.personsService.activeCitySlug = localStorage.getItem('city') ?? '';
+
+          if (this.personsService.activeCountrySlug != '' && this.personsService.activeCitySlug != '') {
+            this.router.navigateByUrl('/persons/' + this.personsService.activeCountrySlug + '/' + this.personsService.activeCitySlug).finally();
+            return;
+          }
+
+          if (this.personsService.activeCountrySlug != '') {
+            this.router.navigateByUrl('/persons/' + this.personsService.activeCountrySlug).finally();
+            return;
+          }
+
+        }
+
+        // get slugs from route
+        this.personsService.activeCountrySlug = params['countrySlug'] ?? '';
+        this.personsService.activeCitySlug = params['citySlug'] ?? '';
+
 
         // Set page title
         document.title = this.pageTitle + ' ' + this.pageId;
 
-        if (this.routeData == 'persons-index-country') {
-          this.paginatedRoute = 'persons/' + this.countrySlug
-          if (this.countrySlug != "") {
-            this.getPersonsByCountry(this.countrySlug);
-          }
-
-        } else if (this.routeData == 'persons-index-city') {
-          this.paginatedRoute = 'persons/' + this.countrySlug + '/' + this.citySlug
-          if (this.countrySlug != "" && this.citySlug != "") {
-            this.getPersonsByCityAndCountry(this.countrySlug, this.citySlug);
-          }
-        } else {
-          this.getPersons()
+        if (this.personsService.activeCountrySlug != '' && this.personsService.activeCitySlug != '') {
+          this.paginatedRoute = 'persons/' + this.personsService.activeCountrySlug + '/' + this.personsService.activeCitySlug
+          this.getPersonsByCityAndCountry(this.personsService.activeCountrySlug, this.personsService.activeCitySlug);
+          return;
         }
+
+        if (this.personsService.activeCountrySlug != '') {
+          this.paginatedRoute = 'persons/' + this.personsService.activeCountrySlug
+          this.getPersonsByCountry(this.personsService.activeCountrySlug);
+          return
+        }
+
+        this.getPersons()
 
 
       }, error: err => console.error(err)
