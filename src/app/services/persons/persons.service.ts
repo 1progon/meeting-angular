@@ -61,7 +61,7 @@ export class PersonsService {
 
   // get persons by user id
   getPersonsDtoByUser(): Observable<IResponse<PersonDto[]>> {
-    return this.http.get<IResponse<PersonDto[]>>(environment.apiUrl + '/persons-by-user');
+    return this.http.get<IResponse<PersonDto[]>>(environment.apiUrl + '/account/persons-by-user');
   }
 
   // Get single person
@@ -84,7 +84,7 @@ export class PersonsService {
   // Edit person inside account
   getPersonEditBase(id: number): Observable<IResponse<IPerson>> {
     // todo not implemented get person
-    return this.http.get<IResponse<IPerson>>(environment.apiUrl + '/person/' + id)
+    return this.http.get<IResponse<IPerson>>(environment.apiUrl + '/account/person/edit/' + id)
   }
 
   // get persons index page with country
@@ -151,7 +151,7 @@ export class PersonsService {
 
   // Create person
   addPerson(formData: FormData) {
-    return this.http.post<PersonDto>(environment.apiUrl + '/persons/add',
+    return this.http.post<PersonDto>(environment.apiUrl + '/account/person/add',
       formData)
   }
 
