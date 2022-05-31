@@ -7,6 +7,10 @@ export interface PersonDto {
   name: string;
   slug: string;
   person_char: PersonCharDto;
+
+  status: number;
+  status_name: string;
+
   description: string;
   image: string;
   country_name: string;

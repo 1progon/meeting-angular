@@ -10,6 +10,7 @@ export interface IPerson extends IBaseModel {
   chars: IPersonChar;
   description: string;
   image: string;
+  status: number;
   country: ICountry;
   region: IRegion;
   city: ICity;
