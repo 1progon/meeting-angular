@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -8,14 +8,14 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class AccountPersonEditCharsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {
+  }
 
   personId?: number;
 
   ngOnInit(): void {
-   this.personId = this.route.parent?.snapshot.params['id'];
+    this.personId = this.route.parent?.snapshot.params['id'];
 
-    console.log(this.personId)
   }
 
 }
