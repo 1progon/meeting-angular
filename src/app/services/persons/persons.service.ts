@@ -93,12 +93,6 @@ export class PersonsService {
       }));
   }
 
-  // Edit person inside account
-  getPersonEditBase(id: number): Observable<IResponse<IPerson>> {
-    // todo not implemented get person
-    return this.http.get<IResponse<IPerson>>(environment.apiUrl + '/account/person/edit/' + id)
-  }
-
   // get persons index page with country
   getPersonsByCountry(countrySlug: string, limit: number = 20, offset: number = 0) {
 
