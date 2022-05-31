@@ -34,7 +34,11 @@
   <h2>Image</h2>
   <div class="mb-3">
     <label class="form-label" for="main-photo">Main Photo</label>
-    <input [(ngModel)]="form.image" class="form-control" id="main-photo" name="main_photo" type="file">
+    <input [(ngModel)]="form.image"
+           class="form-control"
+           id="main-photo"
+           name="main_photo"
+           type="file">
   </div>
   <!--End Image upload-->
 
@@ -45,7 +49,7 @@
       [disabled]="ngForm.pristine
       || ngForm.untouched
       || ngForm.invalid"
-      class="btn btn-success" type="submit">Update Person
+      class="btn btn-success" type="submit">Update Profile
     </button>
   </div>
   <!--End Submit person button-->
