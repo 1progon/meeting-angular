@@ -1,21 +1,21 @@
-<h2>Add Person</h2>
+<h2>Add Profile</h2>
 
-<form (ngSubmit)="submitForm()" #ngForm="ngForm">
+<form (ngSubmit)="submitForm()" #formAdd="ngForm">
   <label class="required mb-3"></label><span> - required fields</span>
 
   <div class="mb-3">
     <label class="form-label required" for="name">Name</label>
-    <input
-      [(ngModel)]="form.name"
-      class="form-control"
-      id="name"
-      name="name"
-      #name="ngModel"
-      required
-      type="text">
+    <input #name="ngModel"
+           [(ngModel)]="form.name"
+           class="form-control"
+           id="name"
+           name="name"
+           minlength="3"
+           required
+           type="text">
   </div>
   <div class="alert alert-danger" *ngIf="name.invalid && name.touched">
-    Name is required
+    Name is required. Min length 3 symbols
   </div>
 
   <div class="mb-3">
@@ -33,20 +33,40 @@
   <!--End Select location-->
 
   <!--Image upload-->
-  <h2>Image</h2>
+  <h2>Photo</h2>
   <div class="mb-3">
-    <label class="form-label" for="main-photo">Main Photo</label>
-    <input [(ngModel)]="form.image" class="form-control" id="main-photo" name="main_photo" type="file">
+    <label class="form-label required" for="image">Main photo - png, gif, jpeg, jpg, up to 20 MB</label>
+    <input #imageModel="ngModel"
+           (change)="onFileSelected($event)"
+           [(ngModel)]="image"
+           class="form-control"
+           id="image"
+           name="image"
+           required
+           type="file">
   </div>
   <!--End Image upload-->
+
+  <div class="alert alert-danger" *ngIf="imageModel.dirty && !selectedFile">
+    Image is required. Allowed file types gif, png, jpeg, jpg. File size up to 20 MB
+  </div>
+
+
+  <div *ngIf="selectedFile">
+    <p>{{selectedFile?.name}} {{fileSize}}</p>
+    <img class="image-preview" [src]="imagePreview" alt="image">
+  </div>
 
 
   <!--Submit person button-->
   <div class="mb-3">
-    <button
-      [disabled]="ngForm.pristine
-      || ngForm.untouched"
-      class="btn btn-success" type="submit">Add Person
+    <button [disabled]="formAdd.invalid
+                      || formAdd.untouched
+                      || !selectedFile
+                      || !form.country
+                      || !form.city"
+            class="btn btn-success"
+            type="submit">Add Profile
     </button>
   </div>
   <!--End Submit person button-->
