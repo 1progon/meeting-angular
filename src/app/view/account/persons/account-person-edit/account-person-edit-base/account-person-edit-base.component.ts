@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {IPerson} from "../../../../../interfaces/persons/IPerson";
+import {PersonsService} from "../../../../../services/persons/persons.service";
 
 @Component({
   selector: 'app-account-person-edit',
@@ -9,14 +10,38 @@ import {IPerson} from "../../../../../interfaces/persons/IPerson";
 })
 export class AccountPersonEditBaseComponent implements OnInit {
 
-  constructor(public route: ActivatedRoute) {
+  constructor(public route: ActivatedRoute, private personsService: PersonsService) {
   }
 
+
+  personId?: number;
   form: IPerson = <IPerson>{}
   updating: any;
 
+
   ngOnInit(): void {
+    this.personId = this.route.snapshot.parent?.params['id'];
+    if (this.personId) {
+      this.getPerson(this.personId);
+    }
+
+
   }
+
+  getPerson(id: number) {
+    this.personsService.getPersonEditBase(id)
+      .subscribe({
+        next: value => {
+
+          this.form = value.data;
+
+        }, error: err => {
+          console.error(err)
+        }
+      })
+
+  }
+
 
   submitForm() {
     console.log(this.form)
