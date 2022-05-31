@@ -10,7 +10,7 @@ import {PersonDto} from "../../../../dto/persons/PersonDto";
 })
 export class AccountPersonsIndexComponent implements OnInit {
 
-  constructor(private personsService: PersonsService) {
+  constructor(private personsService: PersonsService, private route: ActivatedRoute) {
   }
 
   persons: PersonDto[] = [];
