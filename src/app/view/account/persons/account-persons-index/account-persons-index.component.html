@@ -26,7 +26,12 @@
     <td>
       <a [routerLink]="'/account/person/edit/'+person.id" class="btn btn-warning">Edit</a>
     <td>
-      <a href="" class="btn btn-danger">Delete</a>
+      <form (submit)="deletePerson(person.id)">
+        <input [disabled]="!isDeleteAllow"
+               class="btn btn-danger"
+               type="submit"
+               value="Delete">
+      </form>
     </td>
   </tr>
 
