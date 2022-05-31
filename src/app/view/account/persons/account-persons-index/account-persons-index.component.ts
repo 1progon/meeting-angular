@@ -41,7 +41,7 @@ export class AccountPersonsIndexComponent implements OnInit {
 
 
   getPersonsByUser() {
-    this.personsService.getPersonsDtoByUser()
+    this.personsService.getPersonsDtoByUser(this.limit, this.offset)
       .subscribe({
         next: value => {
           this.persons = value.data;
