@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit {
     // Redirect to account, if user already logged
     if (this.auth.isLogged()) {
       this.router.navigateByUrl('/account').finally();
+      return;
     }
   }
 
@@ -63,7 +64,7 @@ export class RegisterComponent implements OnInit {
       .subscribe({
         next: () => {
 
-          this.router.navigateByUrl('/account').finally()
+          this.router.navigateByUrl('/persons').finally()
           return
 
         }, error: (err: HttpErrorResponse) => {

@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.auth.isLogged()) {
       this.router.navigateByUrl('/account').finally();
+      return
     }
 
   }
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: () => {
 
-          this.router.navigateByUrl('/account').finally()
+          this.router.navigateByUrl('/persons').finally()
           return;
         },
         error: err => {
