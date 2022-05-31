@@ -7,6 +7,7 @@ import {environment} from "../../environments/environment";
 import {IResponse} from "../interfaces/IResponse";
 import {TokenDto} from "../dto/user/TokenDto";
 import {UserType} from "../enums/UserType";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import {UserType} from "../enums/UserType";
 export class AuthService {
   @Output() updateTokenEvent = new EventEmitter<boolean>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   private _token?: TokenDto;
@@ -40,7 +41,7 @@ export class AuthService {
   private getTokenFromStorage() {
     let jsonToken = sessionStorage.getItem('token');
 
-    if (!jsonToken) {
+    if (!jsonToken || jsonToken.trim() == "") {
       this.logout();
       return;
     }
@@ -115,12 +116,33 @@ export class AuthService {
     let expired = this._token?.token_expired ?? -1;
     return expired < Math.round(Date.now() / 1000);
 
+  }
 
+  logoutAndRedirect() {
+    this.logout();
+    this.router.navigateByUrl('/login').finally();
   }
 
   logout() {
     this._token = undefined;
     this.clearTokenStorage();
-    this.updateTokenEvent.emit(false)
+    this.updateTokenEvent.emit(false);
+  }
+
+  refreshToken() {
+    // get ref token from auth tokens
+    let refresh_token = this.token?.refresh_token;
+
+    //check if ref token exists
+    if (!refresh_token) {
+      //logout if no ref token
+      this.logoutAndRedirect();
+      return new Observable<IResponse<TokenDto>>();
+    }
+
+    // create json body for request
+    let body = JSON.stringify(<TokenDto | unknown>{refresh_token});
+
+    return this.http.post<IResponse<TokenDto>>(environment.apiUrl + '/auth/refresh-token', body);
   }
 }
