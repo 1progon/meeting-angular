@@ -72,7 +72,7 @@
 
         <!--Cycle left-->
         <div class="mb-1" *ngFor="let char of personDto.person_char | keyvalue; let i = index">
-          <div *ngIf="(i+1) <=10" class="d-flex">
+          <div *ngIf="(i+1) <=8" class="d-flex">
             <div class="char-title">{{char.key.replace('_', ' ') | titlecase}}</div>
             <div class="char-value">{{char.value}}</div>
           </div>
@@ -93,7 +93,7 @@
 
         <!--Cycle right-->
         <div class="mb-1" *ngFor="let char of personDto.person_char | keyvalue; let i = index">
-          <div *ngIf="(i+1) > 10 && char.key != 'nationality' && char.key != 'languages'"
+          <div *ngIf="(i+1) > 8 && char.key != 'nationality' && char.key != 'languages'"
                class="d-flex">
             <div class="char-title">{{char.key.replace('_', ' ') | titlecase }}</div>
             <div class="char-value">{{char.value}}</div>
