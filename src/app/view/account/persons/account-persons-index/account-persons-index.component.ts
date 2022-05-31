@@ -13,7 +13,17 @@ export class AccountPersonsIndexComponent implements OnInit {
   constructor(private personsService: PersonsService, private route: ActivatedRoute) {
   }
 
-  persons: PersonDto[] = [];
+  persons: BaseListingDto<PersonDto> = <BaseListingDto<PersonDto>>{}
+  limit = 20;
+  offset = 0;
+  paginatedRoute = 'account/persons';
+  pageId = 1;
+  alert?: {
+    status: string;
+    message: string;
+  };
+
+  isDeleteAllow = true;
 
   ngOnInit(): void {
     this.getPersonsByUser()
