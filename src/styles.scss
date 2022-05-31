@@ -108,4 +108,31 @@ form {
 
 }
 
+.disabled,
+button[disabled],
+button:disabled,
+select:disabled,
+input:disabled,
+textarea:disabled {
+  pointer-events: unset !important;
+  cursor: not-allowed !important;
+}
+
+.page-link {
+  color: #212529;
+
+  &:focus {
+    background-color: white;
+    color: #212529;
+  }
+
+  &:hover {
+    color: red;
+    background-color: #e9ecef;
+
+  }
+}
+
+
+
 
