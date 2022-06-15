@@ -20,6 +20,7 @@ export class AccountPersonEditBaseComponent implements OnInit {
   person: IPerson = <IPerson>{}
 
   updating: any;
+  imagePreview?: string | ArrayBuffer | null;
   image?: string;
   path = environment.apiHost;
 
