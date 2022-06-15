@@ -11,9 +11,8 @@
             id="country"
             name="country"
             required>
-      <option disabled hidden [value]="form.country">{{updating ? 'Loading...' : 'Select country...'}}</option>
-      <option *ngFor="let country of countries;"
-              [ngValue]="country">{{country.name}}</option>
+      <option disabled hidden [value]="person.country">{{updating ? 'Loading...' : 'Select country...'}}</option>
+      <option *ngFor="let country of countries" [ngValue]="country">{{country.name}}</option>
     </select>
 
     <div class="alert alert-danger mt-3" *ngIf="countryModel.invalid && countryModel.touched">
@@ -34,8 +33,8 @@
             id="city"
             name="city"
             required>
-      <option disabled hidden [value]="form.city">{{updating ? 'Loading...' : 'Select city...'}}</option>
-      <option *ngFor="let city of countries[countryIndexInArray]?.cities;"
+      <option disabled hidden [value]="person.city">{{updating ? 'Loading...' : 'Select city...'}}</option>
+      <option *ngFor="let city of person.country?.cities"
               [ngValue]="city">{{city.name}}</option>
     </select>
     <div class="alert alert-danger mt-3" *ngIf="city.invalid && city.touched">
