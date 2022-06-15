@@ -53,7 +53,27 @@ export class AccountPersonEditBaseComponent implements OnInit {
 
 
   submitForm() {
-    console.log(this.form)
+
+    let cities = this.person.country.cities;
+    delete this.person.country.cities;
+
+    let fd = new FormData();
+
+    if (this.selectedFile) {
+      fd.append('image_file', this.selectedFile);
+    }
+    fd.append('person_dto', JSON.stringify(this.person));
+
+    this.person.country.cities = cities;
+
+    this.personsService.updatePerson(fd, this.person.id)
+      .subscribe({
+        next: value => {
+
+        }, error: err => console.error(err)
+      })
+
+
   }
 
 
