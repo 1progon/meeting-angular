@@ -4,7 +4,8 @@ import {BaseListingDto} from "../../../dto/BaseListingDto";
 import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../../environments/environment";
 import {PersonDto} from "../../../dto/persons/PersonDto";
-import {HttpErrorResponse} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {IResponse} from "../../../interfaces/IResponse";
 
 @Component({
   selector: 'app-persons-index',
