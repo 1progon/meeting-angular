@@ -34,6 +34,8 @@ export class PersonsIndexComponent implements OnInit {
   pageId: number = 0;
   loading: boolean = false;
 
+  //Filters
+  activeGenderFilter: string = 'Female';
 
   loadingStart() {
     this.timeId = setTimeout(() => {
