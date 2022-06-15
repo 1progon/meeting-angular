@@ -50,7 +50,11 @@ export class PersonsShowComponent implements OnInit {
           next: value => {
             this.personDto = value.data;
           },
-          error: err => console.error(err)
+          error: err => {
+            console.error(err);
+            this.router.navigateByUrl('/404').finally()
+            return;
+          }
         })
         .add(() => {
           this.loadingStop();
