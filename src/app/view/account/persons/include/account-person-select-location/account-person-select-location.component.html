@@ -26,9 +26,9 @@
   <!--City-->
   <div class="col">
     <label class="form-label required" for="city">City</label>
-    <select #city="ngModel"
-            [(ngModel)]="form.city"
-            [disabled]="!countries[countryIndexInArray]?.cities || updating"
+    <select #cityModel="ngModel"
+            [(ngModel)]="person.city"
+            [disabled]="!person.country?.cities || updating"
             class="form-select"
             id="city"
             name="city"
@@ -37,7 +37,7 @@
       <option *ngFor="let city of person.country?.cities"
               [ngValue]="city">{{city.name}}</option>
     </select>
-    <div class="alert alert-danger mt-3" *ngIf="city.invalid && city.touched">
+    <div class="alert alert-danger mt-3" *ngIf="cityModel.invalid">
       City is required
     </div>
   </div>
