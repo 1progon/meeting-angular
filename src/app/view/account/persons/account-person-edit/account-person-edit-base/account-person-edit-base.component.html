@@ -36,6 +36,7 @@
   <div class="mb-3">
     <label class="form-label" for="image">Main Photo</label>
     <input #imageModel="ngModel"
+           (change)="onFileSelected($event)"
            [(ngModel)]="image"
            class="form-control"
            id="image"
