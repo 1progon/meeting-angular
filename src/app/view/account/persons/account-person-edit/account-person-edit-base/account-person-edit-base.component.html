@@ -45,7 +45,7 @@
   </div>
   <!--End Image upload-->
 
-  <div class="alert alert-danger" *ngIf="imageModel.invalid">
+  <div class="alert alert-danger" *ngIf="imageModel.invalid && imageModel.dirty">
     Image is required. Allowed file types gif, png, jpeg. File size up to 20 MB
   </div>
 
@@ -60,9 +60,10 @@
   <!--Submit person button-->
   <div class="mb-3">
     <button
-      [disabled]="ngForm.pristine
-      || ngForm.untouched
-      || ngForm.invalid"
+      [disabled]="ngForm.invalid
+                 || ngForm.pristine
+                 || !person.country
+                 || !person.city"
       class="btn btn-success" type="submit">Update Profile
     </button>
   </div>
