@@ -37,6 +37,11 @@ export class PersonsIndexComponent implements OnInit {
   //Filters
   activeGenderFilter: string = 'Female';
 
+  ageRange?: Array<number>;
+  ageRangeFiltered?: Array<number>;
+  ageFromSelected: number = 18;
+  ageToSelected: number = 100;
+
   loadingStart() {
     this.timeId = setTimeout(() => {
       this.loading = true;
