@@ -186,9 +186,8 @@ export class PersonsIndexComponent implements OnInit {
 
   updateGenderFilter() {
     localStorage.setItem('gender', this.activeGenderFilter);
-    console.log(this.persons);
-    this.personsFiltered.items = this.persons.items.filter(p => p.person_char?.gender == this.activeGenderFilter);
-    console.log(this.persons);
+
+  //  todo implement request persons with gender filter change
   }
 
   updateAgeRange() {
