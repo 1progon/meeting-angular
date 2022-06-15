@@ -31,6 +31,10 @@ export class LeftSidebarComponent implements OnInit {
     this.personsService.activeCountrySlug = localStorage.getItem('country') ?? '';
     this.personsService.activeCitySlug = localStorage.getItem('city') ?? '';
 
+    this.getCountries();
+  }
+
+  getCountries() {
     this.loading = true;
     this.service.getCountriesWithPersons()
       .subscribe({
@@ -55,8 +59,6 @@ export class LeftSidebarComponent implements OnInit {
       .add(() => {
         this.loading = false;
       })
-
-
   }
 
   getCities(countrySlug: string, elementId: number) {
