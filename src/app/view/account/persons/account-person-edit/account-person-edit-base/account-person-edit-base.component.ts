@@ -21,7 +21,10 @@ export class AccountPersonEditBaseComponent implements OnInit {
 
   updating: any;
   imagePreview?: string | ArrayBuffer | null;
+  selectedFile?: File;
+  fileSize?: string;
   image?: string;
+
   path = environment.apiHost;
 
 
