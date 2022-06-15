@@ -134,13 +134,13 @@ export class PersonsIndexComponent implements OnInit {
 
         if (this.personsService.activeCountrySlug != '' && this.personsService.activeCitySlug != '') {
           this.paginatedRoute = 'persons/' + this.personsService.activeCountrySlug + '/' + this.personsService.activeCitySlug
-          this.getPersonsByCityAndCountry(this.personsService.activeCountrySlug, this.personsService.activeCitySlug);
+          this.getPersons(this.personsService.activeCountrySlug, this.personsService.activeCitySlug);
           return;
         }
 
         if (this.personsService.activeCountrySlug != '') {
           this.paginatedRoute = 'persons/' + this.personsService.activeCountrySlug
-          this.getPersonsByCountry(this.personsService.activeCountrySlug);
+          this.getPersons(this.personsService.activeCountrySlug);
           return
         }
 
