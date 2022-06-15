@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {RegisterDto} from "../dto/auth/RegisterDto";
 import {LoginDto} from "../dto/auth/LoginDto";
-import {map, Observable} from "rxjs";
+import {map, Observable, of} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {IResponse} from "../interfaces/IResponse";
@@ -137,7 +137,7 @@ export class AuthService {
     if (!refresh_token) {
       //logout if no ref token
       this.logoutAndRedirect();
-      return new Observable<IResponse<TokenDto>>();
+      return of(<IResponse<TokenDto>>{});
     }
 
     // create json body for request
