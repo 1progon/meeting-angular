@@ -20,7 +20,11 @@ export class LeftSidebarComponent implements OnInit {
   }
 
   countries: ICountry[] = [];
-  visible: { [id: number]: boolean } = {}
+
+
+  expandedCountries?: IVisibleCountryElement;
+  cacheOfExpandedCountries?: IVisibleCountryElement;
+
   loading = false;
 
   ngOnInit(): void {
