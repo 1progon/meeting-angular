@@ -54,6 +54,8 @@ export class PersonsService {
       cacheName = `persons-index-${limit}-${offset}`;
     }
 
+    // try to get data from local cache
+    let cache = this.getFromCache(cacheName);
     if (cache) return cache;
 
     // Add query params
