@@ -59,7 +59,7 @@ export class PersonsService {
       .get<IResponse<BaseListingDto<PersonDto>>>(url, {params})
       .pipe(map(
         value => {
-          this.cacheService.setCache(keyString, value);
+          this.cacheService.setCache(cacheName, value);
           return value;
         }));
   }
