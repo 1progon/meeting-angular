@@ -28,6 +28,7 @@ export class PersonsIndexComponent implements OnInit {
   paginatedRoute = "persons";
 
   persons: BaseListingDto<PersonDto> = <BaseListingDto<PersonDto>>{};
+  personsFiltered: BaseListingDto<PersonDto> = <BaseListingDto<PersonDto>>{};
   offset = 0;
   limit = 20;
   pageId: number = 0;
