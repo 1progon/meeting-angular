@@ -60,67 +60,6 @@ export class PersonsService {
         }));
   }
 
-  // get persons index page with country
-  getPersonsByCountry(countrySlug: string,
-                      limit: number = 20,
-                      offset: number = 0): Observable<IResponse<BaseListingDto<PersonDto>>> {
-
-    // Cache key
-    let keyString = `persons-index-${countrySlug}-${limit}-${offset}`;
-
-    // try to get from cache
-    let cache = this.getFromCache(keyString);
-    if (cache) return cache;
-
-    let params = new HttpParams();
-    if (offset != 0) {
-      params = params.append("offset", offset);
-    }
-
-    if (limit != 20) {
-      params = params.append("limit", limit);
-    }
-
-    return this.http
-      .get<IResponse<BaseListingDto<PersonDto>>>(environment.apiUrl + '/persons/' + countrySlug,
-        {params})
-      .pipe(map(value => {
-        this.cacheService.setCache(keyString, value);
-        return value;
-      }))
-  }
-
-  // get persons index page with country and city
-  getPersonsByCountryAndCity(countrySlug: string,
-                             citySlug: string,
-                             limit: number = 20,
-                             offset: number = 0): Observable<IResponse<BaseListingDto<PersonDto>>> {
-
-    // Cache key
-    let keyString = `persons-index-${countrySlug}-${citySlug}-${limit}-${offset}`;
-
-    // try to get cache
-    let cache = this.getFromCache(keyString);
-    if (cache) return cache;
-
-    let params = new HttpParams();
-    if (offset != 0) {
-      params = params.append("offset", offset);
-    }
-
-    if (limit != 20) {
-      params = params.append("limit", limit);
-    }
-
-    let url = environment.apiUrl + '/persons/' + countrySlug + '/' + citySlug;
-    return this.http
-      .get<IResponse<BaseListingDto<PersonDto>>>(url, {params})
-      .pipe(map(value => {
-        this.cacheService.setCache(keyString, value);
-        return value;
-      }))
-  }
-
   // get persons by user id
   getPersonsDtoByUser(limit: number = 20, offset: number = 0): Observable<IResponse<BaseListingDto<PersonDto>>> {
 
