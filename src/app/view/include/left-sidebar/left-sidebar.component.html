@@ -49,8 +49,8 @@
 
 
     <!--Plus-Minus sign to expand cities in country-->
-    <a (click)="getCities(country.slug, i)"
-       class="badge plus border ms-2 me-1 my-1 pointer">{{visible[i] ? '-' : '+'}}</a>
+    <a (click)="getCities(country.slug, country.id)"
+       class="badge plus border ms-2 me-1 my-1 pointer">{{expandedCountries?.[country.id] ? '-' : '+'}}</a>
     <!--End plus minus sign-->
 
     <!--Country row-->
@@ -73,7 +73,7 @@
 
 
   <!--Cities list inside country-->
-  <div *ngIf="country.cities && visible[i]"
+  <div *ngIf="country.cities && expandedCountries?.[country.id]"
        class="cities d-flex flex-column">
 
     <!--City row-->
