@@ -44,6 +44,7 @@ export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
 
   }
 
+  // onClick country select
   changeCountry() {
 
     // Get Index element of Country in Countries Array
