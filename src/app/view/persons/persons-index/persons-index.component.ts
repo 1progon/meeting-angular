@@ -151,66 +151,32 @@ export class PersonsIndexComponent implements OnInit {
     });
   }
 
-  getPersons() {
-    this.loadingStart()
-
-    return this.personsService.getPersonsDto(this.limit, this.offset)
-      .subscribe({
-        next: value => {
-          this.persons = value.data;
-          this.updateGenderFilter();
-        },
-        error: (err: HttpErrorResponse) => {
-          console.error(err);
-          if (err.status == 401) {
-            this.router.navigateByUrl('/login').finally()
-            return
-          }
-          this.router.navigateByUrl('/404').finally()
-        }
-      }).add(() => {
-        this.loadingStop();
-      })
-
-
-  }
-
-  getPersonsByCountry(countrySlug: string) {
+  getPersons(countrySlug?: string, citySlug?: string) {
     this.loadingStart();
 
-    return this.personsService
-      .getPersonsByCountry(countrySlug, this.limit, this.offset)
-      .subscribe({
-        next: value => {
-          this.persons = value.data;
-          this.updateGenderFilter();
-        },
-        error: err => console.error(err)
-      })
-      .add(() => {
-        this.loadingStop()
-      })
+    let obs: Observable<IResponse<BaseListingDto<PersonDto>>>;
+
+    if (countrySlug && citySlug) {
+      obs = this.personsService
+        .getPersonsByCountryAndCity(countrySlug, citySlug, this.limit, this.offset)
+    } else if (countrySlug) {
+      obs = this.personsService
+        .getPersonsByCountry(countrySlug, this.limit, this.offset)
+    } else {
+      obs = this.personsService.getPersons(this.limit, this.offset)
+    }
+
+    return obs.subscribe({
+      next: response => {
+        this.persons = response.data;
+        this.updateGenderFilter();
+      },
+      error: err => console.error(err)
+    })
+      .add(() => this.loadingStop())
 
 
   }
-
-  getPersonsByCityAndCountry(countrySlug: string, citySlug: string) {
-    this.loadingStart();
-
-    this.personsService
-      .getPersonsByCountryAndCity(countrySlug, citySlug, this.limit, this.offset)
-      .subscribe({
-        next: value => {
-          this.persons = value.data;
-          this.updateGenderFilter();
-        }, error: err => console.log(err)
-      })
-      .add(() => {
-        this.loadingStop();
-      })
-
-  }
-
 
   scrollToTop() {
     if (this.persons.pagination?.current_page < this.persons.pagination.last_page) {
