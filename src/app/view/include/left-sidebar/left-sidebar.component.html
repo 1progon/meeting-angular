@@ -40,7 +40,8 @@
 
 
 <!--Countries list-->
-<div *ngFor="let country of countries; let i = index;" class="countries">
+<div *ngFor="let country of countriesFiltered"
+     class="countries">
 
   <!--Country row Name with counter and plus sign-->
   <a class="country-row d-flex align-items-center"
