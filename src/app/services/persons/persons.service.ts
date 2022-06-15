@@ -82,7 +82,7 @@ export class PersonsService {
     }
 
     return this.http
-      .get<IResponse<BaseListingDto<IPerson>>>(environment.apiUrl + '/persons/' + countrySlug,
+      .get<IResponse<BaseListingDto<PersonDto>>>(environment.apiUrl + '/persons/' + countrySlug,
         {params})
       .pipe(map(value => {
         this.cacheService.setCache(keyString, value);
