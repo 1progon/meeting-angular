@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ICity} from "../../../../../interfaces/location/ICity";
 import {ActivatedRoute} from "@angular/router";
 import {LocationService} from "../../../../../services/locations/location.service";
