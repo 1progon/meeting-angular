@@ -30,7 +30,8 @@ export class PersonsService {
 
   // Get persons Index page
   getPersons(limit = 20,
-             offset = 0): Observable<IResponse<BaseListingDto<PersonDto>>> {
+             offset = 0,
+             filters?: Map<string, any>): Observable<IResponse<BaseListingDto<PersonDto>>> {
 
     // Cache key
     let cacheName: string = '';
