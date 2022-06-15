@@ -68,4 +68,31 @@ export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
 
   }
 
+  // Check this.form changes
+  ngOnChanges(changes: SimpleChanges): void {
+
+    // if country and city set from input
+    if (changes['person'] && this.person.country) {
+      if (this.countries) {
+        let findCountry = this.countries.find(c => c.id == this.person.country.id);
+        if (findCountry) {
+          this.person.country = findCountry
+        }
+      }
+
+      this.locationService
+        .getCitiesByCountrySlug(this.person.country.slug)
+        .subscribe({
+          next: value => {
+            this.person.country.cities = value.data;
+
+            this.person.city = value.data.find(c => c.id == this.person.city.id) ?? <ICity>{}
+
+          }, error: err => console.error(err)
+        }).add(() => this.updating = false)
+    }
+
+
+  }
+
 }
