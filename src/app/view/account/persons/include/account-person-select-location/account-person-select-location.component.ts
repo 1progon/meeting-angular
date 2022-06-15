@@ -46,14 +46,10 @@ export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
 
   // onClick country select
   changeCountry() {
-
-    // Get Index element of Country in Countries Array
-    this.countryIndexInArray = this.countries.indexOf(this.form.country)
-
-    this.form.city = <ICity>{}
+    this.person.city = <ICity>{}
 
     // If cities already parsed earlier from backend, do nothing
-    if (this.countries[this.countryIndexInArray].cities) {
+    if (this.person.country.cities) {
       return
     }
 
@@ -66,7 +62,7 @@ export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
         next: value => {
 
           // Store cities on countries array locally
-          this.countries[this.countryIndexInArray].cities = value.data;
+          this.person.country.cities = value.data;
 
         }, error: err => console.error(err)
       })
