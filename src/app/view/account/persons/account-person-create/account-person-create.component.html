@@ -1,6 +1,6 @@
 <h2>Add Profile</h2>
 
-<form (ngSubmit)="submitForm()" #formAdd="ngForm">
+<form (ngSubmit)="submitForm()" #ngForm="ngForm">
   <label class="required mb-3"></label><span> - required fields</span>
 
   <div class="mb-3">
@@ -60,11 +60,11 @@
 
   <!--Submit person button-->
   <div class="mb-3">
-    <button [disabled]="formAdd.invalid
-                      || formAdd.untouched
+    <button [disabled]="ngForm.invalid
+                      || ngForm.untouched
                       || !selectedFile
-                      || !form.country
-                      || !form.city"
+                      || !person.country
+                      || !person.city"
             class="btn btn-success"
             type="submit">Add Profile
     </button>
