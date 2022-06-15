@@ -20,12 +20,15 @@ export class LeftSidebarComponent implements OnInit {
   }
 
   countries: ICountry[] = [];
+  countriesFiltered: ICountry[] = this.countries;
 
 
   expandedCountries?: IVisibleCountryElement;
   cacheOfExpandedCountries?: IVisibleCountryElement;
 
   loading = false;
+
+  filterCountryText: string = '';
 
   ngOnInit(): void {
     this.personsService.activeCountrySlug = localStorage.getItem('country') ?? '';
@@ -40,6 +43,7 @@ export class LeftSidebarComponent implements OnInit {
       .subscribe({
         next: value => {
           this.countries = value.data;
+          this.countriesFiltered = value.data;
 
           if (this.personsService.activeCountrySlug != ''
             && this.personsService.activeCitySlug != '') {
@@ -50,7 +54,19 @@ export class LeftSidebarComponent implements OnInit {
               return;
             }
 
-            this.getCities(country.slug, this.countries.indexOf(country));
+            this.countriesFiltered = [country];
+
+            this.getCities(country.slug, country.id);
+          }
+
+          if (this.personsService.activeCountrySlug != '') {
+            let country = this.countries
+              .find(c => c.slug == this.personsService.activeCountrySlug);
+            if (!country) {
+              return;
+            }
+
+            this.countriesFiltered = [country];
           }
 
         },
@@ -61,11 +77,14 @@ export class LeftSidebarComponent implements OnInit {
       })
   }
 
-  getCities(countrySlug: string, elementId: number) {
+  getCities(countrySlug: string, countryId: number) {
     // Collapse - expand cities on country
-    this.visible[elementId] = !this.visible[elementId];
+    if (!this.expandedCountries) {
+      this.expandedCountries = {};
+    }
+    this.expandedCountries[countryId] = !this.expandedCountries[countryId];
 
-    let country = this.countries.find(c => c.slug == countrySlug);
+    let country = this.countriesFiltered.find(c => c.slug == countrySlug);
     if (!country) {
       return;
     }
@@ -93,6 +112,14 @@ export class LeftSidebarComponent implements OnInit {
   }
 
   setCountryActive(slug: string) {
+    this.filterCountryText = '';
+    let activeCountry = this.countriesFiltered.find(c => c.slug == slug)
+
+    if (!activeCountry) {
+      return;
+    }
+
+    this.countriesFiltered = [activeCountry];
     this.personsService.activeCountrySlug = slug;
     this.personsService.activeCitySlug = '';
     localStorage.setItem('country', slug);
@@ -100,17 +127,60 @@ export class LeftSidebarComponent implements OnInit {
   }
 
   setCityAndCountryActive(citySlug: string, countrySlug: string) {
-    this.personsService.activeCitySlug = citySlug;
+    this.filterCountryText = '';
+    if (!this.expandedCountries) {
+      this.expandedCountries = {};
+    }
+    this.expandedCountries[0] = true;
+    let activeCountry = this.countriesFiltered.find(c => c.slug == countrySlug)
+
+    if (!activeCountry) {
+      return;
+    }
+
+    this.countriesFiltered = [activeCountry];
     this.personsService.activeCountrySlug = countrySlug;
+    this.personsService.activeCitySlug = citySlug;
     localStorage.setItem('country', countrySlug);
     localStorage.setItem('city', citySlug)
   }
 
   resetLocation() {
+    this.getCountries();
     this.personsService.activeCitySlug = '';
     this.personsService.activeCountrySlug = '';
-    this.visible = {};
+    this.expandedCountries = {};
     localStorage.removeItem('country')
     localStorage.removeItem('city')
   }
+
+  filterCountries() {
+    //check if visible rows cached
+    if (!this.cacheOfExpandedCountries) {
+      this.cacheOfExpandedCountries = this.expandedCountries;
+    }
+
+    //set visible rows to zero
+    this.expandedCountries = undefined;
+
+
+    //if no text entered or backspaced or clicked x to clear input
+    if (this.filterCountryText == '') {
+      this.expandedCountries = this.cacheOfExpandedCountries;
+      this.cacheOfExpandedCountries = undefined;
+
+      //set country like before filter. Cancel filter
+      this.countriesFiltered = this.countries
+        .filter(c =>
+          c.slug.match(this.personsService.activeCountrySlug));
+      return;
+    }
+
+    // set filtered countries list
+    this.countriesFiltered = this.countries
+      .filter(c => c.name.toLowerCase().match(this.filterCountryText.toLowerCase())
+        || c.slug.match(this.filterCountryText.toLowerCase()));
+  }
+
+
 }
