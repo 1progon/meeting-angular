@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PersonsService} from "../../../services/persons/persons.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {PersonDto} from "../../../dto/persons/PersonDto";
 import {IPersonPhoneMessenger, messengersMap} from "../../../interfaces/persons/IPersonPhoneMessenger";
 import {environment} from "../../../../environments/environment";
@@ -12,7 +12,9 @@ import {environment} from "../../../../environments/environment";
 })
 export class PersonsShowComponent implements OnInit {
 
-  constructor(private personsService: PersonsService, private route: ActivatedRoute) {
+  constructor(private personsService: PersonsService,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   personDto: PersonDto = {} as PersonDto;
