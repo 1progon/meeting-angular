@@ -61,7 +61,9 @@ export class PersonsService {
   }
 
   // get persons index page with country
-  getPersonsByCountry(countrySlug: string, limit: number = 20, offset: number = 0) {
+  getPersonsByCountry(countrySlug: string,
+                      limit: number = 20,
+                      offset: number = 0): Observable<IResponse<BaseListingDto<PersonDto>>> {
 
     // Cache key
     let keyString = `persons-index-${countrySlug}-${limit}-${offset}`;
@@ -89,7 +91,10 @@ export class PersonsService {
   }
 
   // get persons index page with country and city
-  getPersonsByCountryAndCity(countrySlug: string, citySlug: string, limit: number = 20, offset: number = 0) {
+  getPersonsByCountryAndCity(countrySlug: string,
+                             citySlug: string,
+                             limit: number = 20,
+                             offset: number = 0): Observable<IResponse<BaseListingDto<PersonDto>>> {
 
     // Cache key
     let keyString = `persons-index-${countrySlug}-${citySlug}-${limit}-${offset}`;
