@@ -60,40 +60,6 @@ export class PersonsService {
         }));
   }
 
-  // get persons by user id
-  getPersonsDtoByUser(limit: number = 20, offset: number = 0): Observable<IResponse<BaseListingDto<PersonDto>>> {
-
-    let params = new HttpParams();
-    if (limit != 20) {
-      params = params.append('limit', limit)
-    }
-
-    if (offset != 0) {
-      params = params.append('offset', offset)
-    }
-
-    return this.http
-      .get<IResponse<BaseListingDto<PersonDto>>>(environment.apiUrl + '/account/persons-by-user',
-        {params});
-  }
-
-  // Get single person
-  getSinglePersonDto(id: number): Observable<IResponse<PersonDto>> {
-    let keyString = 'person-single-model-' + id;
-
-    // try to get from cache
-    let cache = this.getFromCache(keyString);
-    if (cache) return cache;
-
-
-    return this.http
-      .get<IResponse<PersonDto>>(environment.apiUrl + '/person/' + id)
-      .pipe(map(value => {
-        this.cacheService.setCache(keyString, value)
-        return value;
-      }));
-  }
-
   // get persons index page with country
   getPersonsByCountry(countrySlug: string, limit: number = 20, offset: number = 0) {
 
@@ -148,6 +114,40 @@ export class PersonsService {
         this.cacheService.setCache(keyString, value);
         return value;
       }))
+  }
+
+  // get persons by user id
+  getPersonsDtoByUser(limit: number = 20, offset: number = 0): Observable<IResponse<BaseListingDto<PersonDto>>> {
+
+    let params = new HttpParams();
+    if (limit != 20) {
+      params = params.append('limit', limit)
+    }
+
+    if (offset != 0) {
+      params = params.append('offset', offset)
+    }
+
+    return this.http
+      .get<IResponse<BaseListingDto<PersonDto>>>(environment.apiUrl + '/account/persons-by-user',
+        {params});
+  }
+
+  // Get single person
+  getSinglePersonDto(id: number): Observable<IResponse<PersonDto>> {
+    let keyString = 'person-single-model-' + id;
+
+    // try to get from cache
+    let cache = this.getFromCache(keyString);
+    if (cache) return cache;
+
+
+    return this.http
+      .get<IResponse<PersonDto>>(environment.apiUrl + '/person/' + id)
+      .pipe(map(value => {
+        this.cacheService.setCache(keyString, value)
+        return value;
+      }));
   }
 
   sendMessage(form: any): Observable<IResponse<any>> {
