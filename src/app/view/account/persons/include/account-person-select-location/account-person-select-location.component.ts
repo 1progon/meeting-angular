@@ -10,8 +10,8 @@ import {IPerson} from "../../../../../interfaces/persons/IPerson";
   templateUrl: './account-person-select-location.component.html',
   styleUrls: ['./account-person-select-location.component.scss']
 })
-export class AccountPersonSelectLocationComponent implements OnInit {
-  @Input() form: IPerson = <IPerson>{}
+export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
+  @Input() person: IPerson = <IPerson>{}
 
   constructor(public route: ActivatedRoute, private locationService: LocationService) {
   }
@@ -47,7 +47,7 @@ export class AccountPersonSelectLocationComponent implements OnInit {
     this.updating = true;
 
     // Get cities from backend by selected country slug
-    this.locationService.getCitiesByCountrySlug(this.form.country.slug)
+    this.locationService.getCitiesByCountrySlug(this.person.country.slug)
       .subscribe({
         next: value => {
 
