@@ -26,13 +26,16 @@ export class AccountPersonCreateComponent implements OnInit {
 
   submitForm() {
 
-    this.form.country.cities = [];
+    let cities = this.person.country.cities;
+    delete this.person.country.cities;
 
     let fd = new FormData();
     if (this.selectedFile) {
       fd.append('image_file', this.selectedFile);
       fd.append('person_dto', JSON.stringify(this.person));
     }
+
+    this.person.country.cities = cities;
 
     this.personService.addPerson(fd)
       .subscribe({
