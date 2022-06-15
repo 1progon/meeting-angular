@@ -11,8 +11,8 @@
 </div>
 
 
-<div class="persons-block d-flex flex-wrap mb-3" *ngIf="!loading && persons?.items">
-  <div class="person-card" *ngFor="let person of persons?.items">
+<div class="persons-block d-flex flex-wrap mb-3" *ngIf="!loading && personsFiltered?.items">
+  <div class="person-card" *ngFor="let person of personsFiltered?.items">
     <app-person-card [person]="person" [path]="host"></app-person-card>
   </div>
 </div>
