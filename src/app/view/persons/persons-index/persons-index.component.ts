@@ -154,27 +154,27 @@ export class PersonsIndexComponent implements OnInit {
   getPersons(countrySlug?: string, citySlug?: string) {
     this.loadingStart();
 
-    let response: Observable<IResponse<BaseListingDto<PersonDto>>>;
+    let obs: Observable<IResponse<BaseListingDto<PersonDto>>>;
 
     if (countrySlug && citySlug) {
-      response = this.personsService
-        .getPersonsByCountryAndCity(countrySlug, citySlug, this.limit, this.offset)
+      obs = this.personsService
+        .getPersons(this.limit, this.offset,
+          new Map<string, any>([['countrySlug', countrySlug], ['citySlug', citySlug]]))
     } else if (countrySlug) {
-      response = this.personsService
-        .getPersonsByCountry(countrySlug, this.limit, this.offset)
+      obs = this.personsService
+        .getPersons(this.limit, this.offset,
+          new Map<string, any>([['countrySlug', countrySlug]]))
     } else {
-      response = this.personsService.getPersons(this.limit, this.offset)
+      obs = this.personsService.getPersons(this.limit, this.offset)
     }
 
-    return response.subscribe({
-      next: response => {
-        this.persons = response.data;
-        this.updateGenderFilter();
+    return obs.subscribe({
+      next: res => {
+        this.persons = res.data;
+        this.personsFiltered = res.data;
       },
       error: err => console.error(err)
-    })
-      .add(() => this.loadingStop())
-
+    }).add(() => this.loadingStop())
 
   }
 
