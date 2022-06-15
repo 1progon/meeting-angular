@@ -161,6 +161,12 @@ export class PersonsService {
       formData)
   }
 
+  // Update person
+  updatePerson(formData: FormData, personId: number) {
+    return this.http.post<IResponse<PersonDto>>(environment.apiUrl + '/account/person/edit/' + personId,
+      formData)
+  }
+
   // Edit person inside account
   getPersonEditBase(id: number): Observable<IResponse<IPerson>> {
     return this.http.get<IResponse<IPerson>>(environment.apiUrl + '/account/person/edit/' + id)
