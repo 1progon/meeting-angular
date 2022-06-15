@@ -56,6 +56,38 @@ export class PersonsIndexComponent implements OnInit {
 
 
   ngOnInit(): void {
+    // fill age range array with age numbers
+    this.ageRange = Array(200)
+      .fill(18)
+      .map((age, index) => age + index)
+      .filter(age => age >= 18 && age <= 100);
+
+    //set age from storage
+    let ageJson = localStorage.getItem('age');
+    if (ageJson) {
+      let {from, to} = JSON.parse(ageJson);
+      if (from >= 18 && to <= 100 && to >= from) {
+        this.ageFromSelected = from;
+        this.ageToSelected = to;
+      } else {
+        localStorage.removeItem('age')
+      }
+    }
+
+    // fill age range array with age numbers
+    this.ageRangeFiltered = Array(200)
+      .fill(18)
+      .map((age, index) => age + index)
+      .filter(age => age >= this.ageFromSelected && age <= 100);
+
+
+    // get gender from storage
+    let gender = localStorage.getItem('gender');
+    if (gender && (gender == 'Male' || gender == 'Female')) {
+      this.activeGenderFilter = gender;
+    } else {
+      localStorage.removeItem('gender')
+    }
 
     // Get route data like title, route name and others
     this.activatedRoute.data.subscribe({
