@@ -29,6 +29,14 @@ export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
         next: response => {
           this.countries = response.data;
 
+          // set country object for select
+          if (this.person.country) {
+            let findCountry = response.data.find(c => c.id == this.person.country.id);
+            if (findCountry) {
+              this.person.country = findCountry
+            }
+          }
+
         }, error: err => console.error(err)
       })
       .add(() => this.updating = false)
