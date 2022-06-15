@@ -22,8 +22,6 @@ export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
   countries?: ICountry[];
   updating = false;
 
-  countryIndexInArray = -1;
-
   ngOnInit(): void {
     this.locationService.getAllCountries()
       .subscribe({
