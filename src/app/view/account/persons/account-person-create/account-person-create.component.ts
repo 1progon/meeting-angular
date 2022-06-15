@@ -15,7 +15,7 @@ export class AccountPersonCreateComponent implements OnInit {
   }
 
 
-  form = <IPerson>{}
+  person = <IPerson>{}
   imagePreview?: string | ArrayBuffer | null;
   selectedFile?: File;
   fileSize?: string;
@@ -31,7 +31,7 @@ export class AccountPersonCreateComponent implements OnInit {
     let fd = new FormData();
     if (this.selectedFile) {
       fd.append('image_file', this.selectedFile);
-      fd.append('person_dto', JSON.stringify(this.form));
+      fd.append('person_dto', JSON.stringify(this.person));
     }
 
     this.personService.addPerson(fd)
@@ -74,7 +74,7 @@ export class AccountPersonCreateComponent implements OnInit {
         return;
       }
 
-      this.form.image = this.selectedFile.name;
+      this.person.image = this.selectedFile.name;
       this.fileSize = this.niceBytes(this.selectedFile.size);
 
 
