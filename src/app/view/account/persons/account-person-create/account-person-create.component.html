@@ -6,7 +6,7 @@
   <div class="mb-3">
     <label class="form-label required" for="name">Name</label>
     <input #name="ngModel"
-           [(ngModel)]="form.name"
+           [(ngModel)]="person.name"
            class="form-control"
            id="name"
            name="name"
@@ -20,7 +20,7 @@
 
   <div class="mb-3">
     <label class="form-label" for="description">Description</label>
-    <textarea [(ngModel)]="form.description"
+    <textarea [(ngModel)]="person.description"
               class="form-control"
               id="description"
               name="description"
@@ -29,7 +29,7 @@
   </div>
 
   <!--Select location-->
-  <app-account-person-select-location [form]="form"></app-account-person-select-location>
+  <app-account-person-select-location [person]="person"></app-account-person-select-location>
   <!--End Select location-->
 
   <!--Image upload-->
