@@ -194,7 +194,16 @@ export class PersonsIndexComponent implements OnInit {
     console.log(this.persons);
   }
 
+  updateAgeRange() {
+    if (this.ageFromSelected > this.ageToSelected) {
+      this.ageToSelected = this.ageFromSelected;
+    }
 
+    //save to storage
+    localStorage.setItem('age', JSON.stringify({from: this.ageFromSelected, to: this.ageToSelected}));
+
+    this.ageRangeFiltered = this.ageRange?.filter(age => age >= this.ageFromSelected);
+  }
 
 
 }
