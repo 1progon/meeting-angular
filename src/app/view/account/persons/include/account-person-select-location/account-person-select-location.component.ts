@@ -4,11 +4,13 @@ import {ActivatedRoute} from "@angular/router";
 import {LocationService} from "../../../../../services/locations/location.service";
 import {ICountry} from "../../../../../interfaces/location/ICountry";
 import {IPerson} from "../../../../../interfaces/persons/IPerson";
+import {ControlContainer, NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-account-person-select-location',
   templateUrl: './account-person-select-location.component.html',
-  styleUrls: ['./account-person-select-location.component.scss']
+  styleUrls: ['./account-person-select-location.component.scss'],
+  viewProviders: [{provide: ControlContainer, useExisting: NgForm}],
 })
 export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
   @Input() person: IPerson = <IPerson>{}
