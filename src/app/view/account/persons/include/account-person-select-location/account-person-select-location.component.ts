@@ -68,7 +68,7 @@ export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
       })
       .add(() => {
 
-        // Stop loading
+        // Stop updating
         this.updating = false;
       })
 
