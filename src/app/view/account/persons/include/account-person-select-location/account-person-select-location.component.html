@@ -3,10 +3,10 @@
   <!--Country-->
   <div class="col">
     <label class="form-label required" for="country">Country</label>
-    <select #country="ngModel"
-            (change)="changeCountry();city.reset()"
-            [(ngModel)]="form.country"
-            [disabled]="!countries"
+    <select #countryModel="ngModel"
+            (change)="changeCountry();cityModel.reset()"
+            [(ngModel)]="person.country"
+            [disabled]="!countries || updating"
             class="form-select"
             id="country"
             name="country"
@@ -15,7 +15,8 @@
       <option *ngFor="let country of countries;"
               [ngValue]="country">{{country.name}}</option>
     </select>
-    <div class="alert alert-danger mt-3" *ngIf="country.invalid && country.touched">
+
+    <div class="alert alert-danger mt-3" *ngIf="countryModel.invalid && countryModel.touched">
       Country is required
     </div>
   </div>
