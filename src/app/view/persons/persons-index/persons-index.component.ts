@@ -148,8 +148,6 @@ export class PersonsIndexComponent implements OnInit {
 
       }, error: err => console.error(err)
     });
-
-
   }
 
   getPersons() {
