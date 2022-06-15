@@ -17,7 +17,8 @@ export class AccountPersonEditBaseComponent implements OnInit {
 
 
   personId?: number;
-  form: IPerson = <IPerson>{}
+  person: IPerson = <IPerson>{}
+
   updating: any;
   image?: string;
   path = environment.apiHost;
@@ -37,7 +38,7 @@ export class AccountPersonEditBaseComponent implements OnInit {
       .subscribe({
         next: value => {
 
-          this.form = value.data;
+          this.person = value.data;
 
         }, error: err => {
           console.error(err)

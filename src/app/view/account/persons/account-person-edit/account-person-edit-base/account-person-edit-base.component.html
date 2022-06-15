@@ -4,7 +4,7 @@
   <div class="mb-3">
     <label class="form-label required" for="name">Name</label>
     <input
-      [(ngModel)]="form.name"
+      [(ngModel)]="person.name"
       class="form-control"
       id="name"
       name="name"
@@ -18,7 +18,7 @@
 
   <div class="mb-3">
     <label class="form-label" for="description">Description</label>
-    <textarea [(ngModel)]="form.description"
+    <textarea [(ngModel)]="person.description"
               class="form-control"
               id="description"
               name="description"
@@ -27,7 +27,8 @@
   </div>
 
   <!--Select location-->
-  <app-account-person-select-location [form]="form"></app-account-person-select-location>
+  <app-account-person-select-location
+    [person]="person"></app-account-person-select-location>
   <!--End Select location-->
 
   <!--Image upload-->
@@ -48,10 +49,10 @@
     Image is required. Allowed file types gif, png, jpeg. File size up to 20 MB
   </div>
 
-  <div class="" *ngIf="form.image">
+  <div class="" *ngIf="person.image && !selectedFile">
     <h4>Uploaded image</h4>
     <div>
-      <img [src]="path +'/'+form.image" alt="image">
+      <img [src]="path +'/'+person.image" alt="image">
     </div>
   </div>
 
