@@ -39,8 +39,21 @@ export class PersonsService {
     // Cache key
     let cacheName: string = '';
 
-    // try to get from cache
-    let cache = this.getFromCache(keyString);
+    // Add filters to query params
+    if (filters && filters.has('countrySlug') && filters.has('citySlug')) {
+      let countrySlug = filters.get('countrySlug');
+      let citySlug = filters.get('citySlug');
+      cacheName = `persons-index-${countrySlug}-${citySlug}-${limit}-${offset}`;
+      params = params.append('countrySlug', countrySlug);
+      params = params.append('citySlug', citySlug);
+    } else if (filters && filters.has('countrySlug')) {
+      let countrySlug = filters.get('countrySlug');
+      cacheName = `persons-index-${countrySlug}-${limit}-${offset}`;
+      params = params.append('countrySlug', countrySlug);
+    } else {
+      cacheName = `persons-index-${limit}-${offset}`;
+    }
+
     if (cache) return cache;
 
     // Add query params
