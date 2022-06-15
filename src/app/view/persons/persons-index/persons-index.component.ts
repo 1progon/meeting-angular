@@ -4,6 +4,7 @@ import {BaseListingDto} from "../../../dto/BaseListingDto";
 import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../../environments/environment";
 import {PersonDto} from "../../../dto/persons/PersonDto";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-persons-index',
