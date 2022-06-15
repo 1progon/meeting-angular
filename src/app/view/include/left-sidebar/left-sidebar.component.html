@@ -6,6 +6,28 @@
 </div>
 
 
+<!--Filter country list input-->
+<div class="d-flex justify-content-center mb-1">
+  <div class="mb-2 w-100 mx-2">
+    <div class="input-group">
+      <input (input)="filterCountries()"
+             placeholder="Find Country Filter"
+             [(ngModel)]="filterCountryText"
+             class="form-control p-1"
+             id="filtered-country"
+             name="filteredCountry"
+             type="text">
+      <span class="input-group-text pointer py-1"
+            *ngIf="filterCountryText"
+            (click)="filterCountryText=''; filterCountries()">x</span>
+    </div>
+
+  </div>
+
+
+</div>
+<!--End Filter country list input-->
+
 <!--Reset location button-->
 
 <div class="d-flex justify-content-center mb-1">
