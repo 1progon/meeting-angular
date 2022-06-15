@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {IPerson} from "../../../../../interfaces/persons/IPerson";
 import {PersonsService} from "../../../../../services/persons/persons.service";
 import {environment} from "../../../../../../environments/environment";
+import {niceBytes} from "../../../../../helpers/niceBytes";
 
 @Component({
   selector: 'app-account-person-edit',
@@ -33,8 +34,35 @@ export class AccountPersonEditBaseComponent implements OnInit {
     if (this.personId) {
       this.getPerson(this.personId);
     }
+  }
+
+  onFileSelected(event: Event) {
+    let f = event.target as HTMLInputElement;
+    this.selectedFile = f.files?.[0];
+    if (this.selectedFile) {
+
+      if (!this.selectedFile.type.match('image/(png|jpg|jpeg|gif)')
+        || this.selectedFile.size > 20971520) {
+
+        this.image = undefined;
+        this.selectedFile = undefined;
+        this.fileSize = undefined;
+        this.imagePreview = undefined;
+        return;
+      }
+
+      this.person.image = this.selectedFile.name;
+      this.fileSize = niceBytes(this.selectedFile.size);
 
 
+      let reader = new FileReader();
+      reader.readAsDataURL(this.selectedFile);
+
+      // Show image on frontend on upload
+      reader.onload = e => {
+        this.imagePreview = e.target?.result;
+      }
+    }
   }
 
   getPerson(id: number) {
