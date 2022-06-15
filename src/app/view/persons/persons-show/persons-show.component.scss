@@ -22,6 +22,12 @@
     font-weight: 600;
   }
 
+  .char-value {
+    .badge {
+      border: 1px solid #ddddde;
+    }
+  }
+
   .char-title, .char-value {
     flex: 1;
   }
