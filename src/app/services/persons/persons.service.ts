@@ -54,9 +54,9 @@ export class PersonsService {
 
 
     // Get data from server and set it to cache
+    let url = environment.apiUrl + '/persons';
     return this.http
-      .get<IResponse<BaseListingDto<PersonDto>>>(environment.apiUrl + '/persons',
-        {params})
+      .get<IResponse<BaseListingDto<PersonDto>>>(url, {params})
       .pipe(map(
         value => {
           this.cacheService.setCache(keyString, value);
