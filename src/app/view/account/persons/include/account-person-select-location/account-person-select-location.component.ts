@@ -23,6 +23,7 @@ export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
   updating = false;
 
   ngOnInit(): void {
+    this.updating = true;
     this.locationService.getAllCountries()
       .subscribe({
         next: response => {
@@ -30,6 +31,9 @@ export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
 
         }, error: err => console.error(err)
       })
+      .add(() => this.updating = false)
+
+
   }
 
   changeCountry() {
