@@ -33,6 +33,9 @@ export class PersonsService {
              offset = 0,
              filters?: Map<string, any>): Observable<IResponse<BaseListingDto<PersonDto>>> {
 
+    // Query params
+    let params = new HttpParams();
+
     // Cache key
     let cacheName: string = '';
 
@@ -40,7 +43,7 @@ export class PersonsService {
     let cache = this.getFromCache(keyString);
     if (cache) return cache;
 
-    let params = new HttpParams();
+    // Add query params
     if (offset != 0) {
       params = params.append("offset", offset);
     }
