@@ -155,7 +155,7 @@ export class PersonsIndexComponent implements OnInit {
           return
         }
 
-        this.getPersons()
+        this.getPersons();
 
 
       }, error: err => console.error(err)
