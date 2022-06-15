@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PersonsService} from "../../../../services/persons/persons.service";
 import {IPerson} from "../../../../interfaces/persons/IPerson";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-account-person-create',
@@ -9,7 +10,8 @@ import {IPerson} from "../../../../interfaces/persons/IPerson";
 })
 export class AccountPersonCreateComponent implements OnInit {
 
-  constructor(private personService: PersonsService) {
+  constructor(private personService: PersonsService,
+              private router: Router) {
   }
 
 
