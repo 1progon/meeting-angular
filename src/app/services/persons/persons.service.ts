@@ -157,7 +157,7 @@ export class PersonsService {
 
   // Create person
   addPerson(formData: FormData) {
-    return this.http.post<PersonDto>(environment.apiUrl + '/account/person/add',
+    return this.http.post<IResponse<PersonDto>>(environment.apiUrl + '/account/person/add',
       formData)
   }
 
