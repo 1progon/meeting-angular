@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError} from 'rxjs';
+import {BehaviorSubject, catchError, filter, Observable, of, switchMap, take, throwError} from 'rxjs';
 import {ActivatedRoute} from "@angular/router";
 import {AuthService} from "../services/auth.service";
 import {TokenDto} from "../dto/user/TokenDto";
@@ -43,19 +43,14 @@ export class BaseHeadersInterceptor implements HttpInterceptor {
 
 
     return next.handle(request)
-      .pipe(catchError(error => {
-        if (error instanceof HttpErrorResponse
-          && error.status == 401 && error.error.data == 'Token is expired') {
-
+      .pipe(catchError((error: HttpErrorResponse) => {
+        if (error.status == 401 && error.error.data.toLowerCase().trim() == 'token is expired') {
           return this.refreshToken(request, next)
-        } else if (error instanceof HttpErrorResponse
-          && error.status == 401 && error.error.data == 'signature is invalid') {
-
+        } else if (error.status == 401) {
           this.auth.logoutAndRedirect();
-          return throwError(() => error);
-        } else {
-          return throwError(() => error);
+          return of(<any>error);
         }
+        return throwError(() => error);
       }))
 
 
