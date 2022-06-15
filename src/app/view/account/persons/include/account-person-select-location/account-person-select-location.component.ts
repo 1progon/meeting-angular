@@ -19,7 +19,7 @@ export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
               private locationService: LocationService) {
   }
 
-  countries: ICountry[] = [];
+  countries?: ICountry[];
   updating = false;
 
   countryIndexInArray = -1;
