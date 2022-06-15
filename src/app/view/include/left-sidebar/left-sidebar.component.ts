@@ -3,6 +3,10 @@ import {LocationService} from "../../../services/locations/location.service";
 import {ICountry} from "../../../interfaces/location/ICountry";
 import {PersonsService} from "../../../services/persons/persons.service";
 
+interface IVisibleCountryElement {
+  [id: number]: boolean;
+}
+
 @Component({
   selector: 'app-left-sidebar',
   templateUrl: './left-sidebar.component.html',
