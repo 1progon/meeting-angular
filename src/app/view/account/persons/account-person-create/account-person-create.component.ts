@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PersonsService} from "../../../../services/persons/persons.service";
 import {IPerson} from "../../../../interfaces/persons/IPerson";
 import {Router} from "@angular/router";
+import {niceBytes} from "../../../../helpers/niceBytes";
 
 @Component({
   selector: 'app-account-person-create',
@@ -52,19 +53,6 @@ export class AccountPersonCreateComponent implements OnInit {
 
   }
 
-  // Convert bytes to KB, MB, GB...
-  niceBytes(n: number) {
-    let units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
-    let l = 0;
-
-    while (n >= 1024 && ++l) {
-      n = n / 1024;
-    }
-
-    return (n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l]);
-  }
-
   // Upload photo and preview in browser
   onFileSelected(event: Event) {
     let f = event.target as HTMLInputElement;
@@ -82,7 +70,7 @@ export class AccountPersonCreateComponent implements OnInit {
       }
 
       this.person.image = this.selectedFile.name;
-      this.fileSize = this.niceBytes(this.selectedFile.size);
+      this.fileSize = niceBytes(this.selectedFile.size);
 
 
       let reader = new FileReader();
