@@ -112,9 +112,9 @@ export class PersonsService {
       params = params.append("limit", limit);
     }
 
+    let url = environment.apiUrl + '/persons/' + countrySlug + '/' + citySlug;
     return this.http
-      .get<IResponse<BaseListingDto<IPerson>>>(environment.apiUrl + '/persons/' + countrySlug + '/' + citySlug,
-        {params})
+      .get<IResponse<BaseListingDto<PersonDto>>>(url, {params})
       .pipe(map(value => {
         this.cacheService.setCache(keyString, value);
         return value;
