@@ -35,8 +35,8 @@
   <h2>Image</h2>
   <div class="mb-3">
     <label class="form-label" for="image">Main Photo</label>
-    <input [(ngModel)]="image"
-           #imageModel="ngModel"
+    <input #imageModel="ngModel"
+           [(ngModel)]="image"
            class="form-control"
            id="image"
            required
