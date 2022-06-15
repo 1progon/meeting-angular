@@ -12,8 +12,6 @@ interface IVisibleCountryElement {
   templateUrl: './left-sidebar.component.html',
   styleUrls: ['./left-sidebar.component.scss']
 })
-
-
 export class LeftSidebarComponent implements OnInit {
   @Output() closeMenuEvent = new EventEmitter<boolean>();
 
