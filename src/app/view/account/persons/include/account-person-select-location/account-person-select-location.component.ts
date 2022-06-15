@@ -15,7 +15,8 @@ import {ControlContainer, NgForm} from "@angular/forms";
 export class AccountPersonSelectLocationComponent implements OnInit, OnChanges {
   @Input() person: IPerson = <IPerson>{}
 
-  constructor(public route: ActivatedRoute, private locationService: LocationService) {
+  constructor(public route: ActivatedRoute,
+              private locationService: LocationService) {
   }
 
   countries: ICountry[] = [];
