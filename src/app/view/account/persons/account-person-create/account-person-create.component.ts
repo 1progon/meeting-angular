@@ -41,6 +41,10 @@ export class AccountPersonCreateComponent implements OnInit {
       .subscribe({
         next: value => {
           console.log(value)
+          if (value.data.id) {
+            this.router.navigateByUrl('/account/person/edit/' + value.data.id).finally();
+          }
+
 
         }, error: err => console.error(err)
       })
