@@ -94,7 +94,7 @@
 
         <!--Cycle right-->
         <div class="mb-1" *ngFor="let char of personDto.person_char | keyvalue; let i = index">
-          <div *ngIf="(i+1) > 9"
+          <div *ngIf="(i+1) > 9  && char.key != 'nationality' && char.key != 'languages'"
                class="d-flex">
             <div class="char-title">{{char.key.replace('_', ' ') | titlecase }}</div>
             <div class="char-value">{{char.value}}</div>
