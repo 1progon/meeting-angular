@@ -33,7 +33,7 @@ export class PersonsService {
              offset = 0): Observable<IResponse<BaseListingDto<PersonDto>>> {
 
     // Cache key
-    let keyString = 'persons-index-' + limit + '-' + offset;
+    let cacheName: string = '';
 
     // try to get from cache
     let cache = this.getFromCache(keyString);
