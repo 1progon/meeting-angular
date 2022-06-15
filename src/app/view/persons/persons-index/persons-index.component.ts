@@ -164,6 +164,66 @@ export class PersonsIndexComponent implements OnInit {
 
   }
 
+  getPersons() {
+    this.loadingStart()
+
+    return this.personsService.getPersonsDto(this.limit, this.offset)
+      .subscribe({
+        next: value => {
+          this.persons = value.data;
+          this.updateGenderFilter();
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          if (err.status == 401) {
+            this.router.navigateByUrl('/login').finally()
+            return
+          }
+          this.router.navigateByUrl('/404').finally()
+        }
+      }).add(() => {
+        this.loadingStop();
+      })
+
+
+  }
+
+  getPersonsByCountry(countrySlug: string) {
+    this.loadingStart();
+
+    return this.personsService
+      .getPersonsByCountry(countrySlug, this.limit, this.offset)
+      .subscribe({
+        next: value => {
+          this.persons = value.data;
+          this.updateGenderFilter();
+        },
+        error: err => console.error(err)
+      })
+      .add(() => {
+        this.loadingStop()
+      })
+
+
+  }
+
+  getPersonsByCityAndCountry(countrySlug: string, citySlug: string) {
+    this.loadingStart();
+
+    this.personsService
+      .getPersonsByCountryAndCity(countrySlug, citySlug, this.limit, this.offset)
+      .subscribe({
+        next: value => {
+          this.persons = value.data;
+          this.updateGenderFilter();
+        }, error: err => console.log(err)
+      })
+      .add(() => {
+        this.loadingStop();
+      })
+
+  }
+
 
   scrollToTop() {
     if (this.persons.pagination?.current_page < this.persons.pagination.last_page) {
