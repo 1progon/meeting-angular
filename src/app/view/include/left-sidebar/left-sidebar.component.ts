@@ -163,16 +163,17 @@ export class LeftSidebarComponent implements OnInit {
     //set visible rows to zero
     this.expandedCountries = undefined;
 
-
     //if no text entered or backspaced or clicked x to clear input
     if (this.filterCountryText == '') {
       this.expandedCountries = this.cacheOfExpandedCountries;
       this.cacheOfExpandedCountries = undefined;
 
       //set country like before filter. Cancel filter
-      this.countriesFiltered = this.countries
-        .filter(c =>
-          c.slug.match(this.personsService.activeCountrySlug));
+      if (this.personsService.activeCountryId && this.personsService.activeCountryId != 0) {
+        this.countriesFiltered = this.countries.filter(c => c.id == this.personsService.activeCountryId);
+      } else {
+        this.countriesFiltered = this.countries;
+      }
       return;
     }
 
