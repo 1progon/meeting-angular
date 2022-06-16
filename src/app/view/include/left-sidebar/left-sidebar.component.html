@@ -4,6 +4,7 @@
        (click)="closeMenu()">X
   </div>
 </div>
+<!--End Close mobile sidebar countries menu-->
 
 
 <!--Filter country list input-->
@@ -19,19 +20,16 @@
              type="text">
       <span class="input-group-text pointer py-1"
             *ngIf="filterCountryText"
-            (click)="filterCountryText=''; filterCountries()">x</span>
+            (click)="filterCountryText = ''; filterCountries()">x</span>
     </div>
-
   </div>
-
-
 </div>
 <!--End Filter country list input-->
 
 <!--Reset location button-->
 <div class="d-flex justify-content-center mb-2">
   <a (click)="resetLocation()"
-     *ngIf="personsService.activeCountrySlug || personsService.activeCitySlug"
+     *ngIf="personsService.activeCountryId || personsService.activeCityId"
      class="btn btn-warning btn-sm w-100 mx-2"
      routerLink="/persons">Reset location</a></div>
 <!--End reset location button-->
@@ -45,17 +43,17 @@
 
   <!--Country row Name with counter and plus sign-->
   <a class="country-row d-flex align-items-center"
-     [class.active]="personsService.activeCountrySlug == country.slug">
+     [class.active]="personsService.activeCountryId == country.id">
 
 
     <!--Plus-Minus sign to expand cities in country-->
-    <a (click)="getCities(country.slug, country.id)"
+    <a (click)="getCities( country.id)"
        class="badge plus border ms-2 me-1 my-1 pointer">{{expandedCountries?.[country.id] ? '-' : '+'}}</a>
     <!--End plus minus sign-->
 
     <!--Country row-->
     <a [routerLink]="'persons/' + country.slug"
-       (click)="closeMenu(); setCountryActive(country.slug)"
+       (click)="closeMenu(); setCountryActive(country.id)"
        class="country-block w-100 d-flex justify-content-between px-2"
     >
 
@@ -78,10 +76,10 @@
 
     <!--City row-->
     <a *ngFor="let city of country.cities"
-       (click)="closeMenu(); setCityAndCountryActive(city.slug, country.slug)"
+       (click)="closeMenu(); setCountryAndCityActive(country.id,  city.id)"
        [routerLink]="'persons/'+ country.slug + '/'+ city.slug"
        class="city px-3 small py-1 d-flex justify-content-between"
-       [class.active]="personsService.activeCitySlug == city.slug">
+       [class.active]="personsService.activeCityId == city.id">
 
       <!--City name-->
       <span class="me-3">{{city.name}}</span>

@@ -16,8 +16,8 @@ export class PersonsService {
   constructor(private http: HttpClient, private cacheService: CacheService) {
   }
 
-  activeCountrySlug = '';
-  activeCitySlug = '';
+  activeCountryId:number = 0;
+  activeCityId:number = 0;
 
   // Check if cache exist
   getFromCache(keyString: string): Observable<any> | null {
@@ -40,16 +40,18 @@ export class PersonsService {
     let cacheName: string = '';
 
     // Add filters to query params
-    if (filters && filters.has('countrySlug') && filters.has('citySlug')) {
-      let countrySlug = filters.get('countrySlug');
-      let citySlug = filters.get('citySlug');
-      cacheName = `persons-index-${countrySlug}-${citySlug}-${limit}-${offset}`;
-      params = params.append('countrySlug', countrySlug);
-      params = params.append('citySlug', citySlug);
-    } else if (filters && filters.has('countrySlug')) {
-      let countrySlug = filters.get('countrySlug');
-      cacheName = `persons-index-${countrySlug}-${limit}-${offset}`;
-      params = params.append('countrySlug', countrySlug);
+    if (filters && filters.has('country') && filters.has('city')) {
+      let countryId = filters.get('country');
+      let cityId = filters.get('city');
+      cacheName = `persons-index-${countryId}-${cityId}-${limit}-${offset}`;
+      params = params.append('country', countryId);
+      params = params.append('city', cityId);
+
+    } else if (filters && filters.has('country')) {
+      let countryId = filters.get('country');
+      cacheName = `persons-index-${countryId}-${limit}-${offset}`;
+      params = params.append('country', countryId);
+
     } else {
       cacheName = `persons-index-${limit}-${offset}`;
     }

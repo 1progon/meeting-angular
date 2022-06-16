@@ -2,11 +2,11 @@
   <h2>People</h2>
 
   <!--Add country and city name in title-->
-  <h4 *ngIf="persons.items && (personsService.activeCountrySlug && personsService.activeCitySlug != '')"
+  <h4 *ngIf="persons.items && (personsService.activeCountryId != 0 && personsService.activeCityId != 0)"
       class="ms-2">from {{persons.items[0].country_name}}, {{persons.items[0].city_name}}</h4>
 
   <!--Add country name in title -->
-  <h4 *ngIf="persons.items && (personsService.activeCountrySlug && personsService.activeCitySlug == '')"
+  <h4 *ngIf="persons.items && (personsService.activeCountryId != 0 && personsService.activeCityId == 0)"
       class="ms-2">from {{persons.items[0].country_name}}</h4>
 </div>
 
@@ -63,7 +63,6 @@
   <!--End Filter age-->
 </div>
 <!--End Filters-->
-
 
 
 <div class="persons-block d-flex flex-wrap mb-3" *ngIf="!loading && personsFiltered?.items">

@@ -106,41 +106,47 @@ export class PersonsIndexComponent implements OnInit {
         this.pageId = params['pageId'] ?? 1
         this.offset = (this.pageId - 1) * this.limit;
 
+        //try to get location ids from storage
+        this.personsService.activeCountryId = parseInt(localStorage.getItem('country') ?? '');
+        this.personsService.activeCityId = parseInt(localStorage.getItem('city') ?? '');
+
+
         // if simple route without country and city
         if (this.routeData == 'persons-index') {
-          //try to get location from storage
-          this.personsService.activeCountrySlug = localStorage.getItem('country') ?? '';
-          this.personsService.activeCitySlug = localStorage.getItem('city') ?? '';
+          //try to get location slugs from storage
+          let countrySlug = localStorage.getItem('country_slug');
+          let citySlug = localStorage.getItem('city_slug');
 
-          if (this.personsService.activeCountrySlug != '' && this.personsService.activeCitySlug != '') {
-            this.router.navigateByUrl('/persons/' + this.personsService.activeCountrySlug + '/' + this.personsService.activeCitySlug).finally();
+          if (countrySlug && citySlug) {
+            this.router.navigateByUrl('/persons/' + countrySlug + '/' + citySlug).finally();
             return;
           }
 
-          if (this.personsService.activeCountrySlug != '') {
-            this.router.navigateByUrl('/persons/' + this.personsService.activeCountrySlug).finally();
+          if (countrySlug) {
+            this.router.navigateByUrl('/persons/' + countrySlug).finally();
             return;
           }
 
         }
 
-        // get slugs from route
-        this.personsService.activeCountrySlug = params['countrySlug'] ?? '';
-        this.personsService.activeCitySlug = params['citySlug'] ?? '';
+
+        // try to get slugs from route
+        let countrySlug = params['countrySlug'] ?? '';
+        let citySlug = params['citySlug'] ?? '';
 
 
         // Set page title
         document.title = this.pageTitle + ' ' + this.pageId;
 
-        if (this.personsService.activeCountrySlug != '' && this.personsService.activeCitySlug != '') {
-          this.paginatedRoute = 'persons/' + this.personsService.activeCountrySlug + '/' + this.personsService.activeCitySlug
-          this.getPersons(this.personsService.activeCountrySlug, this.personsService.activeCitySlug);
+        if (countrySlug != '' && citySlug != '') {
+          this.paginatedRoute = 'persons/' + countrySlug + '/' + citySlug
+          this.getPersons(this.personsService.activeCountryId, this.personsService.activeCityId);
           return;
         }
 
-        if (this.personsService.activeCountrySlug != '') {
-          this.paginatedRoute = 'persons/' + this.personsService.activeCountrySlug
-          this.getPersons(this.personsService.activeCountrySlug);
+        if (countrySlug != '') {
+          this.paginatedRoute = 'persons/' + countrySlug
+          this.getPersons(this.personsService.activeCountryId);
           return
         }
 
@@ -151,19 +157,19 @@ export class PersonsIndexComponent implements OnInit {
     });
   }
 
-  getPersons(countrySlug?: string, citySlug?: string) {
+  getPersons(countryId?: number, cityId?: number) {
     this.loadingStart();
 
     let obs: Observable<IResponse<BaseListingDto<PersonDto>>>;
 
-    if (countrySlug && citySlug) {
+    if (countryId && cityId) {
       obs = this.personsService
         .getPersons(this.limit, this.offset,
-          new Map<string, any>([['countrySlug', countrySlug], ['citySlug', citySlug]]))
-    } else if (countrySlug) {
+          new Map<string, any>([['country', countryId], ['city', cityId]]))
+    } else if (countryId) {
       obs = this.personsService
         .getPersons(this.limit, this.offset,
-          new Map<string, any>([['countrySlug', countrySlug]]))
+          new Map<string, any>([['country', countryId]]))
     } else {
       obs = this.personsService.getPersons(this.limit, this.offset)
     }
@@ -187,7 +193,7 @@ export class PersonsIndexComponent implements OnInit {
   updateGenderFilter() {
     localStorage.setItem('gender', this.activeGenderFilter);
 
-  //  todo implement request persons with gender filter change
+    //  todo implement request persons with gender filter change
   }
 
   updateAgeRange() {
