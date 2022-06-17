@@ -164,17 +164,23 @@ export class PersonsIndexComponent implements OnInit {
     let obs: Observable<IResponse<BaseListingDto<PersonDto>>>;
     let filters = new Map<string, any>();
 
-    if (countryId && cityId) {
-      obs = this.personsService
-        .getPersons(this.limit, this.offset,
-          new Map<string, any>([['country', countryId], ['city', cityId]]))
-    } else if (countryId) {
-      obs = this.personsService
-        .getPersons(this.limit, this.offset,
-          new Map<string, any>([['country', countryId]]))
-    } else {
-      obs = this.personsService.getPersons(this.limit, this.offset)
+    if (this.genderSelected) {
+      filters.set('gender', this.genderSelected);
     }
+    if (countryId) {
+      filters.set('country', countryId);
+    }
+    if (cityId) {
+      filters.set('city', cityId);
+    }
+    if (this.ageFromSelected) {
+      filters.set('ageFrom', this.ageFromSelected);
+    }
+    if (this.ageToSelected) {
+      filters.set('ageTo', this.ageToSelected);
+    }
+
+    obs = this.personsService.getPersons(this.limit, this.offset, filters)
 
     return obs.subscribe({
       next: res => {
