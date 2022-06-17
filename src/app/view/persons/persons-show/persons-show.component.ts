@@ -79,4 +79,8 @@ export class PersonsShowComponent implements OnInit {
 
   }
 
+  // go back button
+  back() {
+    history.back();
+  }
 }
