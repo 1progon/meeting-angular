@@ -17,7 +17,7 @@ import {PersonsService} from "../../../services/persons/persons.service";
 export class PersonsIndexComponent implements OnInit {
 
   constructor(public locationService: LocationService,
-              private personService: PersonsService,
+              private personsService: PersonsService,
               private route: ActivatedRoute,
               private router: Router) {
   }
