@@ -36,7 +36,7 @@ export class PersonsIndexComponent implements OnInit {
   loading: boolean = false;
 
   //Filters
-  activeGenderFilter: string = 'Female';
+  genderSelected: string = 'All';
 
   ageRange?: Array<number>;
   ageRangeFiltered?: Array<number>;
@@ -84,8 +84,8 @@ export class PersonsIndexComponent implements OnInit {
 
     // get gender from storage
     let gender = localStorage.getItem('gender');
-    if (gender && (gender == 'Male' || gender == 'Female')) {
-      this.activeGenderFilter = gender;
+    if (gender && (gender == 'Male' || gender == 'Female' || gender == 'All')) {
+      this.genderSelected = gender;
     } else {
       localStorage.removeItem('gender')
     }
@@ -191,9 +191,7 @@ export class PersonsIndexComponent implements OnInit {
   }
 
   updateGenderFilter() {
-    localStorage.setItem('gender', this.activeGenderFilter);
-
-    //  todo implement request persons with gender filter change
+    localStorage.setItem('gender', this.genderSelected);
   }
 
   updateAgeRange() {
