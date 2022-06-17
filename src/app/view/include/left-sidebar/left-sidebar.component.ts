@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {LocationService} from "../../../services/locations/location.service";
 import {ICountry} from "../../../interfaces/location/ICountry";
-import {PersonsService} from "../../../services/persons/persons.service";
+import {ICity} from "../../../interfaces/location/ICity";
 
 interface IVisibleCountryElement {
   [id: number]: boolean;

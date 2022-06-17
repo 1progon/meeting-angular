@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {PersonsService} from "../../../services/persons/persons.service";
 import {BaseListingDto} from "../../../dto/BaseListingDto";
 import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../../environments/environment";
