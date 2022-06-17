@@ -17,7 +17,7 @@ export class PersonsShowComponent implements OnInit {
               private router: Router) {
   }
 
-  personDto: PersonDto = {} as PersonDto;
+  person: PersonDto = {} as PersonDto;
   id: number = 0;
 
   messengers: IPersonPhoneMessenger = messengersMap;
@@ -48,7 +48,7 @@ export class PersonsShowComponent implements OnInit {
         .getSinglePersonDto(this.id)
         .subscribe({
           next: value => {
-            this.personDto = value.data;
+            this.person = value.data;
           },
           error: err => {
             console.error(err);

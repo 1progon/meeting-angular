@@ -3,10 +3,10 @@
 <!--Desc-->
 <div *ngIf="!loading" class="desc card mb-2">
   <div class="card-body">
-    <h2>{{personDto.name}}</h2>
+    <h2>{{person.name}}</h2>
     <!--<div class="last-login">Last seen online: ...</div>-->
-    <div>{{personDto.country_name}}, {{personDto.city_name}}</div>
-    <div class="js-more"><span class="less">{{personDto.description}}</span></div>
+    <div>{{person.country_name}}, {{person.city_name}}</div>
+    <div class="js-more"><span class="less">{{person.description}}</span></div>
   </div>
 </div>
 <!--End desc-->
@@ -21,22 +21,22 @@
         <div class="images-block d-flex flex-column">
 
           <!--Main image-->
-          <img *ngIf="personDto.image"
-               [src]="path + '/'+ personDto.image"
-               [alt]="personDto.name"
+          <img *ngIf="person.image"
+               [src]="path + '/'+ person.image"
+               [alt]="person.name"
                class="main-image mb-2">
           <!--End main image-->
 
           <!--Small images-->
-          <div class="mb-2" *ngIf="personDto.images">
-            <div class="sub-images d-grid flex-wrap gap-2" *ngIf="personDto.images"
+          <div class="mb-2" *ngIf="person.images">
+            <div class="sub-images d-grid flex-wrap gap-2" *ngIf="person.images"
                  style="grid-template-columns: repeat(3, 1fr)">
               <!--Small images cycle-->
               <a target="_blank"
                  [href]="path + '/' + image.folder + '/' + image.filename"
-                 *ngFor="let image of personDto.images">
+                 *ngFor="let image of person.images">
                 <img [src]="path + '/' + image.folder + '/' + image.filename"
-                     [alt]="personDto.name">
+                     [alt]="person.name">
               </a>
               <!--End Small images cycle-->
             </div>
@@ -72,7 +72,7 @@
       <div class="chars-left-side p-3">
 
         <!--Cycle left-->
-        <div class="mb-1" *ngFor="let char of personDto.person_char | keyvalue; let i = index">
+        <div class="mb-1" *ngFor="let char of person.person_char | keyvalue; let i = index">
           <div *ngIf="(i+1) <= 9" class="d-flex">
             <div class="char-title">{{char.key.replace('_', ' ') | titlecase}}</div>
             <div class="char-value">{{char.value}}</div>
@@ -93,7 +93,7 @@
       <div class="chars-right-side p-3">
 
         <!--Cycle right-->
-        <div class="mb-1" *ngFor="let char of personDto.person_char | keyvalue; let i = index">
+        <div class="mb-1" *ngFor="let char of person.person_char | keyvalue; let i = index">
           <div *ngIf="(i+1) > 9  && char.key != 'nationality' && char.key != 'languages'"
                class="d-flex">
             <div class="char-title">{{char.key.replace('_', ' ') | titlecase }}</div>
@@ -107,7 +107,7 @@
           <div class="d-flex flex-wrap">
             <div class="char-title">Languages</div>
             <div class="char-value">
-              <span *ngFor="let lang of personDto.person_char?.languages"
+              <span *ngFor="let lang of person.person_char?.languages"
                     class="badge bg-white text-dark me-1">{{lang.name}}</span>
             </div>
           </div>
@@ -118,7 +118,7 @@
         <div>
           <div class="d-flex flex-wrap">
             <div class="char-title">Nationality</div>
-            <div class="char-value">{{personDto.person_char?.nationality?.name}}</div>
+            <div class="char-value">{{person.person_char?.nationality?.name}}</div>
           </div>
         </div>
         <!--End nationality-->
@@ -136,7 +136,7 @@
         <div class="card-body">
 
           <!--Phone Cycle-->
-          <div class="js-more d-flex flex-wrap" *ngFor="let phone of personDto.phones">
+          <div class="js-more d-flex flex-wrap" *ngFor="let phone of person.phones">
             <p class="less me-3 fw-bold text-danger">+{{phone.country_code}} {{phone.number}}</p>
 
             <!--Messengers cycle-->
