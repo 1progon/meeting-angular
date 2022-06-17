@@ -2,12 +2,12 @@
   <h2>People</h2>
 
   <!--Add country and city name in title-->
-  <h4 *ngIf="persons.items && (personsService.activeCountryId != 0 && personsService.activeCityId != 0)"
-      class="ms-2">from {{persons.items[0].country_name}}, {{persons.items[0].city_name}}</h4>
+  <h4 *ngIf="personsFiltered.items && (personsService.activeCountryId != 0 && personsService.activeCityId != 0)"
+      class="ms-2">from {{personsFiltered.items[0].country_name}}, {{personsFiltered.items[0].city_name}}</h4>
 
   <!--Add country name in title -->
-  <h4 *ngIf="persons.items && (personsService.activeCountryId != 0 && personsService.activeCityId == 0)"
-      class="ms-2">from {{persons.items[0].country_name}}</h4>
+  <h4 *ngIf="personsFiltered.items && (personsService.activeCountryId != 0 && personsService.activeCityId == 0)"
+      class="ms-2">from {{personsFiltered.items[0].country_name}}</h4>
 </div>
 
 <!--Filters-->
