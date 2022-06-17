@@ -73,7 +73,7 @@ app-root, app-layout-full-width, app-layout-with-sidebars {
   }
 }
 
-.form-control:focus, .form-select:focus {
+.btn-check:focus + .btn-outline-secondary {
   box-shadow: none !important;
 }
 
