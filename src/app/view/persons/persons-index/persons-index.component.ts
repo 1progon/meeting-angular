@@ -187,6 +187,9 @@ export class PersonsIndexComponent implements OnInit {
 
         this.persons = res.data;
         this.personsFiltered = res.data;
+
+        localStorage.setItem('filtered_ids', JSON.stringify(res.data.filtered_ids))
+
       },
       error: (err: HttpErrorResponse) => {
         //redirect to page one
