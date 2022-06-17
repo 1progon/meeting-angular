@@ -37,7 +37,15 @@ export class PersonsService {
     let params = new HttpParams();
 
     // Cache key
-    let cacheName: string = '';
+    let cacheName: string = `persons-index-${limit}-${offset}`;
+
+    // Add query params
+    if (offset != 0) {
+      params = params.append("offset", offset);
+    }
+    if (limit != 20) {
+      params = params.append("limit", limit);
+    }
 
     // Add filters to query params
     if (filters && filters.has('country') && filters.has('city')) {
@@ -58,17 +66,7 @@ export class PersonsService {
 
     // try to get data from local cache
     let cache = this.getFromCache(cacheName);
-    if (cache) return cache;
-
-    // Add query params
-    if (offset != 0) {
-      params = params.append("offset", offset);
-    }
-
-    if (limit != 20) {
-      params = params.append("limit", limit);
-    }
-
+    if (cache) return of(cache);
 
     // Get data from server and set it to cache
     let url = environment.apiUrl + '/persons';
