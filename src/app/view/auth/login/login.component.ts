@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   submitForm() {
     if (this.form.password.trim() == '' || this.form.email.trim() == '') {
       this.setError({
-        data: 'Password or email is empty'
+        message: 'Password or email is empty'
       })
       return;
     }

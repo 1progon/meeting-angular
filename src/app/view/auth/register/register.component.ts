@@ -47,14 +47,14 @@ export class RegisterComponent implements OnInit {
       || this.form.email.trim() == '') {
 
       this.setError({
-        data: 'Email, password or password confirm is empty ',
+        message: 'Email, password or password confirm is empty ',
       })
       return;
     }
 
     if (this.form.password.trim() !== this.form.password_confirm.trim()) {
       this.setError({
-        data: 'Passwords do not match',
+        message: 'Passwords do not match',
       })
 
       return;
