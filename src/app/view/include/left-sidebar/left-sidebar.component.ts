@@ -122,7 +122,6 @@ export class LeftSidebarComponent implements OnInit {
   setCountryAndCityActive(country: ICountry, city: ICity) {
     this.filterCountryText = '';
 
-
     if (!this.expandedCountries) {
       this.expandedCountries = {};
     }
