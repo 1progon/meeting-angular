@@ -17,9 +17,12 @@
   <div class="d-flex flex-column me-3 p-2 border rounded">
     <div class="d-flex flex-wrap justify-content-between w-100">
       <div class="mb-2">Gender</div>
+
+      <!--Reset gender button-->
       <div class="btn btn-close"
            (click)="genderSelected='All'; updateGenderFilter()"
            *ngIf="genderSelected != 'All'"></div>
+      <!--End reset gender button-->
     </div>
 
     <div class="d-flex flex-wrap">
