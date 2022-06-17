@@ -107,11 +107,6 @@ export class PersonsIndexComponent implements OnInit {
         this.pageId = params['pageId'] ?? 1
         this.offset = (this.pageId - 1) * this.limit;
 
-        //try to get location ids from storage
-        this.personsService.activeCountryId = parseInt(localStorage.getItem('country') ?? '');
-        this.personsService.activeCityId = parseInt(localStorage.getItem('city') ?? '');
-
-
         // if simple route without country and city
         if (this.routeData == 'persons-index') {
           //try to get location slugs from storage

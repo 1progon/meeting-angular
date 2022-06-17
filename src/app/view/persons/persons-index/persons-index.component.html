@@ -2,9 +2,9 @@
   <h2>People</h2>
 
   <!--Country and city names in title-->
-  <h4 class="ms-2">from
-    <span *ngIf="personsService.activeCountryId">{{personsFiltered.items?.[0]?.country_name}}</span>
-    <span *ngIf="personsService.activeCityId">, {{personsFiltered.items?.[0]?.city_name}}</span>
+  <h4 class="ms-2">
+    <span *ngIf="!!personsService.activeCountryId">{{personsFiltered?.items?.[0]?.country_name}}</span>
+    <span *ngIf="!!personsService.activeCityId">, {{personsFiltered?.items?.[0]?.city_name}}</span>
   </h4>
 
 </div>
