@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {AuthService} from "../services/auth.service";
 import {TokenDto} from "../dto/user/TokenDto";
 import {IResponse} from "../interfaces/IResponse";
+import {IErrorResponse} from "../interfaces/IErrorResponse";
 
 
 export let isRefreshing: boolean = false;
@@ -44,7 +45,8 @@ export class BaseHeadersInterceptor implements HttpInterceptor {
 
     return next.handle(request)
       .pipe(catchError((error: HttpErrorResponse) => {
-        if (error.status == 401 && error.error.data.toLowerCase().trim() == 'token is expired') {
+        let backendError = error.error as IErrorResponse;
+        if (error.status == 401 && backendError.message.toLowerCase().trim() == 'token is expired') {
           return this.refreshToken(request, next)
         } else if (error.status == 401) {
           this.auth.logoutAndRedirect();
