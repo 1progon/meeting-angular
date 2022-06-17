@@ -7,6 +7,8 @@ import {PersonDto} from "../../../dto/persons/PersonDto";
 import {Observable} from "rxjs";
 import {IResponse} from "../../../interfaces/IResponse";
 import {HttpErrorResponse} from "@angular/common/http";
+import {LocationService} from "../../../services/locations/location.service";
+import {PersonsService} from "../../../services/persons/persons.service";
 
 @Component({
   selector: 'app-persons-index',
@@ -15,7 +17,8 @@ import {HttpErrorResponse} from "@angular/common/http";
 })
 export class PersonsIndexComponent implements OnInit {
 
-  constructor(public personsService: PersonsService,
+  constructor(public locationService: LocationService,
+              private personService: PersonsService,
               private route: ActivatedRoute,
               private router: Router) {
   }

@@ -16,7 +16,7 @@ export class LeftSidebarComponent implements OnInit {
   @Output() closeMenuEvent = new EventEmitter<boolean>();
 
   constructor(private service: LocationService,
-              public personsService: PersonsService) {
+              public locationService: LocationService) {
   }
 
   countries: ICountry[] = [];
