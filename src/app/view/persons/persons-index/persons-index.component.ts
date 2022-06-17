@@ -15,7 +15,7 @@ import {IResponse} from "../../../interfaces/IResponse";
 export class PersonsIndexComponent implements OnInit {
 
   constructor(public personsService: PersonsService,
-              private activatedRoute: ActivatedRoute,
+              private route: ActivatedRoute,
               private router: Router) {
   }
 
@@ -91,7 +91,7 @@ export class PersonsIndexComponent implements OnInit {
     }
 
     // Get route data like title, route name and others
-    this.activatedRoute.data.subscribe({
+    this.route.data.subscribe({
       next: data => {
         this.routeData = data['route']
         this.pageTitle = data['title']
@@ -100,7 +100,7 @@ export class PersonsIndexComponent implements OnInit {
 
 
     // Get route params
-    this.activatedRoute.params.subscribe({
+    this.route.params.subscribe({
       next: params => {
 
         this.pageId = params['pageId'] ?? 1
