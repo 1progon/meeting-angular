@@ -100,7 +100,7 @@
 </div>
 
 <!--If no persons and loading is over-->
-<div *ngIf="!persons?.items && !loading && !timeId">No persons</div>
+<div *ngIf="(!personsFiltered?.items|| personsFiltered.items.length == 0) && !loading && !timeId">No persons</div>
 
 <!--Show preloader while fetching a data-->
 <div *ngIf="loading" class="d-flex flex-wrap">
