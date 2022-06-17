@@ -48,20 +48,34 @@ export class PersonsService {
     }
 
     // Add filters to query params
-    if (filters && filters.has('country') && filters.has('city')) {
-      let countryId = filters.get('country');
-      let cityId = filters.get('city');
-      cacheName = `persons-index-${countryId}-${cityId}-${limit}-${offset}`;
+    let countryId = filters?.get('country');
+    if (countryId) {
       params = params.append('country', countryId);
+      cacheName += `-${countryId}`;
+
+    }
+    let cityId = filters?.get('city');
+    if (cityId) {
       params = params.append('city', cityId);
+      cacheName += `-${cityId}`;
+    }
 
-    } else if (filters && filters.has('country')) {
-      let countryId = filters.get('country');
-      cacheName = `persons-index-${countryId}-${limit}-${offset}`;
-      params = params.append('country', countryId);
+    let gender = filters?.get('gender');
+    if (gender) {
+      params = params.append('gender', gender);
+      cacheName += `-${gender}`;
+    }
 
-    } else {
-      cacheName = `persons-index-${limit}-${offset}`;
+    let ageFrom = filters?.get('ageFrom');
+    if (ageFrom) {
+      params = params.append('ageFrom', ageFrom);
+      cacheName += `-${ageFrom}`;
+    }
+
+    let ageTo = filters?.get('ageTo');
+    if (ageTo) {
+      params = params.append('ageTo', ageTo);
+      cacheName += `-${ageTo}`;
     }
 
     // try to get data from local cache
