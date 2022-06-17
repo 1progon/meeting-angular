@@ -14,6 +14,9 @@ export class LocationService {
   constructor(private http: HttpClient) {
   }
 
+  activeCountry?: ICountry;
+  activeCity?: ICity;
+
   getAllCountries(): Observable<IResponse<ICountry[]>> {
     return this.http.get<IResponse<ICountry[]>>(environment.apiUrl + '/countries')
   }

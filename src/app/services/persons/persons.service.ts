@@ -16,9 +16,6 @@ export class PersonsService {
   constructor(private http: HttpClient, private cacheService: CacheService) {
   }
 
-  activeCountryId: number = 0;
-  activeCityId: number = 0;
-
   // Check if cache exist
   getFromCache(keyString: string): any | null {
     let cache = this.cacheService.getCache(keyString)?.data;
