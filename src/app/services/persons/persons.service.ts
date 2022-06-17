@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {BaseListingDto} from "../../dto/BaseListingDto";
 import {IPerson} from "../../interfaces/persons/IPerson";
-import {map, Observable, of} from "rxjs";
+import {catchError, map, Observable, of, throwError} from "rxjs";
 import {IResponse} from "../../interfaces/IResponse";
 import {PersonDto} from "../../dto/persons/PersonDto";
 import {CacheService} from "../cache.service";
