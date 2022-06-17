@@ -111,17 +111,16 @@ export class PersonsIndexComponent implements OnInit {
 
         // if simple route without country and city
         if (this.routeData == 'persons-index') {
-          //try to get location slugs from storage
-          let countrySlug = localStorage.getItem('country_slug');
-          let citySlug = localStorage.getItem('city_slug');
 
-          if (countrySlug && citySlug) {
-            this.router.navigateByUrl('/persons/' + countrySlug + '/' + citySlug).finally();
+          //try to get locations
+          let country = this.locationService.activeCountry;
+          let city = this.locationService.activeCountry;
+
+          if (country && city) {
+            this.router.navigateByUrl('/persons/' + country.slug + '/' + city.slug).finally();
             return;
-          }
-
-          if (countrySlug) {
-            this.router.navigateByUrl('/persons/' + countrySlug).finally();
+          } else if (country) {
+            this.router.navigateByUrl('/persons/' + country.slug).finally();
             return;
           }
 
