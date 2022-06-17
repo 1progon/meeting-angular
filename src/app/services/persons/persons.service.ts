@@ -20,10 +20,10 @@ export class PersonsService {
   activeCityId: number = 0;
 
   // Check if cache exist
-  getFromCache(keyString: string): Observable<any> | null {
+  getFromCache(keyString: string): any | null {
     let cache = this.cacheService.getCache(keyString)?.data;
-    if (cache != undefined) {
-      return of(cache);
+    if (cache) {
+      return cache;
     }
     return null;
   }
