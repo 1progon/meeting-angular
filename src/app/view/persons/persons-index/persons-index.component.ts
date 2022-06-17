@@ -138,13 +138,13 @@ export class PersonsIndexComponent implements OnInit {
 
         if (countrySlug != '' && citySlug != '') {
           this.paginatedRoute = 'persons/' + countrySlug + '/' + citySlug
-          this.getPersons(this.personsService.activeCountryId, this.personsService.activeCityId);
+          this.getPersons(this.locationService.activeCountry?.id, this.locationService.activeCity?.id);
           return;
         }
 
         if (countrySlug != '') {
           this.paginatedRoute = 'persons/' + countrySlug
-          this.getPersons(this.personsService.activeCountryId);
+          this.getPersons(this.locationService.activeCountry?.id);
           return
         }
 
@@ -214,7 +214,7 @@ export class PersonsIndexComponent implements OnInit {
 
   updateGenderFilter() {
     localStorage.setItem('gender', this.genderSelected);
-    this.getPersons(this.personsService.activeCountryId, this.personsService.activeCityId);
+    this.getPersons(this.locationService.activeCountry?.id, this.locationService.activeCity?.id);
   }
 
   updateAgeRange() {
@@ -228,7 +228,7 @@ export class PersonsIndexComponent implements OnInit {
     this.ageRangeFiltered = this.ageRange?.filter(age => age >= this.ageFromSelected);
 
     // get persons
-    this.getPersons(this.personsService.activeCountryId, this.personsService.activeCityId);
+    this.getPersons(this.locationService.activeCountry?.id, this.locationService.activeCity?.id);
   }
 
 
