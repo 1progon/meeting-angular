@@ -1,20 +1,23 @@
 .card {
   transition: .3s;
 
-  a {
-    color: gray;
+  & p {
+    color: #3f3f3f;
+  }
 
-    .image-block {
-      position: relative;
-      overflow: hidden;
+  & .title {
+    font-weight: 500;
+  }
 
-      img {
-        transition: .3s;
-        min-height: 180px;
-      }
+
+  .image-block {
+    position: relative;
+    overflow: hidden;
+
+    img {
+      transition: .3s;
+      min-height: 180px;
     }
-
-
   }
 
   &:hover {
