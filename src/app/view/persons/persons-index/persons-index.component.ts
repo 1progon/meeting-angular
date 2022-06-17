@@ -6,6 +6,7 @@ import {environment} from "../../../../environments/environment";
 import {PersonDto} from "../../../dto/persons/PersonDto";
 import {Observable} from "rxjs";
 import {IResponse} from "../../../interfaces/IResponse";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-persons-index',
@@ -179,7 +180,19 @@ export class PersonsIndexComponent implements OnInit {
         this.persons = res.data;
         this.personsFiltered = res.data;
       },
-      error: err => console.error(err)
+      error: (err: HttpErrorResponse) => {
+        //redirect to page one
+        if (err.status == 404 && this.route.snapshot.params['pageId'] > 1) {
+          this.router.navigateByUrl('/persons').finally();
+          return;
+        }
+
+        if (err.status == 404) {
+          //set empty data
+          this.personsFiltered = {} as BaseListingDto<PersonDto>;
+        }
+
+      }
     }).add(() => this.loadingStop())
 
   }
