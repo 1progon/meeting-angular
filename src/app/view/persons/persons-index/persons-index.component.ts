@@ -114,7 +114,9 @@ export class PersonsIndexComponent implements OnInit {
 
           //try to get locations
           let country = this.locationService.activeCountry;
-          let city = this.locationService.activeCountry;
+          let city = this.locationService.activeCity;
+
+          console.log(country, city);
 
           if (country && city) {
             this.router.navigateByUrl('/persons/' + country.slug + '/' + city.slug).finally();
