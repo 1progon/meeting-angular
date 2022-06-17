@@ -120,17 +120,18 @@ export class PersonsService {
 
   // Get single person
   getSinglePersonDto(id: number): Observable<IResponse<PersonDto>> {
-    let keyString = 'person-single-model-' + id;
+    let cacheName = `person-single-model-${id}`;
 
     // try to get from cache
-    let cache = this.getFromCache(keyString);
-    if (cache) return cache;
-
+    let cache = this.getFromCache(cacheName);
+    if (cache) {
+      return of(cache);
+    }
 
     return this.http
       .get<IResponse<PersonDto>>(environment.apiUrl + '/person/' + id)
       .pipe(map(value => {
-        this.cacheService.setCache(keyString, value)
+        this.cacheService.setCache(cacheName, value)
         return value;
       }));
   }
