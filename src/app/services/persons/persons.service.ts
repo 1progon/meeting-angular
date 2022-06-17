@@ -74,11 +74,19 @@ export class PersonsService {
     let url = environment.apiUrl + '/persons';
     return this.http
       .get<IResponse<BaseListingDto<PersonDto>>>(url, {params})
-      .pipe(map(
-        value => {
-          this.cacheService.setCache(cacheName, value);
-          return value;
-        }));
+      .pipe(
+        map(
+          value => {
+            this.cacheService.setCache(cacheName, value);
+            return value;
+          }),
+        catchError((err: HttpErrorResponse) => {
+          if (err.status == 404) {
+            this.cacheService.setCache(cacheName, {} as IResponse<BaseListingDto<PersonDto>>);
+          }
+          return throwError(() => err);
+        }),
+      );
   }
 
   // get persons by user id
