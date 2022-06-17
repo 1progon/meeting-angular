@@ -109,13 +109,16 @@ export class LeftSidebarComponent implements OnInit {
 
   setCountryActive(country: ICountry) {
     this.filterCountryText = '';
-    delete country.cities;
     delete this.expandedCountries?.[country.id];
 
     this.countriesFiltered = [country];
     this.locationService.activeCountry = country;
     delete this.locationService.activeCity;
-    localStorage.setItem('country', JSON.stringify(country));
+
+    let countryWithoutCities = Object.assign({}, country)
+    delete countryWithoutCities.cities;
+
+    localStorage.setItem('country', JSON.stringify(countryWithoutCities));
     localStorage.removeItem('city')
   }
 
@@ -131,12 +134,11 @@ export class LeftSidebarComponent implements OnInit {
     this.locationService.activeCountry = country;
     this.locationService.activeCity = city;
 
-    let cacheCities = country.cities;
-    delete country.cities;
+    let countryWithoutCities = Object.assign({}, country)
+    delete countryWithoutCities.cities;
 
-    localStorage.setItem('country', JSON.stringify(country));
+    localStorage.setItem('country', JSON.stringify(countryWithoutCities));
     localStorage.setItem('city', JSON.stringify(city));
-    country.cities = cacheCities;
   }
 
   resetLocation() {
