@@ -77,6 +77,10 @@ app-root, app-layout-full-width, app-layout-with-sidebars {
   box-shadow: none !important;
 }
 
+.form-select:focus {
+  box-shadow: unset !important;
+}
+
 form {
   .alert {
     padding: .4rem .5rem;
