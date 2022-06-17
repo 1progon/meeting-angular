@@ -31,8 +31,11 @@ export class LeftSidebarComponent implements OnInit {
   filterCountryText: string = '';
 
   ngOnInit(): void {
-    this.personsService.activeCountryId = parseInt(localStorage.getItem('country') ?? '');
-    this.personsService.activeCityId = parseInt(localStorage.getItem('city') ?? '');
+    let countryId = parseInt(localStorage.getItem('country') ?? '');
+    this.personsService.activeCountryId = isNaN(countryId) ? 0 : countryId;
+
+    let cityId = parseInt(localStorage.getItem('city') ?? '');
+    this.personsService.activeCityId = isNaN(cityId) ? 0 : cityId;
 
     this.getCountries();
   }
