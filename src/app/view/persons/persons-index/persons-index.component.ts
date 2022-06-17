@@ -184,6 +184,11 @@ export class PersonsIndexComponent implements OnInit {
 
     return obs.subscribe({
       next: res => {
+        if (Object.keys(res).length == 0 && this.route.snapshot.params['pageId'] > 1) {
+          this.router.navigateByUrl('/persons').finally();
+          return;
+        }
+
         this.persons = res.data;
         this.personsFiltered = res.data;
       },
