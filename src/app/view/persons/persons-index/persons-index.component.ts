@@ -192,6 +192,7 @@ export class PersonsIndexComponent implements OnInit {
 
   updateGenderFilter() {
     localStorage.setItem('gender', this.genderSelected);
+    this.getPersons(this.personsService.activeCountryId, this.personsService.activeCityId);
   }
 
   updateAgeRange() {
