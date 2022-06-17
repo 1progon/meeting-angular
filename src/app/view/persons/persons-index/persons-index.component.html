@@ -1,13 +1,15 @@
 <div class="d-flex flex-wrap align-items-baseline">
+  {{personsService.activeCountryId}}
+  {{personsService.activeCityId}}
   <h2>People</h2>
 
-  <!--Add country and city name in title-->
-  <h4 *ngIf="personsFiltered.items && (personsService.activeCountryId != 0 && personsService.activeCityId != 0)"
-      class="ms-2">from {{personsFiltered.items[0].country_name}}, {{personsFiltered.items[0].city_name}}</h4>
 
-  <!--Add country name in title -->
-  <h4 *ngIf="personsFiltered.items && (personsService.activeCountryId != 0 && personsService.activeCityId == 0)"
-      class="ms-2">from {{personsFiltered.items[0].country_name}}</h4>
+  <!--Country and city names in title-->
+  <h4 class="ms-2">from
+    <span *ngIf="personsService.activeCountryId">{{personsFiltered.items?.[0]?.country_name}}</span>
+    <span *ngIf="personsService.activeCityId">, {{personsFiltered.items?.[0]?.city_name}}</span>
+  </h4>
+
 </div>
 
 <!--Filters-->
