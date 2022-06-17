@@ -20,6 +20,9 @@ export class PersonsShowComponent implements OnInit {
   person: PersonDto = {} as PersonDto;
   id: number = 0;
 
+  prevId?: number;
+  nextId?: number;
+
   messengers: IPersonPhoneMessenger = messengersMap;
 
   path = environment.apiHost;
@@ -71,6 +74,26 @@ export class PersonsShowComponent implements OnInit {
       next: params => {
         this.id = params['id'];
         document.title = this.route.snapshot.data['title'] + ' ' + this.id;
+        delete this.prevId;
+        delete this.nextId;
+
+        let idsJson = localStorage.getItem('filtered_ids')
+        if (idsJson) {
+          let ids: number[] = JSON.parse(idsJson)
+
+          this.prevId = Math.max(...ids.filter(id => id < this.id))
+          if (!isFinite(this.prevId)) {
+            delete this.prevId;
+
+          }
+          this.nextId = Math.min(...ids.filter(id => id > this.id))
+          if (!isFinite(this.nextId)) {
+            delete this.nextId;
+
+          }
+        }
+
+
         this.getPerson();
       },
       error: err => console.error(err)
