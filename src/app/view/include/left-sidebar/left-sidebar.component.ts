@@ -58,27 +58,14 @@ export class LeftSidebarComponent implements OnInit {
           this.countries = value.data;
           this.countriesFiltered = value.data;
 
-          if (this.personsService.activeCountryId != 0
-            && this.personsService.activeCityId != 0) {
-
-            let country = this.countries
-              .find(c => c.id == this.personsService.activeCountryId);
-            if (!country) {
-              return;
-            }
-
+          if (this.locationService.activeCountry && this.locationService.activeCity) {
+            let country = this.locationService.activeCountry;
             this.countriesFiltered = [country];
-
-            this.getCities(country.id);
+            this.getCities(country);
           }
 
-          if (this.personsService.activeCountryId != 0) {
-            let country = this.countries
-              .find(c => c.id == this.personsService.activeCountryId);
-            if (!country) {
-              return;
-            }
-
+          if (this.locationService.activeCountry) {
+            let country = this.locationService.activeCountry;
             this.countriesFiltered = [country];
           }
 
@@ -90,20 +77,16 @@ export class LeftSidebarComponent implements OnInit {
       })
   }
 
-  getCities(countryId: number) {
+  getCities(country: ICountry) {
     // Collapse - expand cities on country
     if (!this.expandedCountries) {
       this.expandedCountries = {};
     }
-    this.expandedCountries[countryId] = !this.expandedCountries[countryId];
+    this.expandedCountries[country.id] = !this.expandedCountries[country.id];
 
-    let country = this.countriesFiltered.find(c => c.id == countryId);
-    if (!country) {
-      return;
-    }
 
     //Check if cities already has got
-    if (country?.cities) {
+    if (country.cities) {
       return;
     }
 
@@ -124,58 +107,48 @@ export class LeftSidebarComponent implements OnInit {
     this.closeMenuEvent.emit(true)
   }
 
-  setCountryActive(id: number) {
+  setCountryActive(country: ICountry) {
     this.filterCountryText = '';
-    let activeCountry = this.countriesFiltered.find(c => c.id == id)
-
-    if (!activeCountry) {
-      return;
+    delete country.cities;
+    if (this.expandedCountries) {
+      this.expandedCountries[country.id] = !this.expandedCountries[country.id];
     }
 
-    this.countriesFiltered = [activeCountry];
-    this.personsService.activeCountryId = id;
-    this.personsService.activeCityId = 0;
-    localStorage.setItem('country', id.toString());
-    localStorage.setItem('country_slug', activeCountry.slug);
+    this.countriesFiltered = [country];
+    this.locationService.activeCountry = country;
+    delete this.locationService.activeCity;
+    localStorage.setItem('country', JSON.stringify(country));
     localStorage.removeItem('city')
-    localStorage.removeItem('city_slug')
   }
 
-  setCountryAndCityActive(countryId: number, cityId: number) {
+  setCountryAndCityActive(country: ICountry, city: ICity) {
     this.filterCountryText = '';
+
+
     if (!this.expandedCountries) {
       this.expandedCountries = {};
     }
     this.expandedCountries[0] = true;
-    let activeCountry = this.countriesFiltered.find(c => c.id == countryId)
 
-    if (!activeCountry) {
-      return;
-    }
+    this.countriesFiltered = [country];
+    this.locationService.activeCountry = country;
+    this.locationService.activeCity = city;
 
-    let activeCity = activeCountry.cities?.find(c => c.id == cityId);
-    if (!activeCity) {
-      return;
-    }
+    let cacheCities = country.cities;
+    delete country.cities;
 
-    this.countriesFiltered = [activeCountry];
-    this.personsService.activeCountryId = countryId;
-    this.personsService.activeCityId = cityId;
-    localStorage.setItem('country', countryId.toString());
-    localStorage.setItem('country_slug', activeCountry.slug);
-    localStorage.setItem('city', cityId.toString())
-    localStorage.setItem('city_slug', activeCity.slug)
+    localStorage.setItem('country', JSON.stringify(country));
+    localStorage.setItem('city', JSON.stringify(city));
+    country.cities = cacheCities;
   }
 
   resetLocation() {
     this.getCountries();
-    this.personsService.activeCityId = 0;
-    this.personsService.activeCountryId = 0;
+    delete this.locationService.activeCountry;
+    delete this.locationService.activeCity;
     this.expandedCountries = {};
     localStorage.removeItem('country')
-    localStorage.removeItem('country_slug')
     localStorage.removeItem('city')
-    localStorage.removeItem('city_slug')
   }
 
   filterCountries() {
@@ -193,8 +166,10 @@ export class LeftSidebarComponent implements OnInit {
       this.cacheOfExpandedCountries = undefined;
 
       //set country like before filter. Cancel filter
-      if (this.personsService.activeCountryId && this.personsService.activeCountryId != 0) {
-        this.countriesFiltered = this.countries.filter(c => c.id == this.personsService.activeCountryId);
+      if (this.locationService.activeCountry) {
+        // this.countriesFiltered = this.countries.filter(c => c.id == this.locationService.activeCountry);
+        this.countriesFiltered = [this.locationService.activeCountry];
+
       } else {
         this.countriesFiltered = this.countries;
       }

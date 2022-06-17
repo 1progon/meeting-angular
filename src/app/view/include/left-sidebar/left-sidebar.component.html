@@ -29,7 +29,7 @@
 <!--Reset location button-->
 <div class="d-flex justify-content-center mb-2">
   <a (click)="resetLocation()"
-     *ngIf="personsService.activeCountryId || personsService.activeCityId"
+     *ngIf="locationService.activeCountry || locationService.activeCity"
      class="btn btn-warning btn-sm w-100 mx-2"
      routerLink="/persons">Reset location</a></div>
 <!--End reset location button-->
@@ -38,22 +38,21 @@
 
 
 <!--Countries list-->
-<div *ngFor="let country of countriesFiltered"
-     class="countries">
+<div *ngFor="let country of countriesFiltered" class="countries">
 
   <!--Country row Name with counter and plus sign-->
   <a class="country-row d-flex align-items-center"
-     [class.active]="personsService.activeCountryId == country.id">
+     [class.active]="locationService.activeCountry?.id == country.id">
 
 
     <!--Plus-Minus sign to expand cities in country-->
-    <a (click)="getCities( country.id)"
+    <a (click)="getCities( country)"
        class="badge plus border ms-2 me-1 my-1 pointer">{{expandedCountries?.[country.id] ? '-' : '+'}}</a>
     <!--End plus minus sign-->
 
     <!--Country row-->
     <a [routerLink]="'persons/' + country.slug"
-       (click)="closeMenu(); setCountryActive(country.id)"
+       (click)="closeMenu(); setCountryActive(country)"
        class="country-block w-100 d-flex justify-content-between px-2"
     >
 
@@ -76,10 +75,10 @@
 
     <!--City row-->
     <a *ngFor="let city of country.cities"
-       (click)="closeMenu(); setCountryAndCityActive(country.id,  city.id)"
+       (click)="closeMenu(); setCountryAndCityActive(country,  city)"
        [routerLink]="'persons/'+ country.slug + '/'+ city.slug"
        class="city px-3 small py-1 d-flex justify-content-between"
-       [class.active]="personsService.activeCityId == city.id">
+       [class.active]="locationService.activeCity?.id == city.id">
 
       <!--City name-->
       <span class="me-3">{{city.name}}</span>
