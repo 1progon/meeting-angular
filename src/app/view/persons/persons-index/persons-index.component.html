@@ -24,33 +24,33 @@
 
     <div class="d-flex flex-wrap">
       <div class="col-auto me-2">
-        <input type="radio"
-               (change)="updateGenderFilter()"
+        <input (change)="updateGenderFilter()"
                [(ngModel)]="genderSelected"
-               value="All"
+               class="btn-check"
                id="gender-all"
-               class="btn-check">
+               type="radio"
+               value="All">
         <label for="gender-all" class="btn btn-outline-secondary btn-sm">All</label>
       </div>
 
       <div class="col-auto me-2">
-        <input type="radio"
-               (change)="updateGenderFilter()"
-               [(ngModel)]="activeGenderFilter"
-               value="Male"
+        <input (change)="updateGenderFilter()"
+               [(ngModel)]="genderSelected"
+               class="btn-check"
                id="gender-male"
-               class="form-check-input">
-        <label for="gender-male" class="form-check-label">Male</label>
+               type="radio"
+               value="Male">
+        <label for="gender-male" class="btn btn-outline-secondary btn-sm">Male</label>
       </div>
 
-      <div class="form-check col-auto">
-        <input type="radio"
-               (change)="updateGenderFilter()"
-               [(ngModel)]="activeGenderFilter"
-               value="Female"
+      <div class="col-auto">
+        <input (change)="updateGenderFilter()"
+               [(ngModel)]="genderSelected"
+               class="btn-check"
                id="gender-female"
-               class="form-check-input">
-        <label for="gender-female" class="form-check-label">Female</label>
+               type="radio"
+               value="Female">
+        <label for="gender-female" class="btn btn-outline-secondary btn-sm">Female</label>
       </div>
     </div>
   </div>
