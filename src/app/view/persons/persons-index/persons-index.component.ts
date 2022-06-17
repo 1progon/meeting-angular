@@ -229,6 +229,9 @@ export class PersonsIndexComponent implements OnInit {
     localStorage.setItem('age', JSON.stringify({from: this.ageFromSelected, to: this.ageToSelected}));
 
     this.ageRangeFiltered = this.ageRange?.filter(age => age >= this.ageFromSelected);
+
+    // get persons
+    this.getPersons(this.personsService.activeCountryId, this.personsService.activeCityId);
   }
 
 
