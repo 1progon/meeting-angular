@@ -57,8 +57,17 @@
   <!--End Filter gender-->
 
   <!--Filter age-->
-  <div class="d-flex flex-column align-items-baseline bg-white p-2 border rounded">
-    <div>Age</div>
+  <div class="d-flex flex-column align-items-baseline p-2 border rounded">
+    <div class="d-flex flex-wrap justify-content-between w-100">
+      <div class="mb-2">Age</div>
+
+      <!--Clear age filter-->
+      <div class="btn btn-close"
+           (click)="ageFromSelected=18; ageToSelected=100; updateAgeRange()"
+           *ngIf="ageFromSelected > 18 || ageToSelected < 100"></div>
+      <!--End clear age filter-->
+    </div>
+
     <div class="d-flex flex-wrap">
       <div class="me-2">
         <select class="form-select" [(ngModel)]="ageFromSelected" name="ageFromSelected"
