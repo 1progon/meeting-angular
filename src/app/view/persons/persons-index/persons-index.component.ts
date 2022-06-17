@@ -162,6 +162,7 @@ export class PersonsIndexComponent implements OnInit {
     this.loadingStart();
 
     let obs: Observable<IResponse<BaseListingDto<PersonDto>>>;
+    let filters = new Map<string, any>();
 
     if (countryId && cityId) {
       obs = this.personsService
